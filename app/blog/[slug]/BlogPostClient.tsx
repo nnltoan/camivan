@@ -1,14 +1,15 @@
 'use client';
 
-import Link from 'next/link';
+import { useState } from 'react';
 import Image from 'next/image';
 import { notFound } from 'next/navigation';
 import Nav from '../../components/Nav';
 import Footer from '../../components/Footer';
 import WaFloat from '../../components/WaFloat';
 import ScrollReveal from '../../components/ScrollReveal';
+import BookingModal from '../../components/BookingModal';
 import { useLang } from '../../components/LangProvider';
-import { POSTS, pickLang, getPostBySlug } from '../../lib/blogPosts';
+import { pickLang, getPostBySlug } from '../../lib/blogPosts';
 
 interface Props {
   slug: string;
@@ -16,6 +17,7 @@ interface Props {
 
 export default function BlogPostClient({ slug }: Props) {
   const { t, lang } = useLang();
+  const [bookingOpen, setBookingOpen] = useState(false);
 
   const post = slug ? getPostBySlug(slug) : undefined;
   if (!post) {
@@ -36,9 +38,9 @@ export default function BlogPostClient({ slug }: Props) {
         {/* Header */}
         <header className="px-5 lg:px-20 max-w-4xl mx-auto mb-12">
           <ScrollReveal>
-            <Link href="/#blog" className="text-sm text-brand hover:underline mb-6 inline-flex items-center gap-1">
+            <a href="/#blog" className="text-sm text-brand hover:underline mb-6 inline-flex items-center gap-1">
               {t.blog.back_to_all}
-            </Link>
+            </a>
           </ScrollReveal>
           <ScrollReveal delay={0.1}>
             <span className="inline-block bg-nude text-brand px-4 py-1.5 rounded-full text-xs font-semibold uppercase tracking-wider mb-4">
@@ -134,19 +136,20 @@ export default function BlogPostClient({ slug }: Props) {
             </ScrollReveal>
           ))}
 
-          {/* CTA */}
+          {/* CTA — opens BookingModal directly (no scroll/navigate) */}
           <ScrollReveal>
             <div className="bg-nude/40 rounded-3xl p-8 lg:p-12 mt-12 text-center border border-nude">
               <h3 className="font-fraunces text-2xl lg:text-3xl mb-4">
                 {t.blog.cta_heading} <span className="italic-accent">{t.blog.cta_heading_accent}</span>
               </h3>
               <p className="text-muted mb-6">{t.blog.cta_description}</p>
-              <Link
-                href="/#booking"
-                className="inline-flex items-center gap-2 bg-brand text-cream px-8 py-3.5 rounded-full font-medium hover:bg-brand-deep transition-colors whitespace-nowrap"
+              <button
+                type="button"
+                onClick={() => setBookingOpen(true)}
+                className="inline-flex items-center gap-2 bg-brand text-cream px-8 py-3.5 rounded-full font-medium hover:bg-brand-deep hover:-translate-y-0.5 hover:shadow-btn transition-all whitespace-nowrap cursor-pointer"
               >
                 {t.blog.cta_button}
-              </Link>
+              </button>
             </div>
           </ScrollReveal>
         </div>
@@ -154,6 +157,8 @@ export default function BlogPostClient({ slug }: Props) {
 
       <Footer />
       <WaFloat />
+
+      <BookingModal open={bookingOpen} onClose={() => setBookingOpen(false)} />
     </>
   );
 }

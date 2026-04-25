@@ -1,7 +1,6 @@
 'use client';
 
 import { useState } from 'react';
-import Link from 'next/link';
 import Image from 'next/image';
 import { notFound } from 'next/navigation';
 import Nav from '../../components/Nav';
@@ -44,9 +43,9 @@ export default function ServiceDetailClient({ slug }: Props) {
         {/* Hero */}
         <header className="px-5 lg:px-20 mb-16 lg:mb-24">
           <ScrollReveal>
-            <Link href="/#services" className="text-sm text-brand hover:underline mb-6 inline-flex items-center gap-1">
+            <a href="/#services" className="text-sm text-brand hover:underline mb-6 inline-flex items-center gap-1">
               {t.service_detail.back_to_all}
-            </Link>
+            </a>
           </ScrollReveal>
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-start">
             <div>

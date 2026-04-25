@@ -30,10 +30,10 @@ export default function Footer() {
         <div>
           <h4 className="font-semibold text-brand-deep mb-4 text-sm uppercase tracking-wider">{t.footer.about_title}</h4>
           <ul className="space-y-2 text-sm">
-            <li><Link href="#about" className="text-muted hover:text-brand transition-colors">{t.footer.about_us}</Link></li>
-            <li><Link href="#gallery" className="text-muted hover:text-brand transition-colors">{t.footer.portfolio_link}</Link></li>
-            <li><Link href="#blog" className="text-muted hover:text-brand transition-colors">{t.footer.blog_link}</Link></li>
-            <li><Link href="#faq" className="text-muted hover:text-brand transition-colors">{t.nav.faq}</Link></li>
+            <li><a href="/#about" className="text-muted hover:text-brand transition-colors">{t.footer.about_us}</a></li>
+            <li><a href="/#gallery" className="text-muted hover:text-brand transition-colors">{t.footer.portfolio_link}</a></li>
+            <li><a href="/#blog" className="text-muted hover:text-brand transition-colors">{t.footer.blog_link}</a></li>
+            <li><a href="/#faq" className="text-muted hover:text-brand transition-colors">{t.nav.faq}</a></li>
           </ul>
         </div>
         <div>
