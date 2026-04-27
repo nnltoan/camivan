@@ -134,7 +134,7 @@ export default function BookingFormBody({ defaultServiceKey, onSent, hideIgPost 
             value={name}
             onChange={(e) => { setName(e.target.value); setError(''); }}
             placeholder="Nguyễn Thị A"
-            className="w-full px-4 py-3 rounded-xl border border-nude bg-cream focus:border-brand focus:outline-none transition-colors"
+            className="glass-input"
             required
           />
         </label>
@@ -145,7 +145,7 @@ export default function BookingFormBody({ defaultServiceKey, onSent, hideIgPost 
             value={phone}
             onChange={(e) => { setPhone(e.target.value); setError(''); }}
             placeholder="0912 345 678"
-            className="w-full px-4 py-3 rounded-xl border border-nude bg-cream focus:border-brand focus:outline-none transition-colors"
+            className="glass-input"
             required
           />
         </label>
@@ -154,7 +154,7 @@ export default function BookingFormBody({ defaultServiceKey, onSent, hideIgPost 
           <select
             value={serviceKey}
             onChange={(e) => setServiceKey(e.target.value as ServiceKey)}
-            className="w-full px-4 py-3 rounded-xl border border-nude bg-cream focus:border-brand focus:outline-none transition-colors"
+            className="glass-input"
           >
             {SERVICE_OPTIONS.map((s) => (
               <option key={s.key} value={s.key}>{s.name}</option>
@@ -168,7 +168,7 @@ export default function BookingFormBody({ defaultServiceKey, onSent, hideIgPost 
             value={date}
             min={today}
             onChange={(e) => { setDate(e.target.value); setError(''); }}
-            className="w-full px-4 py-3 rounded-xl border border-nude bg-cream focus:border-brand focus:outline-none transition-colors"
+            className="glass-input"
             required
           />
         </label>
@@ -180,8 +180,10 @@ export default function BookingFormBody({ defaultServiceKey, onSent, hideIgPost 
                 key={tm}
                 type="button"
                 onClick={() => setTime(tm)}
-                className={`px-4 py-2 rounded-full text-sm font-medium border transition-colors whitespace-nowrap ${
-                  time === tm ? 'bg-brand text-cream border-brand' : 'bg-cream text-brand-deep border-nude hover:border-rose'
+                className={`px-4 py-2 rounded-full text-sm font-medium transition-all whitespace-nowrap ${
+                  time === tm
+                    ? 'bg-gradient-to-br from-brand to-rose-deep text-cream shadow-[0_8px_20px_-8px_rgba(139,69,19,0.55),inset_0_1px_0_rgba(255,255,255,0.35)]'
+                    : 'bg-white/55 dark:bg-white/8 backdrop-blur-sm border border-white/55 dark:border-white/15 text-brand-deep hover:-translate-y-0.5'
                 }`}
               >
                 {tm}
@@ -196,30 +198,30 @@ export default function BookingFormBody({ defaultServiceKey, onSent, hideIgPost 
             onChange={(e) => setNote(e.target.value)}
             rows={3}
             placeholder={t.booking.field_note_placeholder}
-            className="w-full px-4 py-3 rounded-xl border border-nude bg-cream focus:border-brand focus:outline-none transition-colors resize-none"
+            className="glass-input resize-none"
           />
         </label>
       </div>
 
       {error && (
-        <p className="mt-4 text-sm text-red-700 bg-red-50 border border-red-200 rounded-xl px-4 py-3">
+        <p className="mt-4 text-sm text-red-700 bg-red-50/80 backdrop-blur-sm border border-red-200 rounded-xl px-4 py-3">
           ⚠️ {error}
         </p>
       )}
 
-      <div className="mt-8 pt-6 border-t border-nude">
+      <div className="mt-8 pt-6 border-t border-white/30 dark:border-white/10">
         <p className="text-center text-sm text-muted mb-4">{t.booking.choose_channel}</p>
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
           <a href="#" onClick={(e) => handleClick(e, 'wa')}
-            className="flex items-center justify-center gap-2 px-5 py-3.5 rounded-full font-medium bg-[#25D366] text-white hover:-translate-y-0.5 hover:shadow-btn transition-all whitespace-nowrap cursor-pointer">
+            className="flex items-center justify-center gap-2 px-5 py-3.5 rounded-full font-medium bg-[#25D366] text-white hover:-translate-y-0.5 hover:shadow-btn transition-all whitespace-nowrap cursor-pointer shadow-[inset_0_1px_0_rgba(255,255,255,0.25)]">
             📱 WhatsApp
           </a>
           <a href="#" onClick={(e) => handleClick(e, 'zalo')}
-            className="flex items-center justify-center gap-2 px-5 py-3.5 rounded-full font-medium bg-[#0068FF] text-white hover:-translate-y-0.5 hover:shadow-btn transition-all whitespace-nowrap cursor-pointer">
+            className="flex items-center justify-center gap-2 px-5 py-3.5 rounded-full font-medium bg-[#0068FF] text-white hover:-translate-y-0.5 hover:shadow-btn transition-all whitespace-nowrap cursor-pointer shadow-[inset_0_1px_0_rgba(255,255,255,0.25)]">
             💬 Zalo
           </a>
           <a href="#" onClick={(e) => handleClick(e, 'ig')}
-            className="flex items-center justify-center gap-2 px-5 py-3.5 rounded-full font-medium bg-gradient-to-tr from-[#feda75] via-[#d62976] to-[#962fbf] text-white hover:-translate-y-0.5 hover:shadow-btn transition-all whitespace-nowrap cursor-pointer">
+            className="flex items-center justify-center gap-2 px-5 py-3.5 rounded-full font-medium bg-gradient-to-tr from-[#feda75] via-[#d62976] to-[#962fbf] text-white hover:-translate-y-0.5 hover:shadow-btn transition-all whitespace-nowrap cursor-pointer shadow-[inset_0_1px_0_rgba(255,255,255,0.25)]">
             📸 Instagram
           </a>
         </div>

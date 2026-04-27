@@ -40,7 +40,6 @@ export default function ServiceDetailClient({ slug }: Props) {
       <Nav />
 
       <article className="pt-28 lg:pt-36 pb-20">
-        {/* Hero */}
         <header className="px-5 lg:px-20 mb-16 lg:mb-24">
           <ScrollReveal>
             <a href="/#services" className="text-sm text-brand hover:underline mb-6 inline-flex items-center gap-1">
@@ -50,7 +49,7 @@ export default function ServiceDetailClient({ slug }: Props) {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-start">
             <div>
               <ScrollReveal>
-                <div className="w-16 h-16 rounded-3xl bg-gradient-to-br from-nude to-rose grid place-items-center text-3xl text-brand mb-6">
+                <div className="w-16 h-16 rounded-3xl bg-gradient-to-br from-rose to-rose-deep grid place-items-center text-3xl text-cream mb-6 glow-icon">
                   {service!.icon}
                 </div>
               </ScrollReveal>
@@ -72,14 +71,14 @@ export default function ServiceDetailClient({ slug }: Props) {
                 <button
                   type="button"
                   onClick={() => setModalOpen(true)}
-                  className="inline-flex items-center gap-2 bg-brand text-cream px-8 py-4 rounded-full font-medium hover:bg-brand-deep hover:-translate-y-0.5 hover:shadow-btn transition-all whitespace-nowrap cursor-pointer"
+                  className="cta-glow inline-flex items-center gap-2 px-8 py-4 rounded-full font-medium text-cream whitespace-nowrap cursor-pointer transition-all hover:-translate-y-0.5"
                 >
                   {t.nav.book}
                 </button>
               </ScrollReveal>
             </div>
             <ScrollReveal delay={0.2}>
-              <div className="relative aspect-[4/5] rounded-[30px] overflow-hidden shadow-soft-xl">
+              <div className="relative aspect-[4/5] rounded-[30px] overflow-hidden shadow-glass-lg">
                 <Image
                   src={service!.image}
                   alt={name}
@@ -93,8 +92,7 @@ export default function ServiceDetailClient({ slug }: Props) {
           </div>
         </header>
 
-        {/* Benefits */}
-        <section className="px-5 lg:px-20 py-16 bg-nude/40">
+        <section className="px-5 lg:px-20 py-16">
           <ScrollReveal>
             <h2 className="text-[clamp(28px,4vw,48px)] mb-10 text-center">
               {t.service_detail.why_choose} <span className="italic-accent">{name}?</span>
@@ -103,16 +101,17 @@ export default function ServiceDetailClient({ slug }: Props) {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 max-w-5xl mx-auto">
             {benefits.map((b, i) => (
               <ScrollReveal key={i} delay={i * 0.05}>
-                <div className="flex items-start gap-3 bg-cream rounded-2xl p-5 border border-nude">
-                  <span className="w-8 h-8 rounded-full bg-brand text-cream grid place-items-center shrink-0">✓</span>
-                  <span className="text-text">{b}</span>
+                <div className="liquid-surface flex items-start gap-3 rounded-2xl p-5">
+                  <span className="relative z-[3] flex items-start gap-3">
+                    <span className="w-8 h-8 rounded-full bg-gradient-to-br from-brand to-rose-deep text-cream grid place-items-center shrink-0 glow-icon">✓</span>
+                    <span className="text-text">{b}</span>
+                  </span>
                 </div>
               </ScrollReveal>
             ))}
           </div>
         </section>
 
-        {/* Process */}
         <section className="px-5 lg:px-20 py-16 lg:py-24">
           <ScrollReveal>
             <h2 className="text-[clamp(28px,4vw,48px)] mb-12 text-center">
@@ -122,41 +121,48 @@ export default function ServiceDetailClient({ slug }: Props) {
           <div className="max-w-3xl mx-auto flex flex-col gap-4">
             {process.map((p, i) => (
               <ScrollReveal key={i} delay={i * 0.08}>
-                <div className="flex gap-5 bg-cream border border-nude rounded-2xl p-6">
-                  <div className="shrink-0 w-12 h-12 rounded-full bg-brand text-cream grid place-items-center font-fraunces text-xl">
-                    {i + 1}
-                  </div>
-                  <div>
-                    <h3 className="font-fraunces text-xl text-brand-deep mb-1">{p.step}</h3>
-                    <p className="text-muted">{p.detail}</p>
-                  </div>
+                <div className="liquid-surface flex gap-5 rounded-2xl p-6">
+                  <span className="relative z-[3] flex gap-5 items-start">
+                    <div className="shrink-0 w-12 h-12 rounded-full bg-gradient-to-br from-brand to-rose-deep text-cream grid place-items-center font-fraunces text-xl glow-icon">
+                      {i + 1}
+                    </div>
+                    <div>
+                      <h3 className="font-fraunces text-xl text-brand-deep mb-1">{p.step}</h3>
+                      <p className="text-muted">{p.detail}</p>
+                    </div>
+                  </span>
                 </div>
               </ScrollReveal>
             ))}
           </div>
         </section>
 
-        {/* Aftercare + FAQ */}
-        <section className="px-5 lg:px-20 py-16 bg-nude/40">
+        <section className="px-5 lg:px-20 py-16">
           <div className="max-w-5xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12">
             <ScrollReveal>
-              <h2 className="text-2xl lg:text-3xl mb-6">{t.service_detail.aftercare_title}</h2>
-              <ul className="space-y-3">
-                {aftercare.map((a, i) => (
-                  <li key={i} className="flex items-start gap-3">
-                    <span className="text-brand shrink-0">•</span>
-                    <span className="text-text">{a}</span>
-                  </li>
-                ))}
-              </ul>
+              <div className="liquid-surface rounded-3xl p-8">
+                <div className="relative z-[3]">
+                  <h2 className="text-2xl lg:text-3xl mb-6">{t.service_detail.aftercare_title}</h2>
+                  <ul className="space-y-3">
+                    {aftercare.map((a, i) => (
+                      <li key={i} className="flex items-start gap-3">
+                        <span className="text-brand shrink-0">•</span>
+                        <span className="text-text">{a}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </div>
             </ScrollReveal>
             <ScrollReveal delay={0.1}>
               <h2 className="text-2xl lg:text-3xl mb-6">{t.service_detail.faq_title}</h2>
-              <div className="space-y-4">
+              <div className="space-y-3">
                 {faq.map((f, i) => (
-                  <div key={i} className="bg-cream rounded-xl p-4 border border-nude">
-                    <p className="font-semibold text-brand-deep mb-2">{f.q}</p>
-                    <p className="text-sm text-muted">{f.a}</p>
+                  <div key={i} className="liquid-surface rounded-xl p-4">
+                    <div className="relative z-[3]">
+                      <p className="font-semibold text-brand-deep mb-2">{f.q}</p>
+                      <p className="text-sm text-muted">{f.a}</p>
+                    </div>
                   </div>
                 ))}
               </div>
@@ -164,7 +170,6 @@ export default function ServiceDetailClient({ slug }: Props) {
           </div>
         </section>
 
-        {/* CTA */}
         <section className="px-5 lg:px-20 py-20 text-center">
           <ScrollReveal>
             <h2 className="text-[clamp(32px,5vw,56px)] mb-6">
@@ -174,7 +179,7 @@ export default function ServiceDetailClient({ slug }: Props) {
             <button
               type="button"
               onClick={() => setModalOpen(true)}
-              className="inline-flex items-center gap-2 bg-brand text-cream px-8 py-4 rounded-full font-medium hover:bg-brand-deep hover:-translate-y-0.5 hover:shadow-btn transition-all whitespace-nowrap cursor-pointer"
+              className="cta-glow inline-flex items-center gap-2 px-8 py-4 rounded-full font-medium text-cream whitespace-nowrap cursor-pointer transition-all hover:-translate-y-0.5"
             >
               {t.service_detail.book_now}
             </button>

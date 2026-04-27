@@ -8,12 +8,12 @@ export default function BookingForm() {
   const { t } = useLang();
 
   return (
-    <section id="booking" className="px-5 py-20 lg:px-20 lg:py-28 bg-cream">
+    <section id="booking" className="px-5 py-20 lg:px-20 lg:py-28">
       <div className="max-w-3xl mx-auto">
         <ScrollReveal>
           <div className="text-center mb-12">
-            <span className="inline-block bg-nude text-brand px-5 py-2 rounded-full text-sm font-medium mb-4">
-              {t.booking.label}
+            <span className="liquid-surface inline-block px-5 py-2 rounded-full text-sm font-medium mb-4 text-brand-deep">
+              <span className="relative z-[3]">{t.booking.label}</span>
             </span>
             <h2 className="text-[clamp(32px,5vw,56px)] mb-4">
               {t.booking.title} <span className="italic-accent">{t.booking.title_accent}</span>
@@ -24,8 +24,10 @@ export default function BookingForm() {
         </ScrollReveal>
 
         <ScrollReveal delay={0.1}>
-          <div className="bg-cream border border-nude rounded-3xl p-6 lg:p-10 shadow-soft-md">
-            <BookingFormBody />
+          <div className="liquid-surface-strong rounded-3xl p-6 lg:p-10">
+            <div className="relative z-[3]">
+              <BookingFormBody />
+            </div>
           </div>
         </ScrollReveal>
       </div>

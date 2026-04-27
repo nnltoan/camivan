@@ -142,10 +142,12 @@ export default function Reviews() {
   const { lang, t } = useLang();
 
   return (
-    <section id="reviews" className="px-5 py-20 sm:px-8 lg:px-20 lg:py-30 bg-cream">
+    <section id="reviews" className="px-5 py-20 sm:px-8 lg:px-20 lg:py-30">
       <ScrollReveal>
         <div className="text-center max-w-[700px] mx-auto mb-16">
-          <span className="inline-block bg-nude text-brand px-5 py-2 rounded-full text-[13px] font-medium mb-5">{t.reviews.label}</span>
+          <span className="liquid-surface inline-block px-5 py-2 rounded-full text-[13px] font-medium mb-5 text-brand-deep">
+            <span className="relative z-[3]">{t.reviews.label}</span>
+          </span>
           <h2 className="text-[clamp(40px,5vw,68px)] mb-5">
             {t.reviews.title}
             <br />
@@ -182,50 +184,51 @@ export default function Reviews() {
           <motion.div
             key={i}
             variants={reduce ? undefined : staggerItem}
-            className="bg-cream border border-nude rounded-[30px] p-8 relative flex flex-col"
+            className="liquid-surface rounded-[30px] p-8 flex flex-col"
           >
-            {/* Header: stars + Google badge */}
-            <div className="flex items-center justify-between mb-4">
-              <div className="text-brand text-lg" aria-label={`${r.rating} star rating`}>
-                {'★'.repeat(r.rating)}
+            <div className="relative z-[3] flex flex-col h-full">
+              {/* Header: stars + Google badge */}
+              <div className="flex items-center justify-between mb-4">
+                <div className="text-brand text-lg" aria-label={`${r.rating} star rating`}>
+                  {'★'.repeat(r.rating)}
+                </div>
+                <div
+                  className="flex items-center gap-1.5 text-[10px] font-semibold uppercase tracking-wider text-muted"
+                  title="Google review"
+                >
+                  <span
+                    className="w-3.5 h-3.5 rounded-full grid place-items-center text-[9px] font-bold text-white"
+                    style={{ background: '#4285F4' }}
+                    aria-hidden="true"
+                  >
+                    G
+                  </span>
+                  Google
+                </div>
               </div>
-              <div
-                className="flex items-center gap-1.5 text-[10px] font-semibold uppercase tracking-wider text-muted"
-                title="Google review"
-              >
-                <span
-                  className="w-3.5 h-3.5 rounded-full grid place-items-center text-[9px] font-bold text-white"
-                  style={{ background: '#4285F4' }}
+
+              {/* Service tag */}
+              <div className="text-[10px] uppercase tracking-wider text-brand-deep bg-white/40 dark:bg-white/10 backdrop-blur-sm border border-white/40 dark:border-white/10 px-3 py-1 rounded-full self-start mb-4">
+                {pickL(r.service, lang)}
+              </div>
+
+              {/* Review text */}
+              <p className="text-text leading-relaxed mb-6 italic flex-1">
+                &ldquo;{pickL(r.text, lang)}&rdquo;
+              </p>
+
+              {/* Footer: avatar + name + date */}
+              <div className="flex items-center gap-3 pt-5 border-t border-white/30 dark:border-white/10">
+                <div
+                  className="w-11 h-11 rounded-full grid place-items-center font-semibold text-brand shrink-0 shadow-[inset_0_1px_0_rgba(255,255,255,0.4)]"
+                  style={{ background: 'linear-gradient(135deg, #F5EBDC, #CD853F)' }}
                   aria-hidden="true"
                 >
-                  G
-                </span>
-                Google
-              </div>
-            </div>
-
-            {/* Service tag */}
-            <div className="text-[10px] uppercase tracking-wider text-brand-deep bg-nude px-3 py-1 rounded-full self-start mb-4">
-              {pickL(r.service, lang)}
-            </div>
-
-            {/* Review text */}
-            <p className="text-text leading-relaxed mb-6 italic flex-1">
-              &ldquo;{pickL(r.text, lang)}&rdquo;
-            </p>
-
-            {/* Footer: avatar + name + date */}
-            <div className="flex items-center gap-3 pt-5 border-t border-nude">
-              <div
-                className="w-11 h-11 rounded-full grid place-items-center font-semibold text-brand shrink-0"
-                style={{ background: 'linear-gradient(135deg, #F5EBDC, #CD853F)' }}
-                aria-hidden="true"
-              >
-                {r.initials}
-              </div>
-              <div className="min-w-0">
-                <div className="font-semibold text-sm truncate">{r.name}</div>
-                <div className="text-xs text-muted">{pickL(r.date, lang)}</div>
+                </div>
+                <div className="min-w-0">
+                  <div className="font-semibold text-sm truncate text-brand-deep">{r.name}</div>
+                  <div className="text-xs text-muted">{pickL(r.date, lang)}</div>
+                </div>
               </div>
             </div>
           </motion.div>

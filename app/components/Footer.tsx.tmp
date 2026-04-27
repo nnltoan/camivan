@@ -174,7 +174,6 @@ export default function Footer() {
       </div>
 
       {/* === Bottom bar === */}
-      {/* === Bottom bar === */}
       <div className="max-w-[1400px] mx-auto text-center text-xs text-muted pt-6 border-t border-white/30 dark:border-white/10">
         {t.footer.copyright.split('{DANALINK}').map((part, i, arr) => (
           <span key={i}>
@@ -190,8 +189,4 @@ export default function Footer() {
               </a>
             )}
           </span>
-        ))}
-      </div>
-    </footer>
-  );
-}
+        

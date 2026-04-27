@@ -1,10 +1,5 @@
 'use client';
 
-/* ServiceCard — Motion E (3D flip)
- * Hover (desktop) / tap (mobile) → rotateY 0↔180.
- * Front: icon + name + desc + price. Back: real-work photo + CTA.
- */
-
 import { motion, useReducedMotion } from 'framer-motion';
 import { useState } from 'react';
 import Image from 'next/image';
@@ -21,18 +16,19 @@ export default function ServiceCard({ icon, name, description, price, image }: S
   const [flipped, setFlipped] = useState(false);
   const reduce = useReducedMotion();
 
-  // Reduced-motion fallback — render front face only with image as a side-by-side accent
   if (reduce) {
     return (
-      <article className="relative w-full aspect-[3/4] bg-cream border border-nude rounded-[30px] p-9 flex flex-col">
-        <div className="w-16 h-16 rounded-3xl bg-gradient-to-br from-nude to-rose flex items-center justify-center text-3xl text-brand mb-6">
-          {icon}
-        </div>
-        <h3 className="font-fraunces text-2xl mb-3">{name}</h3>
-        <p className="text-muted text-sm mb-6 flex-1">{description}</p>
-        <div className="flex items-center justify-between border-t border-nude pt-5">
-          <span className="font-fraunces italic text-brand text-lg">{price}</span>
-          <span className="text-xs text-muted">→</span>
+      <article className="liquid-surface relative w-full aspect-[3/4] rounded-[30px] p-9 flex flex-col">
+        <div className="relative z-[3] flex flex-col h-full">
+          <div className="w-16 h-16 rounded-3xl bg-gradient-to-br from-rose to-rose-deep flex items-center justify-center text-3xl text-cream mb-6 glow-icon">
+            {icon}
+          </div>
+          <h3 className="font-fraunces text-2xl mb-3 text-brand-deep">{name}</h3>
+          <p className="text-muted text-sm mb-6 flex-1">{description}</p>
+          <div className="flex items-center justify-between border-t border-white/30 dark:border-white/10 pt-5">
+            <span className="font-fraunces italic text-brand text-lg">{price}</span>
+            <span className="text-xs text-muted">→</span>
+          </div>
         </div>
       </article>
     );
@@ -52,25 +48,25 @@ export default function ServiceCard({ icon, name, description, price, image }: S
         animate={{ rotateY: flipped ? 180 : 0 }}
         transition={{ duration: 0.6, ease: [0.4, 0, 0.2, 1] }}
       >
-        {/* Front face */}
         <div
-          className="absolute inset-0 bg-cream border border-nude rounded-[30px] p-9 flex flex-col"
+          className="liquid-surface absolute inset-0 rounded-[30px] p-9 flex flex-col"
           style={{ backfaceVisibility: 'hidden', WebkitBackfaceVisibility: 'hidden' } as any}
         >
-          <div className="w-16 h-16 rounded-3xl bg-gradient-to-br from-nude to-rose flex items-center justify-center text-3xl text-brand mb-6">
-            {icon}
-          </div>
-          <h3 className="font-fraunces text-2xl mb-3">{name}</h3>
-          <p className="text-muted text-sm mb-6 flex-1">{description}</p>
-          <div className="flex items-center justify-between border-t border-nude pt-5">
-            <span className="font-fraunces italic text-brand text-lg">{price}</span>
-            <span className="text-xs text-muted">Hover để xem ✿</span>
+          <div className="relative z-[3] flex flex-col h-full">
+            <div className="w-16 h-16 rounded-3xl bg-gradient-to-br from-rose to-rose-deep flex items-center justify-center text-3xl text-cream mb-6 glow-icon">
+              {icon}
+            </div>
+            <h3 className="font-fraunces text-2xl mb-3 text-brand-deep">{name}</h3>
+            <p className="text-muted text-sm mb-6 flex-1">{description}</p>
+            <div className="flex items-center justify-between border-t border-white/30 dark:border-white/10 pt-5">
+              <span className="font-fraunces italic text-brand text-lg">{price}</span>
+              <span className="text-xs text-muted">Hover để xem ✿</span>
+            </div>
           </div>
         </div>
 
-        {/* Back face */}
         <div
-          className="absolute inset-0 rounded-[30px] overflow-hidden"
+          className="absolute inset-0 rounded-[30px] overflow-hidden shadow-glass-lg"
           style={{
             backfaceVisibility: 'hidden',
             WebkitBackfaceVisibility: 'hidden',
@@ -84,13 +80,13 @@ export default function ServiceCard({ icon, name, description, price, image }: S
             sizes="(max-width:768px) 100vw, (max-width:1280px) 50vw, 33vw"
             className="object-cover"
           />
-          <div className="absolute inset-0 flex flex-col justify-end p-7 bg-gradient-to-t from-brand-deep/90 via-brand/40 to-transparent">
+          <div className="absolute inset-0 flex flex-col justify-end p-7 bg-gradient-to-t from-brand-deep/85 via-brand/30 to-transparent">
             <p className="text-cream text-sm mb-3 opacity-90">Tác phẩm thực tế</p>
             <button
               type="button"
-              className="w-full bg-cream text-brand rounded-full py-3.5 font-medium text-sm hover:bg-nude transition-colors"
+              className="liquid-surface w-full rounded-full py-3.5 font-medium text-sm text-brand-deep hover:-translate-y-0.5 transition-transform"
             >
-              Đặt lịch ngay ♡
+              <span className="relative z-[3]">Đặt lịch ngay ♡</span>
             </button>
           </div>
         </div>

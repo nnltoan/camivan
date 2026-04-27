@@ -15,7 +15,6 @@ interface Props {
 export default function BookingModal({ open, onClose, defaultServiceKey }: Props) {
   const { t } = useLang();
 
-  // Lock body scroll while modal is open + Esc to close
   useEffect(() => {
     if (!open) return;
     const onKey = (e: KeyboardEvent) => {
@@ -33,20 +32,24 @@ export default function BookingModal({ open, onClose, defaultServiceKey }: Props
 
   return (
     <div
-      className="fixed inset-0 z-[200] flex items-center justify-center px-4 py-6 bg-brand-deep/60 backdrop-blur-sm animate-in fade-in"
+      className="fixed inset-0 z-[200] flex items-center justify-center px-4 py-6 animate-in fade-in"
       onClick={onClose}
       role="dialog"
       aria-modal="true"
       aria-labelledby="booking-modal-title"
+      style={{
+        background: 'radial-gradient(circle at 50% 50%, rgba(62,39,35,0.55), rgba(62,39,35,0.75))',
+        backdropFilter: 'blur(14px) saturate(140%)',
+        WebkitBackdropFilter: 'blur(14px) saturate(140%)',
+      }}
     >
       <div
-        className="relative w-full max-w-2xl max-h-[90vh] overflow-y-auto bg-cream border border-nude rounded-3xl shadow-soft-xl"
+        className="liquid-surface-strong relative w-full max-w-2xl max-h-[90vh] overflow-y-auto rounded-3xl"
         onClick={(e) => e.stopPropagation()}
       >
-        {/* Sticky header */}
-        <div className="sticky top-0 z-10 bg-cream/95 backdrop-blur border-b border-nude px-6 py-4 lg:px-8 flex items-start justify-between gap-4 rounded-t-3xl">
-          <div className="min-w-0">
-            <span className="inline-block bg-nude text-brand px-3 py-1 rounded-full text-[11px] font-medium mb-1.5">
+        <div className="liquid-surface sticky top-0 z-10 px-6 py-4 lg:px-8 flex items-start justify-between gap-4 rounded-t-3xl border-0 border-b border-white/30 dark:border-white/10">
+          <div className="min-w-0 relative z-[3]">
+            <span className="inline-block bg-rose/30 text-brand-deep px-3 py-1 rounded-full text-[11px] font-medium mb-1.5 backdrop-blur-sm">
               {t.booking.label}
             </span>
             <h3 id="booking-modal-title" className="font-fraunces text-2xl lg:text-3xl text-brand-deep">
@@ -56,13 +59,12 @@ export default function BookingModal({ open, onClose, defaultServiceKey }: Props
           <button
             onClick={onClose}
             aria-label="Close booking form"
-            className="shrink-0 w-10 h-10 grid place-items-center rounded-full bg-nude hover:bg-rose hover:text-cream text-brand-deep transition-colors text-xl leading-none"
+            className="relative z-[3] shrink-0 w-10 h-10 grid place-items-center rounded-full bg-white/50 dark:bg-white/10 hover:bg-rose hover:text-cream text-brand-deep transition-colors text-xl leading-none border border-white/40 dark:border-white/15"
           >
-            ✕
+            ×
           </button>
         </div>
 
-        {/* Body */}
         <div className="px-6 py-5 lg:px-8 lg:py-6">
           <p className="text-muted text-sm mb-2">{t.booking.description}</p>
           <p className="text-xs text-muted italic mb-6">{t.booking.note}</p>
