@@ -42,8 +42,16 @@ export default function Hero() {
               <span className="relative z-[3]">{t.hero.cta_view}</span>
             </a>
           </div>
-          <a href="#booking" className="mt-5 inline-flex items-center gap-2 text-sm text-brand-deep bg-cream/80 backdrop-blur border border-rose/40 px-4 py-2 rounded-full hover:bg-cream hover:border-rose transition-colors">
-            {t.ui_v2.hero_consult_chip}
+          <a
+            href="#booking"
+            className="liquid-surface mt-5 inline-flex items-center gap-2.5 pl-1.5 pr-4 py-1.5 rounded-full text-sm font-medium text-brand-deep hover:-translate-y-0.5 transition-transform"
+          >
+            <span className="relative z-[3] flex items-center gap-2.5">
+              <span className="w-7 h-7 rounded-full bg-gradient-to-br from-brand to-rose-deep grid place-items-center text-cream text-sm shadow-[0_4px_10px_-2px_rgba(139,69,19,0.45),inset_0_1px_0_rgba(255,255,255,0.35)]">
+                💬
+              </span>
+              {t.ui_v2.hero_consult_chip}
+            </span>
           </a>
         </ScrollReveal>
       </div>

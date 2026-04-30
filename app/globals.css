@@ -325,13 +325,6 @@ h3 { font-family: var(--font-fraunces), serif; font-weight: 500; letter-spacing:
 }
 .animate-toast-in { animation: toastIn 0.35s cubic-bezier(0.22, 1, 0.36, 1); }
 
-/* Mesh background — slow drift */
-@keyframes meshDrift {
-  0%, 100% { transform: scale(1) rotate(0deg); }
-  50%      { transform: scale(1.08) rotate(2deg); }
-}
-.animate-mesh-drift { animation: meshDrift 30s ease-in-out infinite; }
-
 /* Mobile FAM auto-hide transform helpers */
 .fam-hidden  { transform: translate(-50%, calc(100% + 1.5rem)); }
 .fam-visible { transform: translate(-50%, 0); }
@@ -343,7 +336,7 @@ h3 { font-family: var(--font-fraunces), serif; font-weight: 500; letter-spacing:
     transition-duration: 0.01ms !important;
     scroll-behavior: auto !important;
   }
-  .animate-cta-pulse, .animate-mesh-drift, .animate-toast-in { animation: none !important; }
+  .animate-cta-pulse, .animate-toast-in { animation: none !important; }
 }
 
 

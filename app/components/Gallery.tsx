@@ -1,17 +1,20 @@
 'use client';
 
 /**
- * Gallery — Bento layout (2 large + 6 small) on lg, 2-col on sm.
+ * Gallery — masonry layout (CSS columns) on lg, 2-col on sm.
  * Click any tile → opens Lightbox with prev/next/swipe/keyboard.
+ *
+ * Why masonry instead of bento:
+ *   The Cami Van portfolio mixes portrait (3:4) and square images. Bento
+ *   grids force each cell to a fixed aspect (landscape on large hero cells),
+ *   which crops faces severely. CSS columns preserve each image's natural
+ *   aspect ratio so faces/details aren't lost.
  *
  * Styling adopts the Warm Liquid Glass design system:
  *   - liquid-surface for the section label chip and filter chips (idle)
  *   - cta-glow-sm for the active filter chip
  *   - shadow-glass-sm + glass border for tiles (subtle warm-tinted depth)
  * Honors dark mode via the global theme tokens.
- *
- * Filter chips remain — when active, the layout collapses to a uniform grid
- * (bento math doesn't fill 4×4 cells for arbitrary subset counts).
  */
 
 import Image from 'next/image';
@@ -26,32 +29,22 @@ import { haptic } from '../lib/haptic';
 interface GalleryItem {
   src: string;
   category: 'brow' | 'lip' | 'eye' | 'lash' | 'nail';
-  /** Tailwind grid span classes for the bento layout (only honored on lg+ when filter is 'all') */
-  bento: string;
+  /** Intrinsic dimensions — passed to next/image so we can render at native ratio. */
+  width: number;
+  height: number;
   caption?: string;
 }
 
-// 9 items in a 4-col × 3-row grid (12 cells exact).
-// Layout: 1 large hero (2×2 = 4 cells) + 8 small (1×1 = 8 cells) = 12 cells.
-//
-// Visual map (lg+):
-//   +-------------+------+------+
-//   |             |  I1  |  I2  |
-//   |   ITEM 0    +------+------+
-//   |   (2 × 2)   |  I3  |  I4  |
-//   +------+------+------+------+
-//   |  I5  |  I6  |  I7  |  I8  |
-//   +------+------+------+------+
+// Each entry uses the actual file dimensions so masonry preserves natural aspect.
 const ITEMS: GalleryItem[] = [
-  { src: '/client-3.jpg',  category: 'brow', bento: 'lg:col-span-2 lg:row-span-2', caption: 'Microblading' },
-  { src: '/PMU-lip.jpg',   category: 'lip',  bento: 'lg:col-span-1 lg:row-span-1', caption: 'Lip Blush' },
-  { src: '/noi-mi.jpg',    category: 'lash', bento: 'lg:col-span-1 lg:row-span-1', caption: 'Lash' },
-  { src: '/client-2.jpg',  category: 'brow', bento: 'lg:col-span-1 lg:row-span-1' },
-  { src: '/nail.jpg',      category: 'nail', bento: 'lg:col-span-1 lg:row-span-1', caption: 'Nail Art' },
-  { src: '/PMU-lip.jpg',   category: 'lip',  bento: 'lg:col-span-1 lg:row-span-1' },
-  { src: '/client-3.jpg',  category: 'eye',  bento: 'lg:col-span-1 lg:row-span-1', caption: 'PMU Eyeliner' },
-  { src: '/noi-mi.jpg',    category: 'lash', bento: 'lg:col-span-1 lg:row-span-1' },
-  { src: '/nail.jpg',      category: 'nail', bento: 'lg:col-span-1 lg:row-span-1' },
+  { src: '/client-3.jpg', category: 'brow', width: 526,  height: 701,  caption: 'Microblading' },
+  { src: '/PMU-lip.jpg',  category: 'lip',  width: 1200, height: 1200, caption: 'Lip Blush' },
+  { src: '/noi-mi.jpg',   category: 'lash', width: 1284, height: 1396, caption: 'Lash' },
+  { src: '/client-2.jpg', category: 'brow', width: 472,  height: 590 },
+  { src: '/nail.jpg',     category: 'nail', width: 1080, height: 1080, caption: 'Nail Art' },
+  { src: '/client-3.jpg', category: 'eye',  width: 526,  height: 701,  caption: 'PMU Eyeliner' },
+  { src: '/noi-mi.jpg',   category: 'lash', width: 1284, height: 1396 },
+  { src: '/PMU-lip.jpg',  category: 'lip',  width: 1200, height: 1200 },
 ];
 
 export default function Gallery() {
@@ -70,7 +63,6 @@ export default function Gallery() {
   ];
 
   const filtered = filter === 'all' ? ITEMS : ITEMS.filter((it) => it.category === filter);
-  const isBento = filter === 'all';
 
   const lbImages: LightboxImage[] = useMemo(
     () => filtered.map((it) => ({ src: it.src, alt: it.caption ?? '', caption: it.caption })),
@@ -113,16 +105,9 @@ export default function Gallery() {
         </div>
       </ScrollReveal>
 
-      {/* Bento grid (filter=all) — fixed 4×4 cells on lg, 2-col on sm.
-          When a filter is active, fall back to a uniform 3-col grid. */}
-      <motion.div
-        layout={!reduce}
-        className={`max-w-[1400px] mx-auto grid gap-3 lg:gap-4 ${
-          isBento
-            ? 'grid-cols-2 lg:grid-cols-4 lg:grid-rows-3 lg:auto-rows-[200px]'
-            : 'grid-cols-2 md:grid-cols-3 lg:grid-cols-4'
-        }`}
-      >
+      {/* Masonry — CSS columns preserve natural image aspects. break-inside-avoid
+          keeps each tile in one column. Click → Lightbox. */}
+      <div className="columns-2 md:columns-3 lg:columns-4 gap-3 lg:gap-5 max-w-[1400px] mx-auto">
         <AnimatePresence mode="popLayout">
           {filtered.map((item, i) => (
             <motion.button
@@ -135,16 +120,15 @@ export default function Gallery() {
               transition={{ duration: 0.3 }}
               onClick={() => openLb(i)}
               aria-label={`${t.ui_v2.lb_viewer} - ${item.caption ?? item.category}`}
-              className={`group relative overflow-hidden rounded-[24px] cursor-pointer shadow-glass-sm border border-white/30 dark:border-white/10 focus:outline-none focus:ring-2 focus:ring-brand focus:ring-offset-2 focus:ring-offset-transparent
-                ${isBento ? `${item.bento} aspect-square lg:aspect-auto` : 'aspect-[3/4]'}
-              `}
+              className="group relative block w-full break-inside-avoid mb-3 lg:mb-5 rounded-[24px] overflow-hidden cursor-pointer shadow-glass-sm border border-white/30 dark:border-white/10 focus:outline-none focus:ring-2 focus:ring-brand focus:ring-offset-2 focus:ring-offset-transparent"
             >
               <Image
                 src={item.src}
                 alt={item.caption ?? ''}
-                fill
-                sizes={isBento ? '(max-width:1024px) 50vw, 25vw' : '(max-width:768px) 50vw, 25vw'}
-                className="object-cover group-hover:scale-105 transition-transform duration-500"
+                width={item.width}
+                height={item.height}
+                sizes="(max-width:768px) 50vw, (max-width:1024px) 33vw, 25vw"
+                className="w-full h-auto block group-hover:scale-105 transition-transform duration-500"
                 placeholder="blur"
                 blurDataURL={WARM_BLUR}
               />
@@ -156,7 +140,7 @@ export default function Gallery() {
             </motion.button>
           ))}
         </AnimatePresence>
-      </motion.div>
+      </div>
 
       {lbIndex !== null && (
         <Lightbox

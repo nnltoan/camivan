@@ -13,12 +13,10 @@ import CTA from './components/CTA';
 import Footer from './components/Footer';
 import WaFloat from './components/WaFloat';
 import MobileFAM from './components/MobileFAM';
-import MeshBackground from './components/MeshBackground';
 
 export default function HomePage() {
   return (
     <>
-      <MeshBackground />
       <Nav />
       <Hero />
       <BrandsMarquee />
