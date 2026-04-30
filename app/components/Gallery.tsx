@@ -31,16 +31,27 @@ interface GalleryItem {
   caption?: string;
 }
 
-// 8 items, 4-col x 4-row grid (16 cells). 1x(2x2) + 1x(2x2) + 6x(1x1) = 16.
+// 9 items in a 4-col × 3-row grid (12 cells exact).
+// Layout: 1 large hero (2×2 = 4 cells) + 8 small (1×1 = 8 cells) = 12 cells.
+//
+// Visual map (lg+):
+//   +-------------+------+------+
+//   |             |  I1  |  I2  |
+//   |   ITEM 0    +------+------+
+//   |   (2 × 2)   |  I3  |  I4  |
+//   +------+------+------+------+
+//   |  I5  |  I6  |  I7  |  I8  |
+//   +------+------+------+------+
 const ITEMS: GalleryItem[] = [
   { src: '/client-3.jpg',  category: 'brow', bento: 'lg:col-span-2 lg:row-span-2', caption: 'Microblading' },
   { src: '/PMU-lip.jpg',   category: 'lip',  bento: 'lg:col-span-1 lg:row-span-1', caption: 'Lip Blush' },
   { src: '/noi-mi.jpg',    category: 'lash', bento: 'lg:col-span-1 lg:row-span-1', caption: 'Lash' },
   { src: '/client-2.jpg',  category: 'brow', bento: 'lg:col-span-1 lg:row-span-1' },
   { src: '/nail.jpg',      category: 'nail', bento: 'lg:col-span-1 lg:row-span-1', caption: 'Nail Art' },
-  { src: '/client-3.jpg',  category: 'eye',  bento: 'lg:col-span-2 lg:row-span-2', caption: 'PMU Eyeliner' },
-  { src: '/noi-mi.jpg',    category: 'lash', bento: 'lg:col-span-1 lg:row-span-1' },
   { src: '/PMU-lip.jpg',   category: 'lip',  bento: 'lg:col-span-1 lg:row-span-1' },
+  { src: '/client-3.jpg',  category: 'eye',  bento: 'lg:col-span-1 lg:row-span-1', caption: 'PMU Eyeliner' },
+  { src: '/noi-mi.jpg',    category: 'lash', bento: 'lg:col-span-1 lg:row-span-1' },
+  { src: '/nail.jpg',      category: 'nail', bento: 'lg:col-span-1 lg:row-span-1' },
 ];
 
 export default function Gallery() {
@@ -108,7 +119,7 @@ export default function Gallery() {
         layout={!reduce}
         className={`max-w-[1400px] mx-auto grid gap-3 lg:gap-4 ${
           isBento
-            ? 'grid-cols-2 lg:grid-cols-4 lg:grid-rows-4 lg:auto-rows-[180px]'
+            ? 'grid-cols-2 lg:grid-cols-4 lg:grid-rows-3 lg:auto-rows-[200px]'
             : 'grid-cols-2 md:grid-cols-3 lg:grid-cols-4'
         }`}
       >

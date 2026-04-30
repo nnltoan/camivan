@@ -165,7 +165,10 @@ export default function BookingFormBody({ defaultServiceKey, onSent, hideIgPost 
         <label className="block">
           <span className="text-sm font-medium text-brand-deep mb-2 block">{t.booking.field_name}</span>
           <input
+            id="booking-name"
+            name="name"
             type="text"
+            autoComplete="name"
             value={name}
             onChange={(e) => { setName(e.target.value); setError(''); }}
             placeholder={t.booking.placeholder_name}
@@ -176,7 +179,10 @@ export default function BookingFormBody({ defaultServiceKey, onSent, hideIgPost 
         <label className="block">
           <span className="text-sm font-medium text-brand-deep mb-2 block">{t.booking.field_phone}</span>
           <input
+            id="booking-phone"
+            name="phone"
             type="tel"
+            autoComplete="tel"
             value={phone}
             onChange={(e) => { setPhone(e.target.value); setError(''); }}
             placeholder="0912 345 678"
@@ -187,6 +193,8 @@ export default function BookingFormBody({ defaultServiceKey, onSent, hideIgPost 
         <label className="block">
           <span className="text-sm font-medium text-brand-deep mb-2 block">{t.booking.field_service}</span>
           <select
+            id="booking-service"
+            name="service"
             value={serviceKey}
             onChange={(e) => setServiceKey(e.target.value as ServiceKey)}
             className="glass-input"
@@ -199,6 +207,8 @@ export default function BookingFormBody({ defaultServiceKey, onSent, hideIgPost 
         <label className="block">
           <span className="text-sm font-medium text-brand-deep mb-2 block">{t.booking.field_date}</span>
           <input
+            id="booking-date"
+            name="date"
             type="date"
             value={date}
             min={today}
@@ -230,6 +240,8 @@ export default function BookingFormBody({ defaultServiceKey, onSent, hideIgPost 
         <label className="block md:col-span-2">
           <span className="text-sm font-medium text-brand-deep mb-2 block">{t.booking.field_note}</span>
           <textarea
+            id="booking-note"
+            name="note"
             value={note}
             onChange={(e) => setNote(e.target.value)}
             rows={3}
