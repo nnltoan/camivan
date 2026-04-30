@@ -5,6 +5,7 @@ import Image from 'next/image';
 import { usePathname } from 'next/navigation';
 import { useEffect, useRef, useState } from 'react';
 import { useLang } from './LangProvider';
+import { useTheme } from './ThemeProvider';
 import { LANG_NAMES, Lang } from '../lib/i18n';
 import BookingModal from './BookingModal';
 
@@ -12,11 +13,10 @@ export default function Nav() {
   const [open, setOpen] = useState(false);
   const [langOpen, setLangOpen] = useState(false);
   const [bookingOpen, setBookingOpen] = useState(false);
-  // Whether the inline menu fits the current viewport. Default true so server-rendered HTML
-  // shows the menu; the JS effect below re-measures and toggles to hamburger if needed.
   const [menuFits, setMenuFits] = useState(true);
 
   const { lang, setLang, t } = useLang();
+  const { theme, toggle: toggleTheme } = useTheme();
   const pathname = usePathname();
   const isHome = pathname === '/' || pathname === '';
 
@@ -42,55 +42,34 @@ export default function Nav() {
     };
   }, [langOpen]);
 
-  // === Menu fit detection ===
-  // Strategy: combine TWO methods so the Book button is never forced outside the bar.
-  //   (a) Direct overflow check on the rendered bar: if scrollWidth > clientWidth, the
-  //       visible content (logo + menu + cluster including Book) doesn't fit → hide menu.
-  //   (b) Hidden measurer to compute the hypothetical full-menu width, with hysteresis
-  //       so we only switch back to "show menu" when there is comfortable headroom.
+  // === Menu fit detection (preserved from original) ===
   const navRef = useRef<HTMLElement>(null);
   const logoRef = useRef<HTMLAnchorElement>(null);
-  const measureRef = useRef<HTMLUListElement>(null); // hidden, off-screen, always measures full menu
+  const measureRef = useRef<HTMLUListElement>(null);
   const clusterRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     if (typeof window === 'undefined') return;
-
     const measure = () => {
       const measurer = measureRef.current;
       const logo = logoRef.current;
       const cluster = clusterRef.current;
       if (!measurer || !logo || !cluster) return;
-
-      // Bar grows naturally with its content (no max-w cap). We only need to make sure the
-      // total bar content (logo + menu + cluster including Book) stays within the viewport
-      // with a small margin on each side. If yes → bar shows full menu. If not → hamburger.
       const logoW = logo.offsetWidth;
       const menuW = measurer.scrollWidth;
       const clusterW = cluster.scrollWidth;
-      // Bar internals: pl-2 (8) + pr-3 (12) + 2 main flex gaps (gap-3 lg:gap-4 = 16 each on lg)
-      // + 2px border. Use slightly conservative 56 to absorb sub-pixel rounding.
       const BAR_INTERNAL = 56;
-      // Side margins so bar doesn't touch viewport edges (12px on each side).
       const SIDE_MARGINS = 24;
-
       const need = logoW + menuW + clusterW + BAR_INTERNAL;
       const have = window.innerWidth - SIDE_MARGINS;
-
-      // Hysteresis: switch to hamburger if it doesn't fit; switch back only if there's
-      // 40px headroom, preventing oscillation when text width sits right on the threshold.
       const HYSTERESIS = 40;
       const fits = need <= have;
       const fitsWithHeadroom = need + HYSTERESIS <= have;
-
       setMenuFits((prev) => (prev ? fits : fitsWithHeadroom));
     };
-
     measure();
     const timers = [50, 200, 600, 1500].map((ms) => setTimeout(measure, ms));
-
     window.addEventListener('resize', measure);
-
     let ro: ResizeObserver | null = null;
     if ('ResizeObserver' in window) {
       ro = new ResizeObserver(measure);
@@ -99,7 +78,6 @@ export default function Nav() {
       if (measureRef.current) ro.observe(measureRef.current);
       if (navRef.current) ro.observe(navRef.current);
     }
-
     return () => {
       window.removeEventListener('resize', measure);
       timers.forEach(clearTimeout);
@@ -115,8 +93,12 @@ export default function Nav() {
     { href: '/#about', label: t.nav.about },
   ];
 
+  // CTA button — gradient brand → rose-deep with inset highlight
   const bookButtonClass =
-    'shrink-0 bg-brand text-cream px-3 lg:px-5 py-2 lg:py-2.5 rounded-full text-[12px] lg:text-[13px] font-medium hover:bg-brand-deep hover:-translate-y-0.5 transition-all whitespace-nowrap cursor-pointer';
+    'shrink-0 px-3 lg:px-5 py-2 lg:py-2.5 rounded-full text-[12px] lg:text-[13px] font-medium whitespace-nowrap cursor-pointer text-cream transition-all hover:-translate-y-0.5 ' +
+    'bg-gradient-to-br from-brand to-rose-deep ' +
+    'shadow-[0_12px_30px_-10px_rgba(139,69,19,0.55),inset_0_1px_0_rgba(255,255,255,0.35)] ' +
+    'hover:shadow-[0_18px_40px_-10px_rgba(139,69,19,0.7),inset_0_1px_0_rgba(255,255,255,0.45)]';
 
   const renderBookButton = () =>
     isHome ? (
@@ -131,12 +113,13 @@ export default function Nav() {
 
   return (
     <>
-      {/* Bar — width follows content (no max-w cap), but JS hides menu before it overflows. */}
-      <nav ref={navRef}
-        className="fixed top-3 left-1/2 -translate-x-1/2 z-[100] w-max  flex items-center gap-3 lg:gap-4 pl-2 pr-3 py-1.5 rounded-full bg-cream/90 backdrop-blur-xl shadow-soft-sm border border-rose/30 whitespace-nowrap"
+      {/* === GLASS PILL NAV — frosted with specular edge === */}
+      <nav
+        ref={navRef}
+        className="liquid-surface fixed top-3 left-1/2 -translate-x-1/2 z-[100] w-max flex items-center gap-3 lg:gap-4 pl-2 pr-3 py-1.5 rounded-full whitespace-nowrap"
         aria-label="Primary"
       >
-        {/* Logo — shrink-0 (always full size) */}
+        {/* Logo */}
         <Link ref={logoRef} href="/" aria-label="CAMI VAN home" className="shrink-0 -my-1.5 block">
           <Image
             src="/logo_camvan.png"
@@ -148,7 +131,7 @@ export default function Nav() {
           />
         </Link>
 
-        {/* Hidden measurer — off-screen, always rendered to give us the menu's true width */}
+        {/* Hidden measurer */}
         <ul
           ref={measureRef}
           aria-hidden="true"
@@ -161,7 +144,7 @@ export default function Nav() {
           ))}
         </ul>
 
-        {/* Visible inline menu — only when menu fits */}
+        {/* Visible inline menu */}
         {menuFits && (
           <ul className="hidden lg:flex shrink-0 gap-3 lg:gap-5 list-none whitespace-nowrap">
             {LINKS.map((l) => (
@@ -177,13 +160,23 @@ export default function Nav() {
           </ul>
         )}
 
-        {/* Right cluster — shrink-0, always fully visible */}
+        {/* Right cluster */}
         <div ref={clusterRef} className="flex items-center gap-1.5 lg:gap-2 shrink-0">
-          {/* Language switcher (hidden on very narrow screens but measured for fit calc) */}
+          {/* Theme toggle (light/dark) */}
+          <button
+            onClick={toggleTheme}
+            aria-label={theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'}
+            className="w-8 h-8 lg:w-9 lg:h-9 grid place-items-center rounded-full text-brand-deep hover:bg-white/40 dark:hover:bg-white/10 transition-colors text-sm"
+            title={theme === 'dark' ? 'Light mode' : 'Dark mode'}
+          >
+            {theme === 'dark' ? '☀' : '☾'}
+          </button>
+
+          {/* Language switcher */}
           <div ref={langRef} className="relative max-md:hidden">
             <button
               onClick={() => setLangOpen((v) => !v)}
-              className="flex items-center gap-1 px-2.5 py-2 rounded-full text-xs font-semibold text-brand-deep hover:bg-nude transition-colors whitespace-nowrap"
+              className="flex items-center gap-1 px-2.5 py-2 rounded-full text-xs font-semibold text-brand-deep hover:bg-white/40 dark:hover:bg-white/10 transition-colors whitespace-nowrap"
               aria-haspopup="listbox"
               aria-expanded={langOpen}
             >
@@ -192,7 +185,7 @@ export default function Nav() {
             </button>
             {langOpen && (
               <ul
-                className="absolute right-0 top-full mt-2 bg-cream rounded-2xl shadow-soft-md border border-nude min-w-[160px] py-2 z-50"
+                className="liquid-surface-strong absolute right-0 top-full mt-2 rounded-2xl min-w-[160px] py-2 z-50"
                 role="listbox"
               >
                 {(Object.keys(LANG_NAMES) as Lang[]).map((code) => (
@@ -202,7 +195,7 @@ export default function Nav() {
                         setLang(code);
                         setLangOpen(false);
                       }}
-                      className={`w-full text-left px-4 py-2 text-sm hover:bg-nude transition-colors whitespace-nowrap ${
+                      className={`w-full text-left px-4 py-2 text-sm hover:bg-white/40 dark:hover:bg-white/10 transition-colors whitespace-nowrap ${
                         lang === code ? 'text-brand font-semibold' : 'text-text'
                       }`}
                       role="option"
@@ -217,10 +210,10 @@ export default function Nav() {
             )}
           </div>
 
-          {/* Book button — anchor on home, modal trigger on detail pages */}
+          {/* Book button */}
           {renderBookButton()}
 
-          {/* Hamburger — visible on mobile/tablet OR when desktop menu doesn't fit */}
+          {/* Hamburger */}
           <button
             className={`${menuFits ? 'lg:hidden' : ''} ml-0.5 w-9 h-9 grid place-items-center`}
             aria-label="Menu"
@@ -235,24 +228,23 @@ export default function Nav() {
         </div>
       </nav>
 
-      {/* Mobile/overflow menu drawer */}
+      {/* Mobile/overflow menu drawer — full-screen glass */}
       {open && (
-        <div className="fixed inset-0 z-[99] bg-cream pt-28 px-8 flex flex-col gap-5 overflow-y-auto">
+        <div className="liquid-surface-strong fixed inset-0 z-[99] pt-28 px-8 flex flex-col gap-5 overflow-y-auto rounded-none">
           {LINKS.map((l) => (
             <a
               key={l.href}
               href={l.href}
-              className="font-fraunces text-3xl text-brand-deep border-b border-nude pb-3 hover:italic"
+              className="font-fraunces text-3xl text-brand-deep border-b border-white/30 dark:border-white/10 pb-3 hover:italic"
               onClick={() => setOpen(false)}
             >
               {l.label}
             </a>
           ))}
-          {/* Book entry — same path-aware behavior */}
           {isHome ? (
             <a
               href="#booking"
-              className="font-fraunces text-3xl text-brand-deep border-b border-nude pb-3 hover:italic"
+              className="font-fraunces text-3xl text-brand-deep border-b border-white/30 dark:border-white/10 pb-3 hover:italic"
               onClick={() => setOpen(false)}
             >
               {t.nav.book}
@@ -264,7 +256,7 @@ export default function Nav() {
                 setOpen(false);
                 setBookingOpen(true);
               }}
-              className="text-left font-fraunces text-3xl text-brand-deep border-b border-nude pb-3 hover:italic"
+              className="text-left font-fraunces text-3xl text-brand-deep border-b border-white/30 dark:border-white/10 pb-3 hover:italic"
             >
               {t.nav.book}
             </button>
@@ -279,7 +271,9 @@ export default function Nav() {
                   setOpen(false);
                 }}
                 className={`px-3 py-1.5 rounded-full text-xs font-semibold border whitespace-nowrap ${
-                  lang === code ? 'bg-brand text-cream border-brand' : 'bg-nude text-brand-deep border-nude'
+                  lang === code
+                    ? 'bg-brand text-cream border-brand'
+                    : 'bg-white/40 dark:bg-white/5 text-brand-deep border-white/40 dark:border-white/10'
                 }`}
               >
                 {code}
@@ -289,7 +283,7 @@ export default function Nav() {
         </div>
       )}
 
-      {/* Booking modal — only mounted on detail pages where Book button opens it */}
+      {/* Booking modal on detail pages */}
       {!isHome && (
         <BookingModal open={bookingOpen} onClose={() => setBookingOpen(false)} />
       )}

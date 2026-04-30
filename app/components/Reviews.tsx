@@ -1,5 +1,6 @@
 'use client';
 
+import Image from 'next/image';
 import ScrollReveal, { staggerContainer, staggerItem } from './ScrollReveal';
 import { motion, useReducedMotion } from 'framer-motion';
 import { useLang } from './LangProvider';
@@ -15,6 +16,7 @@ interface Review {
   date: L<string>;
   service: L<string>;
   text: L<string>;
+  avatar?: string;
 }
 
 // Real Google reviews — translated faithfully to all 8 languages.
@@ -22,6 +24,7 @@ const REVIEWS: Review[] = [
   {
     name: 'Hạnh Nguyễn Thị',
     initials: 'HN',
+    avatar: '/Hạnh Nguyễn thị.png',
     rating: 5,
     source: 'google',
     date: { VI: '11 tháng trước', EN: '11 months ago', RU: '11 месяцев назад', ZH: '11 个月前', JA: '11 ヶ月前', KO: '11개월 전', FR: 'Il y a 11 mois', ES: 'Hace 11 meses' },
@@ -76,6 +79,7 @@ const REVIEWS: Review[] = [
   {
     name: 'Secrets Midnight',
     initials: 'SM',
+    avatar: '/Secrets Midnight.png',
     rating: 5,
     source: 'google',
     date: { VI: '2 tuần trước', EN: '2 weeks ago', RU: '2 недели назад', ZH: '2 周前', JA: '2 週間前', KO: '2주 전', FR: 'Il y a 2 semaines', ES: 'Hace 2 semanas' },
@@ -94,6 +98,7 @@ const REVIEWS: Review[] = [
   {
     name: 'Thanh Hương',
     initials: 'TH',
+    avatar: '/Thanh Hương.png',
     rating: 5,
     source: 'google',
     date: { VI: 'Một năm trước', EN: 'A year ago', RU: 'Год назад', ZH: '一年前', JA: '1 年前', KO: '1년 전', FR: 'Il y a un an', ES: 'Hace un año' },
@@ -112,6 +117,7 @@ const REVIEWS: Review[] = [
   {
     name: 'Leslie Crowder',
     initials: 'LC',
+    avatar: '/Leslie Crowder.png',
     rating: 5,
     source: 'google',
     date: { VI: 'Một năm trước', EN: 'A year ago', RU: 'Год назад', ZH: '一年前', JA: '1 年前', KO: '1년 전', FR: 'Il y a un an', ES: 'Hace un año' },
@@ -142,10 +148,12 @@ export default function Reviews() {
   const { lang, t } = useLang();
 
   return (
-    <section id="reviews" className="px-5 py-20 sm:px-8 lg:px-20 lg:py-30 bg-cream">
+    <section id="reviews" className="px-5 py-20 sm:px-8 lg:px-20 lg:py-30">
       <ScrollReveal>
         <div className="text-center max-w-[700px] mx-auto mb-16">
-          <span className="inline-block bg-nude text-brand px-5 py-2 rounded-full text-[13px] font-medium mb-5">{t.reviews.label}</span>
+          <span className="liquid-surface inline-block px-5 py-2 rounded-full text-[13px] font-medium mb-5 text-brand-deep">
+            <span className="relative z-[3]">{t.reviews.label}</span>
+          </span>
           <h2 className="text-[clamp(40px,5vw,68px)] mb-5">
             {t.reviews.title}
             <br />
@@ -182,50 +190,64 @@ export default function Reviews() {
           <motion.div
             key={i}
             variants={reduce ? undefined : staggerItem}
-            className="bg-cream border border-nude rounded-[30px] p-8 relative flex flex-col"
+            className="liquid-surface rounded-[30px] p-8 flex flex-col"
           >
-            {/* Header: stars + Google badge */}
-            <div className="flex items-center justify-between mb-4">
-              <div className="text-brand text-lg" aria-label={`${r.rating} star rating`}>
-                {'★'.repeat(r.rating)}
-              </div>
-              <div
-                className="flex items-center gap-1.5 text-[10px] font-semibold uppercase tracking-wider text-muted"
-                title="Google review"
-              >
-                <span
-                  className="w-3.5 h-3.5 rounded-full grid place-items-center text-[9px] font-bold text-white"
-                  style={{ background: '#4285F4' }}
-                  aria-hidden="true"
+            <div className="relative z-[3] flex flex-col h-full">
+              {/* Header: stars + Google badge */}
+              <div className="flex items-center justify-between mb-4">
+                <div className="text-brand text-lg" aria-label={`${r.rating} star rating`}>
+                  {'★'.repeat(r.rating)}
+                </div>
+                <div
+                  className="flex items-center gap-1.5 text-[10px] font-semibold uppercase tracking-wider text-muted"
+                  title="Google review"
                 >
-                  G
-                </span>
-                Google
+                  <span
+                    className="w-3.5 h-3.5 rounded-full grid place-items-center text-[9px] font-bold text-white"
+                    style={{ background: '#4285F4' }}
+                    aria-hidden="true"
+                  >
+                    G
+                  </span>
+                  Google
+                </div>
               </div>
-            </div>
 
-            {/* Service tag */}
-            <div className="text-[10px] uppercase tracking-wider text-brand-deep bg-nude px-3 py-1 rounded-full self-start mb-4">
-              {pickL(r.service, lang)}
-            </div>
-
-            {/* Review text */}
-            <p className="text-text leading-relaxed mb-6 italic flex-1">
-              &ldquo;{pickL(r.text, lang)}&rdquo;
-            </p>
-
-            {/* Footer: avatar + name + date */}
-            <div className="flex items-center gap-3 pt-5 border-t border-nude">
-              <div
-                className="w-11 h-11 rounded-full grid place-items-center font-semibold text-brand shrink-0"
-                style={{ background: 'linear-gradient(135deg, #F5EBDC, #CD853F)' }}
-                aria-hidden="true"
-              >
-                {r.initials}
+              {/* Service tag */}
+              <div className="text-[10px] uppercase tracking-wider text-brand-deep bg-white/40 dark:bg-white/10 backdrop-blur-sm border border-white/40 dark:border-white/10 px-3 py-1 rounded-full self-start mb-4">
+                {pickL(r.service, lang)}
               </div>
-              <div className="min-w-0">
-                <div className="font-semibold text-sm truncate">{r.name}</div>
-                <div className="text-xs text-muted">{pickL(r.date, lang)}</div>
+
+              {/* Review text */}
+              <p className="text-text leading-relaxed mb-6 italic flex-1">
+                &ldquo;{pickL(r.text, lang)}&rdquo;
+              </p>
+
+              {/* Footer: avatar + name + date */}
+              <div className="flex items-center gap-3 pt-5 border-t border-white/30 dark:border-white/10">
+                {r.avatar ? (
+                  <div className="relative w-11 h-11 rounded-full overflow-hidden shrink-0 shadow-[inset_0_1px_0_rgba(255,255,255,0.4),0_4px_10px_-4px_rgba(139,69,19,0.3)] ring-1 ring-white/40 dark:ring-white/15">
+                    <Image
+                      src={r.avatar}
+                      alt={r.name}
+                      fill
+                      sizes="44px"
+                      className="object-cover"
+                    />
+                  </div>
+                ) : (
+                  <div
+                    className="w-11 h-11 rounded-full grid place-items-center font-semibold text-brand shrink-0 shadow-[inset_0_1px_0_rgba(255,255,255,0.4)]"
+                    style={{ background: 'linear-gradient(135deg, #F5EBDC, #CD853F)' }}
+                    aria-hidden="true"
+                  >
+                    {r.initials}
+                  </div>
+                )}
+                <div className="min-w-0">
+                  <div className="font-semibold text-sm truncate text-brand-deep">{r.name}</div>
+                  <div className="text-xs text-muted">{pickL(r.date, lang)}</div>
+                </div>
               </div>
             </div>
           </motion.div>

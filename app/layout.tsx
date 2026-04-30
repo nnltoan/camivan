@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import { Fraunces, Inter } from 'next/font/google';
 import './globals.css';
 import { LangProvider } from './components/LangProvider';
+import { ThemeProvider } from './components/ThemeProvider';
 
 const fraunces = Fraunces({
   subsets: ['latin', 'vietnamese'],
@@ -32,11 +33,19 @@ export const metadata: Metadata = {
   alternates: { canonical: '/' },
 };
 
+const themeScript = "(function(){try{var s=localStorage.getItem('camivan-theme');var d=s==='dark'||(!s&&window.matchMedia&&window.matchMedia('(prefers-color-scheme: dark)').matches);if(d)document.documentElement.classList.add('dark');}catch(e){}})();";
+
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="vi" className={`${fraunces.variable} ${inter.variable}`}>
-      <body className="font-inter bg-cream text-text antialiased">
-        <LangProvider>{children}</LangProvider>
+    <html lang="vi" className={`${fraunces.variable} ${inter.variable}`} suppressHydrationWarning>
+      <head>
+        <script dangerouslySetInnerHTML={{ __html: themeScript }} />
+      </head>
+      <body className="font-inter text-text antialiased">
+        <div className="bg-canvas" aria-hidden="true" />
+        <ThemeProvider>
+          <LangProvider>{children}</LangProvider>
+        </ThemeProvider>
       </body>
     </html>
   );

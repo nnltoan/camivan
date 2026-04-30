@@ -34,10 +34,12 @@ export default function Gallery() {
   const filtered = filter === 'all' ? ITEMS : ITEMS.filter((it) => it.category === filter);
 
   return (
-    <section id="gallery" className="px-5 py-20 sm:px-8 lg:px-20 lg:py-30" style={{ background: 'linear-gradient(180deg, #FDF5E6 0%, #F5EBDC 100%)' }}>
+    <section id="gallery" className="px-5 py-20 sm:px-8 lg:px-20 lg:py-30">
       <ScrollReveal>
         <div className="text-center max-w-[700px] mx-auto mb-12">
-          <span className="inline-block bg-nude text-brand px-5 py-2 rounded-full text-[13px] font-medium mb-5">{t.gallery.label}</span>
+          <span className="liquid-surface inline-block px-5 py-2 rounded-full text-[13px] font-medium mb-5 text-brand-deep">
+            <span className="relative z-[3]">{t.gallery.label}</span>
+          </span>
           <h2 className="text-[clamp(40px,5vw,68px)] mb-5">
             {t.gallery.title} <span className="italic-accent">{t.gallery.title_accent}</span>
           </h2>
@@ -51,9 +53,15 @@ export default function Gallery() {
             <button
               key={f.value}
               onClick={() => setFilter(f.value)}
-              className={`px-4 py-2 lg:px-5 lg:py-2.5 rounded-full text-sm font-medium border transition-all whitespace-nowrap ${filter === f.value ? 'bg-brand text-cream border-brand shadow-btn' : 'bg-cream text-brand-deep border-nude hover:border-rose hover:-translate-y-0.5'}`}
+              className={`px-4 py-2 lg:px-5 lg:py-2.5 rounded-full text-sm font-medium transition-all whitespace-nowrap ${
+                filter === f.value
+                  ? 'cta-glow-sm text-cream'
+                  : 'liquid-surface text-brand-deep hover:-translate-y-0.5'
+              }`}
             >
-              <span className="mr-1.5">{f.icon}</span>{f.label}
+              <span className={filter === f.value ? '' : 'relative z-[3]'}>
+                <span className="mr-1.5">{f.icon}</span>{f.label}
+              </span>
             </button>
           ))}
         </div>
@@ -69,7 +77,7 @@ export default function Gallery() {
               animate={{ opacity: 1, scale: 1 }}
               exit={{ opacity: 0, scale: 0.9 }}
               transition={{ duration: 0.3 }}
-              className="break-inside-avoid mb-3 lg:mb-5 rounded-[24px] overflow-hidden hover:scale-[1.02] transition-transform"
+              className="break-inside-avoid mb-3 lg:mb-5 rounded-[24px] overflow-hidden hover:scale-[1.02] transition-transform shadow-glass-sm border border-white/30 dark:border-white/10"
             >
               <Image src={item.src} alt="" width={600} height={800} sizes="(max-width:768px) 50vw, 25vw" className="w-full h-auto block" />
             </motion.div>

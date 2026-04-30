@@ -3,47 +3,303 @@
 @tailwind utilities;
 
 /* ============================================================
-   CAMI VAN — Rustic Atelier global styles
-   Cùng cấu trúc Modern Bloom, đổi sang preset NÂU RỈ SÉT.
-   Tokens từ tailwind.config.ts; CSS vars fallback bên dưới.
+   CAMI VAN — Rustic Atelier × Warm Liquid Glass
    ============================================================ */
 
 :root {
-  --nude:        #F5EBDC;   /* paper cream */
-  --rose:        #CD853F;   /* peru — gold accent */
-  --rose-deep:   #A0522D;   /* sienna deeper */
-  --brown:       #8B4513;   /* saddle brown — primary */
-  --brown-deep:  #3E2723;   /* dark brown */
-  --cream:       #FDF5E6;   /* warm cream */
+  --nude:        #F5EBDC;
+  --rose:        #CD853F;
+  --rose-deep:   #A0522D;
+  --brown:       #8B4513;
+  --brown-deep:  #3E2723;
+  --cream:       #FDF5E6;
   --text:        #2C1810;
   --muted:       #6D4C41;
+
+  --glass-warm:        rgba(253, 245, 230, 0.42);
+  --glass-warm-strong: rgba(253, 245, 230, 0.62);
+  --glass-warm-soft:   rgba(253, 245, 230, 0.28);
+  --glass-rose:        rgba(205, 133, 63, 0.18);
+  --glass-brown:       rgba(139, 69, 19, 0.12);
+  --glass-edge-light:  rgba(255, 255, 255, 0.55);
+  --glass-edge-bright: rgba(255, 255, 255, 0.85);
+  --glass-tint-bottom: rgba(139, 69, 19, 0.10);
+
+  --glass-shadow-sm: 0 10px 30px -10px rgba(139, 69, 19, 0.18),
+                     inset 0 1px 0 rgba(255,255,255,0.55),
+                     inset 0 -1px 0 rgba(139,69,19,0.06);
+  --glass-shadow-md: 0 24px 60px -25px rgba(139, 69, 19, 0.30),
+                     inset 0 1px 0 rgba(255,255,255,0.65),
+                     inset 0 -1px 0 rgba(139,69,19,0.10);
+  --glass-shadow-lg: 0 40px 90px -30px rgba(62, 39, 35, 0.40),
+                     inset 0 1.5px 0 rgba(255,255,255,0.75),
+                     inset 0 -1px 0 rgba(139,69,19,0.12);
+}
+
+.dark {
+  /* === Dark mode palette tuned for WCAG AA+ readability === */
+  /* All text colors lifted for ≥7:1 contrast on dark cream bg + glass surfaces */
+  --nude:        #2A1F18;
+  --rose:        #E5A974;     /* brighter for accent visibility */
+  --rose-deep:   #C68959;     /* brighter for italic accent */
+  --brown:       #E5A974;     /* brighter — used for italic-accent (was hard to read) */
+  --brown-deep:  #FAEED8;     /* near-white for headings on dark glass — strongest contrast */
+  --cream:       #1A1410;
+  --text:        #FAF1DD;     /* primary text — very high contrast on dark bg */
+  --muted:       #D6C0A2;     /* muted — lifted from #B89A82 to #D6C0A2 (~7.5:1 contrast) */
+
+  --glass-warm:        rgba(50, 36, 26, 0.65);    /* darker + more opaque so light text reads */
+  --glass-warm-strong: rgba(60, 44, 32, 0.78);    /* stronger backdrop for primary panels */
+  --glass-warm-soft:   rgba(45, 32, 22, 0.45);
+  --glass-rose:        rgba(210, 150, 90, 0.18);
+  --glass-brown:       rgba(40, 25, 15, 0.30);
+  --glass-edge-light:  rgba(255, 230, 200, 0.18);
+  --glass-edge-bright: rgba(255, 230, 200, 0.32);
+  --glass-tint-bottom: rgba(0, 0, 0, 0.25);
+
+  --glass-shadow-sm: 0 10px 30px -10px rgba(0, 0, 0, 0.5),
+                     inset 0 1px 0 rgba(255,230,200,0.15),
+                     inset 0 -1px 0 rgba(0,0,0,0.2);
+  --glass-shadow-md: 0 24px 60px -25px rgba(0, 0, 0, 0.6),
+                     inset 0 1px 0 rgba(255,230,200,0.20),
+                     inset 0 -1px 0 rgba(0,0,0,0.25);
+  --glass-shadow-lg: 0 40px 90px -30px rgba(0, 0, 0, 0.7),
+                     inset 0 1.5px 0 rgba(255,230,200,0.25),
+                     inset 0 -1px 0 rgba(0,0,0,0.3);
 }
 
 html, body { line-height: 1.7; overflow-x: hidden; }
+body {
+  background: var(--cream);
+  color: var(--text);
+  transition: background-color 0.4s ease, color 0.4s ease;
+}
 
-/* Headings — Fraunces, with -0.02em tracking and looser leading on lower levels */
-h1 { font-family: var(--font-fraunces), serif; font-weight: 400; letter-spacing: -0.02em; line-height: 1; }
-h2 { font-family: var(--font-fraunces), serif; font-weight: 400; letter-spacing: -0.02em; line-height: 1.05; }
-h3 { font-family: var(--font-fraunces), serif; font-weight: 500; letter-spacing: -0.02em; line-height: 1.2; }
+h1 { font-family: var(--font-fraunces), serif; font-weight: 400; letter-spacing: -0.02em; line-height: 1; color: var(--brown-deep); }
+h2 { font-family: var(--font-fraunces), serif; font-weight: 400; letter-spacing: -0.02em; line-height: 1.05; color: var(--brown-deep); }
+h3 { font-family: var(--font-fraunces), serif; font-weight: 500; letter-spacing: -0.02em; line-height: 1.2; color: var(--brown-deep); }
 
 .italic-accent { font-family: var(--font-fraunces), serif; font-style: italic; font-weight: 300; color: var(--brown); }
 
-/* Petal float-up animation (used by FloatingPetals as a CSS fallback if needed) */
+/* === BACKGROUND CANVAS === */
+.bg-canvas {
+  position: fixed;
+  inset: 0;
+  z-index: -10;
+  pointer-events: none;
+  background:
+    radial-gradient(80% 60% at 15% 10%, rgba(205, 133, 63, 0.28) 0%, transparent 60%),
+    radial-gradient(70% 70% at 85% 25%, rgba(160, 82, 45, 0.22) 0%, transparent 60%),
+    radial-gradient(60% 60% at 30% 95%, rgba(139, 69, 19, 0.22) 0%, transparent 65%),
+    radial-gradient(70% 50% at 95% 85%, rgba(245, 235, 220, 0.5) 0%, transparent 60%),
+    linear-gradient(180deg, var(--cream) 0%, var(--nude) 100%);
+  transition: background 0.4s ease;
+}
+
+.dark .bg-canvas {
+  background:
+    radial-gradient(80% 60% at 15% 10%, rgba(210, 150, 90, 0.25) 0%, transparent 60%),
+    radial-gradient(70% 70% at 85% 25%, rgba(160, 82, 45, 0.22) 0%, transparent 60%),
+    radial-gradient(60% 60% at 30% 95%, rgba(80, 50, 30, 0.4) 0%, transparent 65%),
+    radial-gradient(70% 50% at 95% 85%, rgba(60, 42, 30, 0.5) 0%, transparent 60%),
+    linear-gradient(180deg, #1A1410 0%, #0F0A07 100%);
+}
+
+.bg-canvas::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(rgba(139,69,19,0.04) 1px, transparent 1px);
+  background-size: 4px 4px;
+  opacity: 0.4;
+  pointer-events: none;
+}
+
+.dark .bg-canvas::after {
+  background-image: radial-gradient(rgba(255,230,200,0.025) 1px, transparent 1px);
+}
+
+/* === LIQUID GLASS PRIMITIVES (in components layer so Tailwind utilities override) === */
+@layer components {
+.liquid-surface {
+  position: relative;
+  background: linear-gradient(135deg, var(--glass-warm-strong) 0%, var(--glass-warm) 50%, var(--glass-warm-soft) 100%);
+  backdrop-filter: blur(28px) saturate(180%);
+  -webkit-backdrop-filter: blur(28px) saturate(180%);
+  border: 1px solid var(--glass-edge-light);
+  box-shadow: var(--glass-shadow-md);
+  isolation: isolate;
+}
+
+.liquid-surface::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(180deg, var(--glass-edge-bright) 0%, rgba(255, 255, 255, 0.20) 8%, transparent 30%, transparent 70%, var(--glass-tint-bottom) 100%);
+  mix-blend-mode: overlay;
+  opacity: 0.7;
+  z-index: 0;
+  border-radius: inherit;
+}
+
+.liquid-surface::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 12%;
+  right: 12%;
+  height: 1px;
+  background: linear-gradient(90deg, transparent 0%, var(--glass-edge-bright) 50%, transparent 100%);
+  pointer-events: none;
+  z-index: 1;
+}
+
+.liquid-surface-soft {
+  position: relative;
+  background: linear-gradient(135deg, var(--glass-warm) 0%, var(--glass-warm-soft) 100%);
+  backdrop-filter: blur(16px) saturate(160%);
+  -webkit-backdrop-filter: blur(16px) saturate(160%);
+  border: 1px solid var(--glass-edge-light);
+  box-shadow: var(--glass-shadow-sm);
+  isolation: isolate;
+}
+
+.liquid-surface-soft::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(180deg, rgba(255,255,255,0.5) 0%, transparent 30%);
+  mix-blend-mode: overlay;
+  opacity: 0.6;
+  z-index: 0;
+  border-radius: inherit;
+}
+
+.liquid-surface-strong {
+  position: relative;
+  background: linear-gradient(135deg, var(--glass-warm-strong) 0%, var(--glass-warm) 100%);
+  backdrop-filter: blur(40px) saturate(180%);
+  -webkit-backdrop-filter: blur(40px) saturate(180%);
+  border: 1px solid var(--glass-edge-light);
+  box-shadow: var(--glass-shadow-lg);
+  isolation: isolate;
+}
+
+.liquid-surface-strong::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(180deg, var(--glass-edge-bright) 0%, rgba(255, 255, 255, 0.25) 10%, transparent 35%, transparent 70%, var(--glass-tint-bottom) 100%);
+  mix-blend-mode: overlay;
+  opacity: 0.75;
+  z-index: 0;
+  border-radius: inherit;
+}
+
+.liquid-surface-strong::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 8%;
+  right: 8%;
+  height: 1.5px;
+  background: linear-gradient(90deg, transparent 0%, var(--glass-edge-bright) 50%, transparent 100%);
+  pointer-events: none;
+  z-index: 1;
+}
+
+.liquid-surface > *,
+.liquid-surface-soft > *,
+.liquid-surface-strong > * {
+  position: relative;
+  z-index: 2;
+}
+
+}
+
+/* === GLASS INPUT === */
+.glass-input {
+  background: rgba(255, 255, 255, 0.55);
+  border: 1px solid rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-radius: 16px;
+  padding: 14px 18px;
+  font-family: var(--font-inter), sans-serif;
+  font-size: 15px;
+  color: var(--text);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.7), 0 4px 12px -4px rgba(139, 69, 19, 0.08);
+  transition: all 0.3s ease;
+  width: 100%;
+}
+
+.dark .glass-input {
+  background: rgba(255, 230, 200, 0.08);
+  border: 1px solid rgba(255, 230, 200, 0.18);
+  color: var(--text);
+  box-shadow: inset 0 1px 0 rgba(255,230,200,0.12), 0 4px 12px -4px rgba(0, 0, 0, 0.3);
+}
+
+.glass-input::placeholder { color: var(--muted); opacity: 0.7; }
+
+.glass-input:focus {
+  outline: none;
+  border-color: var(--rose);
+  background: rgba(255, 255, 255, 0.75);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.7), 0 0 0 4px rgba(205, 133, 63, 0.18);
+}
+
+.dark .glass-input:focus {
+  background: rgba(255, 230, 200, 0.12);
+  box-shadow: inset 0 1px 0 rgba(255,230,200,0.18), 0 0 0 4px rgba(210, 150, 90, 0.24);
+}
+
+/* === CTA GLOW BUTTONS === */
+.cta-glow {
+  background: linear-gradient(135deg, var(--brown) 0%, var(--rose-deep) 100%);
+  box-shadow: 0 18px 40px -15px rgba(139, 69, 19, 0.55), inset 0 1px 0 rgba(255, 255, 255, 0.4);
+  transition: box-shadow 0.3s ease, transform 0.3s ease;
+}
+
+.cta-glow:hover {
+  box-shadow: 0 24px 50px -15px rgba(139, 69, 19, 0.7), inset 0 1px 0 rgba(255, 255, 255, 0.5);
+}
+
+.cta-glow-sm {
+  background: linear-gradient(135deg, var(--brown) 0%, var(--rose-deep) 100%);
+  box-shadow: 0 12px 30px -10px rgba(139, 69, 19, 0.55), inset 0 1px 0 rgba(255, 255, 255, 0.35);
+  transition: box-shadow 0.3s ease, transform 0.3s ease;
+}
+
+.cta-glow-sm:hover {
+  box-shadow: 0 18px 40px -10px rgba(139, 69, 19, 0.7), inset 0 1px 0 rgba(255, 255, 255, 0.45);
+}
+
+.dark .cta-glow,
+.dark .cta-glow-sm {
+  background: linear-gradient(135deg, #C28850 0%, #8B5E34 100%);
+}
+
+.glow-icon {
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 8px 20px -8px rgba(160, 82, 45, 0.4);
+}
+
+/* === LEGACY ANIMATIONS === */
 @keyframes petalRise {
   0%   { transform: translate3d(0, 0, 0) rotate(0deg); opacity: 0; }
   10%  { opacity: 0.6; }
   100% { transform: translate3d(-30px, -110vh, 0) rotate(360deg); opacity: 0; }
 }
 
-/* Hero badge dot pulse */
 @keyframes pulse-dot { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:.5;transform:scale(1.3)} }
 .dot-pulse { animation: pulse-dot 2s ease-in-out infinite; }
 
-/* Brand marquee */
 @keyframes marquee { to { transform: translateX(-50%); } }
 .marquee-track { animation: marquee 30s linear infinite; }
 
-/* Hero stat float bob */
 @keyframes float-bob { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-12px)} }
 .float-bob { animation: float-bob 4s ease-in-out infinite; }
 .float-bob-delay { animation: float-bob 4s ease-in-out 1.5s infinite; }
@@ -54,5 +310,33 @@ h3 { font-family: var(--font-fraunces), serif; font-weight: 500; letter-spacing:
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
     scroll-behavior: auto !important;
+  }
+}
+
+
+
+/* === Dark mode overrides for Tailwind text-color utilities === */
+/* Tailwind generates static colors from config; override them when in dark mode */
+.dark .text-brand-deep { color: #FAEED8 !important; }
+.dark .text-brand      { color: #E5A974 !important; }
+.dark .text-text       { color: #FAF1DD !important; }
+.dark .text-muted      { color: #D6C0A2 !important; }
+.dark .text-cream      { color: #FAEED8 !important; }   /* keep button text light on gradient */
+.dark .border-nude     { border-color: rgba(255, 230, 200, 0.18) !important; }
+.dark .bg-nude         { background-color: rgba(255, 230, 200, 0.10) !important; }
+.dark .bg-rose\/30    { background-color: rgba(229, 169, 116, 0.25) !important; }
+
+/* Italic accent override (uses var(--brown) from CSS, already updated, but ensure) */
+.dark .italic-accent   { color: #E5A974; }
+
+/* === FALLBACK for browsers without backdrop-filter === */
+@supports not (backdrop-filter: blur(1px)) {
+  .liquid-surface, .liquid-surface-soft, .liquid-surface-strong {
+    background: var(--cream);
+    border: 1px solid var(--nude);
+  }
+  .glass-input {
+    background: var(--cream);
+    border: 1px solid var(--nude);
   }
 }
