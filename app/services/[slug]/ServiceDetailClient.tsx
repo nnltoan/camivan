@@ -10,6 +10,7 @@ import ScrollReveal from '../../components/ScrollReveal';
 import { useLang } from '../../components/LangProvider';
 import { SERVICE_DETAILS, getServiceBySlug, pickServiceLang, SLUG_TO_BOOKING_KEY } from '../../lib/servicesContent';
 import BookingModal from '../../components/BookingModal';
+import { WARM_BLUR } from '../../lib/blurDataUrl';
 
 interface Props {
   slug: string;
@@ -85,6 +86,8 @@ export default function ServiceDetailClient({ slug }: Props) {
                   fill
                   sizes="(max-width:1024px) 100vw, 50vw"
                   className="object-cover"
+                  placeholder="blur"
+                  blurDataURL={WARM_BLUR}
                   priority
                 />
               </div>

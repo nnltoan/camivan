@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import ScrollReveal from './ScrollReveal';
 import { useLang } from './LangProvider';
+import { haptic } from '../lib/haptic';
 
 export default function FAQ() {
   const { t } = useLang();
@@ -28,13 +29,14 @@ export default function FAQ() {
           <ScrollReveal key={i} delay={i * 0.05}>
             <div className="liquid-surface rounded-2xl overflow-hidden">
               <button
-                onClick={() => setOpen(open === i ? null : i)}
-                className="relative z-[3] w-full text-left px-6 py-5 flex justify-between items-center gap-4"
+                onClick={() => { haptic('subtle'); setOpen(open === i ? null : i); }}
+                className="relative z-[3] w-full text-left px-4 py-4 lg:px-6 lg:py-5 flex justify-between items-center gap-3 lg:gap-4 min-h-[60px] lg:min-h-0"
                 aria-expanded={open === i}
+                aria-controls={`faq-panel-${i}`}
               >
-                <span className="font-fraunces text-lg lg:text-xl text-brand-deep">{item.q}</span>
+                <span className="font-fraunces text-base lg:text-xl text-brand-deep">{item.q}</span>
                 <span
-                  className={`shrink-0 w-9 h-9 rounded-full grid place-items-center text-lg transition-all border ${
+                  className={`shrink-0 inline-flex items-center justify-center w-11 h-11 lg:w-9 lg:h-9 rounded-full text-lg transition-all border ${
                     open === i
                       ? 'bg-brand text-cream border-brand rotate-45'
                       : 'bg-white/40 dark:bg-white/5 text-brand-deep border-white/40 dark:border-white/10'
@@ -47,6 +49,7 @@ export default function FAQ() {
               <AnimatePresence initial={false}>
                 {open === i && (
                   <motion.div
+                    id={`faq-panel-${i}`}
                     initial={{ height: 0, opacity: 0 }}
                     animate={{ height: 'auto', opacity: 1 }}
                     exit={{ height: 0, opacity: 0 }}

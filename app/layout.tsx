@@ -3,6 +3,7 @@ import { Fraunces, Inter } from 'next/font/google';
 import './globals.css';
 import { LangProvider } from './components/LangProvider';
 import { ThemeProvider } from './components/ThemeProvider';
+import { ToastProvider } from './components/Toast';
 
 const fraunces = Fraunces({
   subsets: ['latin', 'vietnamese'],
@@ -44,7 +45,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <body className="font-inter text-text antialiased">
         <div className="bg-canvas" aria-hidden="true" />
         <ThemeProvider>
-          <LangProvider>{children}</LangProvider>
+          <LangProvider>
+            <ToastProvider>{children}</ToastProvider>
+          </LangProvider>
         </ThemeProvider>
       </body>
     </html>

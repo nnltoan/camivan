@@ -42,6 +42,9 @@ export default function Hero() {
               <span className="relative z-[3]">{t.hero.cta_view}</span>
             </a>
           </div>
+          <a href="#booking" className="mt-5 inline-flex items-center gap-2 text-sm text-brand-deep bg-cream/80 backdrop-blur border border-rose/40 px-4 py-2 rounded-full hover:bg-cream hover:border-rose transition-colors">
+            {t.ui_v2.hero_consult_chip}
+          </a>
         </ScrollReveal>
       </div>
 

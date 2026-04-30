@@ -5,6 +5,7 @@ import Link from 'next/link';
 import ScrollReveal from './ScrollReveal';
 import { useLang } from './LangProvider';
 import { POSTS, pickLang } from '../lib/blogPosts';
+import { WARM_BLUR } from '../lib/blurDataUrl';
 
 export default function Blog() {
   const { t, lang } = useLang();
@@ -44,6 +45,8 @@ export default function Blog() {
                     fill
                     className="object-cover group-hover:scale-105 transition-transform duration-500"
                     sizes="(max-width: 768px) 100vw, 33vw"
+                    placeholder="blur"
+                    blurDataURL={WARM_BLUR}
                   />
                   <div className="liquid-surface absolute top-4 left-4 px-3 py-1 rounded-full text-[11px] font-semibold text-brand-deep uppercase tracking-wider">
                     <span className="relative z-[3]">{category}</span>

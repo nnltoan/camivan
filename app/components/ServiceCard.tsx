@@ -3,6 +3,7 @@
 import { motion, useReducedMotion } from 'framer-motion';
 import { useState } from 'react';
 import Image from 'next/image';
+import { WARM_BLUR } from '../lib/blurDataUrl';
 
 export interface ServiceCardProps {
   icon: string;
@@ -79,6 +80,8 @@ export default function ServiceCard({ icon, name, description, price, image }: S
             fill
             sizes="(max-width:768px) 100vw, (max-width:1280px) 50vw, 33vw"
             className="object-cover"
+            placeholder="blur"
+            blurDataURL={WARM_BLUR}
           />
           <div className="absolute inset-0 flex flex-col justify-end p-7 bg-gradient-to-t from-brand-deep/85 via-brand/30 to-transparent">
             <p className="text-cream text-sm mb-3 opacity-90">Tác phẩm thực tế</p>

@@ -3,6 +3,7 @@
 import Image from 'next/image';
 import ScrollReveal from './ScrollReveal';
 import { useLang } from './LangProvider';
+import { WARM_BLUR } from '../lib/blurDataUrl';
 
 export default function About() {
   const { t } = useLang();
@@ -26,6 +27,8 @@ export default function About() {
                 fill
                 sizes="(max-width:1024px) 100vw, 50vw"
                 className="object-cover"
+                placeholder="blur"
+                blurDataURL={WARM_BLUR}
               />
             </div>
             <div
@@ -40,6 +43,8 @@ export default function About() {
                   fill
                   sizes="(max-width:1024px) 30vw, 220px"
                   className="object-cover"
+                  placeholder="blur"
+                  blurDataURL={WARM_BLUR}
                 />
               </div>
             </div>
