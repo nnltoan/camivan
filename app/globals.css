@@ -218,6 +218,10 @@ h3 { font-family: var(--font-fraunces), serif; font-weight: 500; letter-spacing:
   z-index: 2;
 }
 
+/* Disable the horizontal shine line — useful for round shapes (FABs, icon
+   orbs) where a straight chord across a circle looks like a stray line. */
+.no-glass-shine::after { display: none !important; }
+
 }
 
 /* === GLASS INPUT === */

@@ -45,7 +45,7 @@ export default function WaFloat() {
       <button
         onClick={() => setOpen((o) => !o)}
         aria-label="Mở liên hệ nhanh"
-        className="liquid-surface-strong fixed bottom-6 right-6 z-[90] w-16 h-16 rounded-full grid place-items-center text-2xl text-brand-deep hover:scale-110 transition-transform"
+        className="liquid-surface-strong no-glass-shine fixed bottom-6 right-6 z-[90] w-16 h-16 rounded-full grid place-items-center text-2xl text-brand-deep hover:scale-110 transition-transform"
       >
         <span className="relative z-[3]">{open ? '×' : '💬'}</span>
       </button>
@@ -56,7 +56,7 @@ export default function WaFloat() {
             href={wa}
             target="_blank"
             rel="noopener noreferrer"
-            className="liquid-surface flex items-center gap-3 px-5 py-3 rounded-full font-medium hover:-translate-y-0.5 transition-transform whitespace-nowrap text-brand-deep"
+            className="liquid-surface-soft flex items-center gap-3 px-5 py-3 rounded-full font-medium hover:-translate-y-0.5 transition-transform whitespace-nowrap text-brand-deep"
           >
             <span className="relative z-[3] flex items-center gap-3">
               <span className="w-7 h-7 rounded-full bg-[#25D366] grid place-items-center text-white shrink-0">
@@ -69,7 +69,7 @@ export default function WaFloat() {
             href={ZALO_PROFILE}
             target="_blank"
             rel="noopener noreferrer"
-            className="liquid-surface flex items-center gap-3 px-5 py-3 rounded-full font-medium hover:-translate-y-0.5 transition-transform whitespace-nowrap text-brand-deep"
+            className="liquid-surface-soft flex items-center gap-3 px-5 py-3 rounded-full font-medium hover:-translate-y-0.5 transition-transform whitespace-nowrap text-brand-deep"
           >
             <span className="relative z-[3] flex items-center gap-3">
               <span className="w-7 h-7 rounded-full bg-[#0068FF] grid place-items-center text-white shrink-0">
@@ -82,7 +82,7 @@ export default function WaFloat() {
             href={IG_DM}
             target="_blank"
             rel="noopener noreferrer"
-            className="liquid-surface flex items-center gap-3 px-5 py-3 rounded-full font-medium hover:-translate-y-0.5 transition-transform whitespace-nowrap text-brand-deep"
+            className="liquid-surface-soft flex items-center gap-3 px-5 py-3 rounded-full font-medium hover:-translate-y-0.5 transition-transform whitespace-nowrap text-brand-deep"
           >
             <span className="relative z-[3] flex items-center gap-3">
               <span className="w-7 h-7 rounded-full bg-gradient-to-tr from-[#feda75] via-[#d62976] to-[#962fbf] grid place-items-center text-white shrink-0">
