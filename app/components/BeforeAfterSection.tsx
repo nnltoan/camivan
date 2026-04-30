@@ -58,7 +58,7 @@ export default function BeforeAfterSection() {
       {/* Service tabs — horizontal scroll on mobile, centered on desktop */}
       <ScrollReveal delay={0.1}>
         <div
-          className="flex gap-2 lg:gap-3 overflow-x-auto pb-3 mb-8 max-w-5xl mx-auto lg:justify-center scrollbar-thin"
+          className="flex gap-2 lg:gap-3 overflow-x-auto pt-2 pb-3 mb-8 max-w-5xl mx-auto lg:justify-center scrollbar-thin"
           role="tablist"
           aria-label={t.ui_v2.ba_label}
         >
@@ -73,13 +73,13 @@ export default function BeforeAfterSection() {
                 aria-controls={`ba-panel-${p.service}`}
                 id={`ba-tab-${p.service}`}
                 onClick={() => { haptic('subtle'); setActiveIndex(i); }}
-                className={`shrink-0 px-4 py-2 lg:px-5 lg:py-2.5 rounded-full text-sm font-medium border transition-all whitespace-nowrap ${
+                className={`shrink-0 px-4 py-2 lg:px-5 lg:py-2.5 rounded-full text-sm font-medium transition-all whitespace-nowrap ${
                   isActive
-                    ? 'bg-brand text-cream border-brand shadow-btn'
-                    : 'bg-cream text-brand-deep border-nude hover:border-rose hover:-translate-y-0.5'
+                    ? 'cta-glow-sm text-cream'
+                    : 'liquid-surface text-brand-deep hover:-translate-y-0.5'
                 }`}
               >
-                {label}
+                <span className={isActive ? '' : 'relative z-[3]'}>{label}</span>
               </button>
             );
           })}
