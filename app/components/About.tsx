@@ -3,7 +3,6 @@
 import Image from 'next/image';
 import { motion, useReducedMotion } from 'framer-motion';
 import ScrollReveal from './ScrollReveal';
-import RevealMask from './RevealMask';
 import { useLang } from './LangProvider';
 import { WARM_BLUR } from '../lib/blurDataUrl';
 
@@ -23,7 +22,7 @@ export default function About() {
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center max-w-[1400px] mx-auto">
         <ScrollReveal>
           <div className="relative">
-            <RevealMask direction="right" delay={0.2} duration={1.0} className="aspect-[4/5] rounded-[40px] shadow-glass-lg">
+            <div className="relative aspect-[4/5] rounded-[40px] overflow-hidden shadow-glass-lg">
               <Image
                 src="/cami-van-photo.jpg"
                 alt="Cẩm Vân — Founder"
@@ -33,7 +32,7 @@ export default function About() {
                 placeholder="blur"
                 blurDataURL={WARM_BLUR}
               />
-            </RevealMask>
+            </div>
             <div
               className="absolute inset-5 -z-10 rounded-[40px] bg-gradient-to-br from-rose to-nude translate-x-5 translate-y-5"
               aria-hidden="true"

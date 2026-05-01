@@ -8,7 +8,6 @@ import Footer from '../../components/Footer';
 import WaFloat from '../../components/WaFloat';
 import ScrollReveal from '../../components/ScrollReveal';
 import BookingModal from '../../components/BookingModal';
-import RevealMask from '../../components/RevealMask';
 import MagneticButton from '../../components/MagneticButton';
 import { WARM_BLUR } from '../../lib/blurDataUrl';
 import { useLang } from '../../components/LangProvider';
@@ -79,9 +78,9 @@ export default function BlogPostClient({ slug }: Props) {
 
         <ScrollReveal delay={0.25}>
           <div className="px-5 lg:px-20 mb-12">
-            <RevealMask direction="right" delay={0.3} duration={1.0} className="aspect-[16/9] rounded-[30px] max-w-5xl mx-auto shadow-glass-lg">
+            <div className="relative aspect-[16/9] rounded-[30px] overflow-hidden max-w-5xl mx-auto shadow-glass-lg">
               <Image src={post!.image} alt={title} fill sizes="(max-width:1024px) 100vw, 80vw" className="object-cover" placeholder="blur" blurDataURL={WARM_BLUR} priority />
-            </RevealMask>
+            </div>
           </div>
         </ScrollReveal>
 

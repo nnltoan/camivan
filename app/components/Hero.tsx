@@ -3,7 +3,6 @@
 import { motion, useReducedMotion } from 'framer-motion';
 import ScrollReveal from './ScrollReveal';
 import FloatingPetals from './FloatingPetals';
-import RevealMask from './RevealMask';
 import MagneticButton from './MagneticButton';
 import CursorSpotlight from './CursorSpotlight';
 import { useLang } from './LangProvider';
@@ -13,7 +12,6 @@ import { useLang } from './LangProvider';
  *  - Title appears line-by-line with cinematic 150ms cascade (A.2)
  *  - Description fades up
  *  - CTA row slides up + primary CTA is magnetic (B.4)
- *  - Hero video panel reveals from behind a frosted glass scrim (A.3)
  *  - Cursor spotlight tracks the mouse on desktop (B.2)
  */
 
@@ -92,8 +90,8 @@ export default function Hero() {
       </div>
 
       <ScrollReveal delay={0.2} className="relative z-10">
-        {/* A.3 — Frosted scrim wipes off to reveal the hero video */}
-        <RevealMask direction="right" delay={0.5} duration={1.1} className="aspect-[4/5] rounded-[30px] shadow-glass-lg bg-nude">
+        {/* Hero video panel */}
+        <div className="relative aspect-[4/5] rounded-[30px] overflow-hidden shadow-glass-lg bg-nude">
           <video autoPlay muted loop playsInline preload="auto" poster="/client-3.jpg" className="absolute inset-0 w-full h-full object-cover" aria-label="CAMI VAN process video">
             <source src="/process-reel.mp4" type="video/mp4" />
           </video>
@@ -102,7 +100,7 @@ export default function Hero() {
             <span className="w-1.5 h-1.5 rounded-full bg-red-500 dot-pulse shadow-[0_0_8px_rgba(239,68,68,0.8)]" />
             LIVE
           </div>
-        </RevealMask>
+        </div>
 
         <div className="liquid-surface absolute top-[10%] -left-10 rounded-[22px] px-5 py-4 z-20 float-bob max-md:hidden">
           <span className="relative z-[3] flex items-center gap-3">

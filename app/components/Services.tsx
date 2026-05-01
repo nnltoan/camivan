@@ -3,6 +3,7 @@
 import Link from 'next/link';
 import { motion, useReducedMotion } from 'framer-motion';
 import ScrollReveal from './ScrollReveal';
+import ServiceIcon from './ServiceIcon';
 import { useLang } from './LangProvider';
 
 const SERVICE_KEYS = [
@@ -49,8 +50,8 @@ export default function Services() {
                 className="liquid-surface block group rounded-[30px] p-10 hover:-translate-y-2 transition-all h-full"
               >
                 <div className="relative z-[3] flex flex-col h-full">
-                  <div className="w-16 h-16 rounded-3xl bg-gradient-to-br from-rose to-rose-deep grid place-items-center text-3xl text-cream mb-6 glow-icon">
-                    {s.icon}
+                  <div className="w-16 h-16 rounded-3xl bg-gradient-to-br from-rose to-rose-deep grid place-items-center text-cream mb-6 glow-icon">
+                    <ServiceIcon slug={s.slug} className="w-7 h-7" />
                   </div>
                   <h3 className="font-fraunces text-2xl mb-2 text-brand-deep">{data.name}</h3>
                   <p className="text-muted italic text-sm mb-3">{data.subtitle}</p>

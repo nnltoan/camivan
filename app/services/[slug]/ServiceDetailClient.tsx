@@ -10,7 +10,7 @@ import ScrollReveal from '../../components/ScrollReveal';
 import { useLang } from '../../components/LangProvider';
 import { SERVICE_DETAILS, getServiceBySlug, pickServiceLang, SLUG_TO_BOOKING_KEY } from '../../lib/servicesContent';
 import BookingModal from '../../components/BookingModal';
-import RevealMask from '../../components/RevealMask';
+import ServiceIcon from '../../components/ServiceIcon';
 import StickyStorySection from '../../components/StickyStorySection';
 import MagneticButton from '../../components/MagneticButton';
 import { WARM_BLUR } from '../../lib/blurDataUrl';
@@ -53,8 +53,8 @@ export default function ServiceDetailClient({ slug }: Props) {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-start">
             <div>
               <ScrollReveal>
-                <div className="w-16 h-16 rounded-3xl bg-gradient-to-br from-rose to-rose-deep grid place-items-center text-3xl text-cream mb-6 glow-icon">
-                  {service!.icon}
+                <div className="w-16 h-16 rounded-3xl bg-gradient-to-br from-rose to-rose-deep grid place-items-center text-cream mb-6 glow-icon">
+                  <ServiceIcon slug={slug} className="w-7 h-7" />
                 </div>
               </ScrollReveal>
               <ScrollReveal delay={0.1}>
@@ -84,7 +84,7 @@ export default function ServiceDetailClient({ slug }: Props) {
               </ScrollReveal>
             </div>
             <ScrollReveal delay={0.2}>
-              <RevealMask direction="right" delay={0.3} duration={1.0} className="aspect-[4/5] rounded-[30px] shadow-glass-lg">
+              <div className="relative aspect-[4/5] rounded-[30px] overflow-hidden shadow-glass-lg">
                 <Image
                   src={service!.image}
                   alt={name}
@@ -95,7 +95,7 @@ export default function ServiceDetailClient({ slug }: Props) {
                   blurDataURL={WARM_BLUR}
                   priority
                 />
-              </RevealMask>
+              </div>
             </ScrollReveal>
           </div>
         </header>
