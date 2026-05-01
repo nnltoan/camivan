@@ -8,6 +8,8 @@ import Footer from '../../components/Footer';
 import WaFloat from '../../components/WaFloat';
 import ScrollReveal from '../../components/ScrollReveal';
 import BookingModal from '../../components/BookingModal';
+import RevealMask from '../../components/RevealMask';
+import MagneticButton from '../../components/MagneticButton';
 import { WARM_BLUR } from '../../lib/blurDataUrl';
 import { useLang } from '../../components/LangProvider';
 import { pickLang, getPostBySlug } from '../../lib/blogPosts';
@@ -77,9 +79,9 @@ export default function BlogPostClient({ slug }: Props) {
 
         <ScrollReveal delay={0.25}>
           <div className="px-5 lg:px-20 mb-12">
-            <div className="relative aspect-[16/9] rounded-[30px] overflow-hidden max-w-5xl mx-auto shadow-glass-lg">
+            <RevealMask direction="right" delay={0.3} duration={1.0} className="aspect-[16/9] rounded-[30px] max-w-5xl mx-auto shadow-glass-lg">
               <Image src={post!.image} alt={title} fill sizes="(max-width:1024px) 100vw, 80vw" className="object-cover" placeholder="blur" blurDataURL={WARM_BLUR} priority />
-            </div>
+            </RevealMask>
           </div>
         </ScrollReveal>
 
@@ -141,13 +143,15 @@ export default function BlogPostClient({ slug }: Props) {
                   {t.blog.cta_heading} <span className="italic-accent">{t.blog.cta_heading_accent}</span>
                 </h3>
                 <p className="text-muted mb-6">{t.blog.cta_description}</p>
-                <button
-                  type="button"
-                  onClick={() => setBookingOpen(true)}
-                  className="cta-glow inline-flex items-center gap-2 px-8 py-3.5 rounded-full font-medium text-cream whitespace-nowrap cursor-pointer transition-all hover:-translate-y-0.5"
-                >
-                  {t.blog.cta_button}
-                </button>
+                <MagneticButton strength={0.25}>
+                  <button
+                    type="button"
+                    onClick={() => setBookingOpen(true)}
+                    className="cta-glow inline-flex items-center gap-2 px-8 py-[18px] rounded-full text-[15px] font-medium text-cream whitespace-nowrap cursor-pointer transition-all hover:-translate-y-0.5"
+                  >
+                    {t.blog.cta_button}
+                  </button>
+                </MagneticButton>
               </div>
             </div>
           </ScrollReveal>

@@ -35,13 +35,13 @@ export interface Dict {
   service_detail: { back_to_all: string; book_via_wa: string; why_choose: string; process_title: string; process_accent: string; aftercare_title: string; faq_title: string; ready_to: string; ready_description: string; book_now: string };
   ui_v2: {
     nav_book_aria: string; nav_theme_toggle: string; nav_haptic_toggle: string;
-    hero_consult_chip: string;
     booking_badge_fastest: string; booking_time_tooltip: string;
     ba_label: string; ba_title: string; ba_title_accent: string; ba_description: string;
     ba_before: string; ba_after: string; ba_drag_hint: string; ba_demo_note: string;
     fam_call: string; fam_chat: string; fam_maps: string;
     lb_close: string; lb_prev: string; lb_next: string; lb_viewer: string;
     toast_redirecting: string; toast_error: string; toast_copied: string;
+    step_label: string;
   };
 }
 
@@ -80,13 +80,13 @@ const VI: Dict = {
   service_detail: { back_to_all: '← Tất cả dịch vụ', book_via_wa: '📱 Đặt lịch ngay qua WhatsApp', why_choose: 'Tại sao chọn', process_title: 'Quy trình', process_accent: 'làm việc', aftercare_title: '📋 Hướng dẫn chăm sóc sau', faq_title: '❓ Câu hỏi thường gặp', ready_to: 'Sẵn sàng làm', ready_description: 'Đặt lịch tư vấn miễn phí qua WhatsApp / Zalo. Phản hồi trong 15 phút.', book_now: 'Đặt lịch ngay ♡' },
   ui_v2: {
     nav_book_aria: 'Mở form đặt lịch', nav_theme_toggle: 'Chuyển sáng/tối', nav_haptic_toggle: 'Bật/tắt rung phản hồi',
-    hero_consult_chip: 'Tư vấn miễn phí 1-1',
     booking_badge_fastest: 'Nhanh nhất', booking_time_tooltip: '💡 Chị Cẩm Vân sẽ confirm khung giờ chính xác qua chat.',
     ba_label: '✨ Trước & Sau', ba_title: 'Khoảnh khắc', ba_title_accent: 'biến đổi', ba_description: 'Kéo nhẹ để xem sự khác biệt — mỗi đường nét đều được chăm chút tỉ mỉ.',
     ba_before: 'TRƯỚC', ba_after: 'SAU', ba_drag_hint: 'Kéo để so sánh', ba_demo_note: '📷 Ảnh demo — kết quả thực tế có thể khác nhau tùy cơ địa.',
     fam_call: 'Gọi điện', fam_chat: 'Nhắn tin', fam_maps: 'Bản đồ',
     lb_close: 'Đóng', lb_prev: 'Ảnh trước', lb_next: 'Ảnh sau', lb_viewer: 'Xem ảnh',
     toast_redirecting: 'Đang mở ứng dụng…', toast_error: 'Có lỗi xảy ra. Vui lòng thử lại.', toast_copied: 'Đã copy nội dung — paste vào chat nhé ✨',
+    step_label: 'Bước',
   },
 };
 
@@ -125,13 +125,13 @@ const EN: Dict = {
   service_detail: { back_to_all: '← All services', book_via_wa: '📱 Book via WhatsApp', why_choose: 'Why choose', process_title: 'How it', process_accent: 'works', aftercare_title: '📋 Aftercare guide', faq_title: '❓ Frequently asked', ready_to: 'Ready for', ready_description: 'Free consultation via WhatsApp / Zalo. Reply within 15 minutes.', book_now: 'Book now ♡' },
   ui_v2: {
     nav_book_aria: 'Open booking form', nav_theme_toggle: 'Toggle light/dark', nav_haptic_toggle: 'Toggle haptic feedback',
-    hero_consult_chip: 'Free 1-on-1 consultation',
     booking_badge_fastest: 'Fastest', booking_time_tooltip: '💡 Cẩm Vân will confirm the exact time slot via chat.',
     ba_label: '✨ Before & After', ba_title: 'A moment of', ba_title_accent: 'transformation', ba_description: 'Drag to reveal the difference — every detail crafted with care.',
     ba_before: 'BEFORE', ba_after: 'AFTER', ba_drag_hint: 'Drag to compare', ba_demo_note: '📷 Demo image — actual results may vary by skin type.',
     fam_call: 'Call', fam_chat: 'Message', fam_maps: 'Map',
     lb_close: 'Close', lb_prev: 'Previous image', lb_next: 'Next image', lb_viewer: 'Image viewer',
     toast_redirecting: 'Opening app…', toast_error: 'Something went wrong. Please try again.', toast_copied: 'Booking message copied — paste it in chat ✨',
+    step_label: 'Step',
   },
 };
 
@@ -170,13 +170,13 @@ const RU: Dict = {
   service_detail: { back_to_all: '← Все услуги', book_via_wa: '📱 Записаться через WhatsApp', why_choose: 'Почему выбирают', process_title: 'Как это', process_accent: 'работает', aftercare_title: '📋 Уход после процедуры', faq_title: '❓ Частые вопросы', ready_to: 'Готовы к', ready_description: 'Бесплатная консультация через WhatsApp / Zalo. Ответ в течение 15 минут.', book_now: 'Записаться ♡' },
   ui_v2: {
     nav_book_aria: 'Открыть форму записи', nav_theme_toggle: 'Светлая/тёмная тема', nav_haptic_toggle: 'Включить/выключить вибрацию',
-    hero_consult_chip: 'Бесплатная консультация 1-на-1',
     booking_badge_fastest: 'Быстрее всех', booking_time_tooltip: '💡 Cẩm Vân подтвердит точное время в чате.',
     ba_label: '✨ До и После', ba_title: 'Момент', ba_title_accent: 'преображения', ba_description: 'Перетащите, чтобы увидеть разницу — каждая деталь продумана с заботой.',
     ba_before: 'ДО', ba_after: 'ПОСЛЕ', ba_drag_hint: 'Перетащите для сравнения', ba_demo_note: '📷 Демо-изображение — фактический результат может зависеть от типа кожи.',
     fam_call: 'Позвонить', fam_chat: 'Написать', fam_maps: 'Карта',
     lb_close: 'Закрыть', lb_prev: 'Предыдущее фото', lb_next: 'Следующее фото', lb_viewer: 'Просмотр фото',
     toast_redirecting: 'Открываем приложение…', toast_error: 'Произошла ошибка. Попробуйте ещё раз.', toast_copied: 'Текст записи скопирован — вставьте его в чат ✨',
+    step_label: 'Шаг',
   },
 };
 
@@ -215,13 +215,13 @@ const ZH: Dict = {
   service_detail: { back_to_all: '← 所有服务', book_via_wa: '📱 通过 WhatsApp 预约', why_choose: '为什么选择', process_title: '工作', process_accent: '流程', aftercare_title: '📋 术后护理指南', faq_title: '❓ 常见问题', ready_to: '准备好做', ready_description: '通过 WhatsApp / Zalo 免费咨询。15 分钟内回复。', book_now: '立即预约 ♡' },
   ui_v2: {
     nav_book_aria: '打开预约表单', nav_theme_toggle: '切换浅色/深色', nav_haptic_toggle: '开启/关闭触感反馈',
-    hero_consult_chip: '免费一对一咨询',
     booking_badge_fastest: '回复最快', booking_time_tooltip: '💡 Cẩm Vân 老师会在聊天中确认具体时间。',
     ba_label: '✨ 前后对比', ba_title: '蜕变的', ba_title_accent: '瞬间', ba_description: '滑动查看差异 — 每一处细节都精心打造。',
     ba_before: '前', ba_after: '后', ba_drag_hint: '滑动比较', ba_demo_note: '📷 示意图 — 实际效果因肤质而异。',
     fam_call: '电话', fam_chat: '消息', fam_maps: '地图',
     lb_close: '关闭', lb_prev: '上一张', lb_next: '下一张', lb_viewer: '图片预览',
     toast_redirecting: '正在打开应用…', toast_error: '出错了，请重试。', toast_copied: '预约内容已复制 — 在聊天中粘贴即可 ✨',
+    step_label: '步骤',
   },
 };
 
@@ -260,13 +260,13 @@ const JA: Dict = {
   service_detail: { back_to_all: '← すべてのサービス', book_via_wa: '📱 WhatsAppで予約', why_choose: 'なぜ選ぶ', process_title: '施術', process_accent: 'プロセス', aftercare_title: '📋 アフターケアガイド', faq_title: '❓ よくある質問', ready_to: '受ける準備', ready_description: 'WhatsApp / Zaloで無料相談。15分以内に返信。', book_now: '今すぐ予約 ♡' },
   ui_v2: {
     nav_book_aria: '予約フォームを開く', nav_theme_toggle: 'ライト/ダーク切替', nav_haptic_toggle: '触覚フィードバック切替',
-    hero_consult_chip: '無料1対1カウンセリング',
     booking_badge_fastest: '最速返信', booking_time_tooltip: '💡 Cẩm Vânがチャットで正確な時間を確認します。',
     ba_label: '✨ ビフォー＆アフター', ba_title: '変身の', ba_title_accent: '瞬間', ba_description: 'ドラッグして違いを確認 — どの細部もこだわって仕上げました。',
     ba_before: 'BEFORE', ba_after: 'AFTER', ba_drag_hint: 'ドラッグして比較', ba_demo_note: '📷 デモ画像 — 実際の結果は肌質により異なります。',
     fam_call: '電話', fam_chat: 'メッセージ', fam_maps: '地図',
     lb_close: '閉じる', lb_prev: '前の画像', lb_next: '次の画像', lb_viewer: '画像ビューア',
     toast_redirecting: 'アプリを開いています…', toast_error: 'エラーが発生しました。もう一度お試しください。', toast_copied: '予約内容をコピーしました — チャットに貼り付けてください ✨',
+    step_label: 'ステップ',
   },
 };
 
@@ -305,13 +305,13 @@ const KO: Dict = {
   service_detail: { back_to_all: '← 모든 서비스', book_via_wa: '📱 WhatsApp으로 예약', why_choose: '왜 선택', process_title: '시술', process_accent: '과정', aftercare_title: '📋 사후 관리 가이드', faq_title: '❓ 자주 묻는 질문', ready_to: '받을 준비', ready_description: 'WhatsApp / Zalo로 무료 상담. 15분 이내 답변.', book_now: '지금 예약 ♡' },
   ui_v2: {
     nav_book_aria: '예약 양식 열기', nav_theme_toggle: '라이트/다크 전환', nav_haptic_toggle: '햅틱 피드백 켜기/끄기',
-    hero_consult_chip: '무료 1:1 상담',
     booking_badge_fastest: '가장 빠름', booking_time_tooltip: '💡 Cẩm Vân님이 채팅으로 정확한 시간을 확인해 드립니다.',
     ba_label: '✨ 비포 & 애프터', ba_title: '변신의', ba_title_accent: '순간', ba_description: '드래그하여 차이를 확인하세요 — 모든 디테일을 정성껏 다듬었습니다.',
     ba_before: '비포', ba_after: '애프터', ba_drag_hint: '드래그하여 비교', ba_demo_note: '📷 데모 이미지 — 실제 결과는 피부 타입에 따라 다를 수 있습니다.',
     fam_call: '전화', fam_chat: '메시지', fam_maps: '지도',
     lb_close: '닫기', lb_prev: '이전 사진', lb_next: '다음 사진', lb_viewer: '이미지 뷰어',
     toast_redirecting: '앱을 여는 중…', toast_error: '오류가 발생했습니다. 다시 시도해 주세요.', toast_copied: '예약 내용이 복사되었습니다 — 채팅에 붙여넣으세요 ✨',
+    step_label: '단계',
   },
 };
 
@@ -350,13 +350,13 @@ const FR: Dict = {
   service_detail: { back_to_all: '← Tous les services', book_via_wa: '📱 Réserver via WhatsApp', why_choose: 'Pourquoi choisir', process_title: 'Comment ça', process_accent: 'fonctionne', aftercare_title: '📋 Guide post-procédure', faq_title: '❓ Questions fréquentes', ready_to: 'Prête pour', ready_description: 'Consultation gratuite via WhatsApp / Zalo. Réponse en 15 minutes.', book_now: 'Réserver ♡' },
   ui_v2: {
     nav_book_aria: 'Ouvrir le formulaire de réservation', nav_theme_toggle: 'Basculer clair/sombre', nav_haptic_toggle: 'Activer/désactiver le retour haptique',
-    hero_consult_chip: 'Consultation gratuite 1-à-1',
     booking_badge_fastest: 'Le plus rapide', booking_time_tooltip: "💡 Cẩm Vân confirmera l'horaire exact via le chat.",
     ba_label: '✨ Avant & Après', ba_title: 'Un instant de', ba_title_accent: 'transformation', ba_description: 'Faites glisser pour révéler la différence — chaque détail soigneusement façonné.',
     ba_before: 'AVANT', ba_after: 'APRÈS', ba_drag_hint: 'Glisser pour comparer', ba_demo_note: '📷 Image démo — les résultats réels peuvent varier selon le type de peau.',
     fam_call: 'Appeler', fam_chat: 'Message', fam_maps: 'Carte',
     lb_close: 'Fermer', lb_prev: 'Image précédente', lb_next: 'Image suivante', lb_viewer: "Visionneuse d'images",
     toast_redirecting: "Ouverture de l'application…", toast_error: 'Une erreur est survenue. Réessayez.', toast_copied: 'Message de réservation copié — collez-le dans le chat ✨',
+    step_label: 'Étape',
   },
 };
 
@@ -395,13 +395,13 @@ const ES: Dict = {
   service_detail: { back_to_all: '← Todos los servicios', book_via_wa: '📱 Reservar por WhatsApp', why_choose: 'Por qué elegir', process_title: 'Cómo', process_accent: 'funciona', aftercare_title: '📋 Guía post-tratamiento', faq_title: '❓ Preguntas frecuentes', ready_to: '¿Lista para', ready_description: 'Consulta gratis vía WhatsApp / Zalo. Respuesta en 15 minutos.', book_now: 'Reservar ♡' },
   ui_v2: {
     nav_book_aria: 'Abrir formulario de reserva', nav_theme_toggle: 'Cambiar claro/oscuro', nav_haptic_toggle: 'Activar/desactivar vibración',
-    hero_consult_chip: 'Consulta gratis 1-a-1',
     booking_badge_fastest: 'Más rápido', booking_time_tooltip: '💡 Cẩm Vân confirmará la hora exacta por chat.',
     ba_label: '✨ Antes y Después', ba_title: 'Un momento de', ba_title_accent: 'transformación', ba_description: 'Arrastra para revelar la diferencia — cada detalle cuidado con esmero.',
     ba_before: 'ANTES', ba_after: 'DESPUÉS', ba_drag_hint: 'Arrastra para comparar', ba_demo_note: '📷 Imagen demo — los resultados reales pueden variar según el tipo de piel.',
     fam_call: 'Llamar', fam_chat: 'Mensaje', fam_maps: 'Mapa',
     lb_close: 'Cerrar', lb_prev: 'Imagen anterior', lb_next: 'Imagen siguiente', lb_viewer: 'Visor de imágenes',
     toast_redirecting: 'Abriendo aplicación…', toast_error: 'Algo salió mal. Inténtalo de nuevo.', toast_copied: 'Mensaje de reserva copiado — pégalo en el chat ✨',
+    step_label: 'Paso',
   },
 };
 

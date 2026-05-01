@@ -625,7 +625,7 @@ export const SERVICE_DETAILS: ServiceDetail[] = [
   {
     slug: 'cham-soc-da',
     icon: '❁',
-    image: '/cami-van.jpg',
+    image: '/before-after/cham-soc-da-before.webp',
     price: '700.000đ+',
     name: { VI: 'Chăm sóc da', EN: 'Skin Care', RU: 'Уход за кожей', ZH: '皮肤护理', JA: 'スキンケア', KO: '피부 관리', FR: 'Soin de la peau', ES: 'Cuidado de la piel' },
     italic: { VI: 'Facial', EN: 'Facial', RU: 'Facial', ZH: 'Facial', JA: 'Facial', KO: 'Facial', FR: 'Facial', ES: 'Facial' },

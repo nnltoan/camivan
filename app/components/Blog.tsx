@@ -2,6 +2,7 @@
 
 import Image from 'next/image';
 import Link from 'next/link';
+import { motion, useReducedMotion } from 'framer-motion';
 import ScrollReveal from './ScrollReveal';
 import { useLang } from './LangProvider';
 import { POSTS, pickLang } from '../lib/blogPosts';
@@ -9,14 +10,21 @@ import { WARM_BLUR } from '../lib/blurDataUrl';
 
 export default function Blog() {
   const { t, lang } = useLang();
+  const reduce = useReducedMotion();
 
   return (
     <section id="blog" className="px-5 py-20 lg:px-20 lg:py-28">
       <ScrollReveal>
         <div className="text-center max-w-2xl mx-auto mb-16">
-          <span className="liquid-surface inline-block px-5 py-2 rounded-full text-sm font-medium mb-4 text-brand-deep">
+          <motion.span
+            initial={reduce ? { opacity: 0 } : { opacity: 0, scale: 0.85 }}
+            whileInView={reduce ? { opacity: 1 } : { opacity: 1, scale: 1 }}
+            viewport={{ once: true, amount: 0.5 }}
+            transition={{ duration: 0.55, ease: [0.34, 1.56, 0.64, 1] }}
+            className="liquid-surface inline-block px-5 py-2 rounded-full text-sm font-medium mb-4 text-brand-deep"
+          >
             <span className="relative z-[3]">{t.blog.label}</span>
-          </span>
+          </motion.span>
           <h2 className="text-[clamp(32px,5vw,56px)] mb-4">
             {t.blog.title} <span className="italic-accent">{t.blog.title_accent}</span>
           </h2>

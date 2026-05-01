@@ -23,6 +23,8 @@ interface Props {
   aspectRatio?: string;
   /** ARIA label for the slider thumb. */
   ariaLabel?: string;
+  /** When true, mark images as priority + fetchPriority="high" for LCP. */
+  priority?: boolean;
 }
 
 export default function BeforeAfter({
@@ -34,6 +36,7 @@ export default function BeforeAfter({
   afterLabel = 'AFTER',
   aspectRatio = '4/5',
   ariaLabel = 'Before / After comparison',
+  priority = false,
 }: Props) {
   const [pos, setPos] = useState(50);
   const containerRef = useRef<HTMLDivElement>(null);
@@ -87,6 +90,8 @@ export default function BeforeAfter({
         className="object-cover pointer-events-none"
         placeholder="blur"
         blurDataURL={WARM_BLUR}
+        priority={priority}
+        fetchPriority={priority ? 'high' : 'auto'}
       />
 
       {/* BEFORE (clipped to the left of the handle) */}
@@ -103,6 +108,8 @@ export default function BeforeAfter({
           className="object-cover"
           placeholder="blur"
           blurDataURL={WARM_BLUR}
+          priority={priority}
+          fetchPriority={priority ? 'high' : 'auto'}
         />
       </div>
 

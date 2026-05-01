@@ -1,6 +1,7 @@
 'use client';
 
 import ScrollReveal from './ScrollReveal';
+import MagneticButton from './MagneticButton';
 import { useLang } from './LangProvider';
 
 export default function CTA() {
@@ -27,12 +28,14 @@ export default function CTA() {
               <p className="text-muted max-w-[480px] mx-auto mb-10 text-[16px]">
                 {t.cta.description}
               </p>
-              <a
-                href="#booking"
-                className="cta-glow inline-flex items-center gap-2 px-8 py-[18px] rounded-full text-[15px] font-medium text-cream whitespace-nowrap transition-all hover:-translate-y-0.5"
-              >
-                {t.cta.book_now}
-              </a>
+              <MagneticButton strength={0.25}>
+                <a
+                  href="#booking"
+                  className="cta-glow inline-flex items-center gap-2 px-8 py-[18px] rounded-full text-[15px] font-medium text-cream whitespace-nowrap transition-all hover:-translate-y-0.5"
+                >
+                  {t.cta.book_now}
+                </a>
+              </MagneticButton>
             </div>
           </div>
         </div>

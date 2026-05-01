@@ -4,11 +4,12 @@
  * BeforeAfterSection — full-width section that wraps BeforeAfter with service
  * tabs so visitors can browse 6 PMU service comparisons.
  *
- * Stock images live under /public/before-after/{slug}-before|after.jpg
- * (1200×1500 portrait or 1200×1200 square, JPEG q≤85, ≤350KB each).
+ * Stock images live under /public/before-after/{slug}-before|after.webp
+ * (1200×1500 portrait or 1200×1200 square, WebP q80, ~50–340KB each).
  */
 
 import { useState } from 'react';
+import { motion, useReducedMotion } from 'framer-motion';
 import BeforeAfter from './BeforeAfter';
 import ScrollReveal from './ScrollReveal';
 import { useLang } from './LangProvider';
@@ -24,16 +25,17 @@ interface PairConfig {
 }
 
 const PAIRS: PairConfig[] = [
-  { service: 'microblading', labelKey: 'microblading', before: '/before-after/microblading-before.jpg', after: '/before-after/microblading-after.jpg', ratio: '4/5' },
-  { service: 'lip-blush',    labelKey: 'lip',          before: '/before-after/lip-blush-before.jpg',    after: '/before-after/lip-blush-after.jpg',    ratio: '4/5' },
-  { service: 'eyeliner',     labelKey: 'eyeliner',     before: '/before-after/eyeliner-before.jpg',     after: '/before-after/eyeliner-after.jpg',     ratio: '4/5' },
-  { service: 'noi-mi',       labelKey: 'lash',         before: '/before-after/noi-mi-before.jpg',       after: '/before-after/noi-mi-after.jpg',       ratio: '4/5' },
-  { service: 'nail-art',     labelKey: 'nail',         before: '/before-after/nail-art-before.jpg',     after: '/before-after/nail-art-after.jpg',     ratio: '1/1' },
-  { service: 'cham-soc-da',  labelKey: 'skin',         before: '/before-after/cham-soc-da-before.jpg',  after: '/before-after/cham-soc-da-after.jpg',  ratio: '4/5' },
+  { service: 'microblading', labelKey: 'microblading', before: '/before-after/microblading-before.webp', after: '/before-after/microblading-after.webp', ratio: '4/5' },
+  { service: 'lip-blush',    labelKey: 'lip',          before: '/before-after/lip-blush-before.webp',    after: '/before-after/lip-blush-after.webp',    ratio: '4/5' },
+  { service: 'eyeliner',     labelKey: 'eyeliner',     before: '/before-after/eyeliner-before.webp',     after: '/before-after/eyeliner-after.webp',     ratio: '4/5' },
+  { service: 'noi-mi',       labelKey: 'lash',         before: '/before-after/noi-mi-before.webp',       after: '/before-after/noi-mi-after.webp',       ratio: '4/5' },
+  { service: 'nail-art',     labelKey: 'nail',         before: '/before-after/nail-art-before.webp',     after: '/before-after/nail-art-after.webp',     ratio: '1/1' },
+  { service: 'cham-soc-da',  labelKey: 'skin',         before: '/before-after/cham-soc-da-before.webp',  after: '/before-after/cham-soc-da-after.webp',  ratio: '4/5' },
 ];
 
 export default function BeforeAfterSection() {
   const { t } = useLang();
+  const reduce = useReducedMotion();
   const [activeIndex, setActiveIndex] = useState(0);
   const active = PAIRS[activeIndex];
   const activeLabel = t.brands[active.labelKey];
@@ -45,9 +47,15 @@ export default function BeforeAfterSection() {
     >
       <ScrollReveal>
         <div className="text-center max-w-2xl mx-auto mb-10">
-          <span className="inline-block bg-nude text-brand px-5 py-2 rounded-full text-[13px] font-medium mb-5">
-            {t.ui_v2.ba_label}
-          </span>
+          <motion.span
+            initial={reduce ? { opacity: 0 } : { opacity: 0, scale: 0.85 }}
+            whileInView={reduce ? { opacity: 1 } : { opacity: 1, scale: 1 }}
+            viewport={{ once: true, amount: 0.5 }}
+            transition={{ duration: 0.55, ease: [0.34, 1.56, 0.64, 1] }}
+            className="liquid-surface inline-block px-5 py-2 rounded-full text-[13px] font-medium mb-5 text-brand-deep"
+          >
+            <span className="relative z-[3]">{t.ui_v2.ba_label}</span>
+          </motion.span>
           <h2 className="text-[clamp(32px,5vw,56px)] mb-4">
             {t.ui_v2.ba_title} <span className="italic-accent">{t.ui_v2.ba_title_accent}</span>
           </h2>
@@ -103,6 +111,7 @@ export default function BeforeAfterSection() {
             afterLabel={t.ui_v2.ba_after}
             aspectRatio={active.ratio}
             ariaLabel={`${activeLabel} ${t.ui_v2.ba_drag_hint}`}
+            priority={activeIndex === 0}
           />
         </ScrollReveal>
 

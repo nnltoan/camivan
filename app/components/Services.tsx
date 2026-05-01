@@ -1,6 +1,7 @@
 'use client';
 
 import Link from 'next/link';
+import { motion, useReducedMotion } from 'framer-motion';
 import ScrollReveal from './ScrollReveal';
 import { useLang } from './LangProvider';
 
@@ -15,14 +16,21 @@ const SERVICE_KEYS = [
 
 export default function Services() {
   const { t } = useLang();
+  const reduce = useReducedMotion();
 
   return (
     <section id="services" className="px-5 py-20 sm:px-8 lg:px-20 lg:py-30">
       <ScrollReveal>
         <div className="text-center max-w-[700px] mx-auto mb-16">
-          <span className="liquid-surface inline-block px-5 py-2 rounded-full text-[13px] font-medium mb-5 text-brand-deep">
+          <motion.span
+            initial={reduce ? { opacity: 0 } : { opacity: 0, scale: 0.85 }}
+            whileInView={reduce ? { opacity: 1 } : { opacity: 1, scale: 1 }}
+            viewport={{ once: true, amount: 0.5 }}
+            transition={{ duration: 0.55, ease: [0.34, 1.56, 0.64, 1] }}
+            className="liquid-surface inline-block px-5 py-2 rounded-full text-[13px] font-medium mb-5 text-brand-deep"
+          >
             <span className="relative z-[3]">{t.services_section.label}</span>
-          </span>
+          </motion.span>
           <h2 className="text-[clamp(40px,5vw,68px)] mb-5">
             {t.services_section.title}<br />
             <span className="italic-accent">{t.services_section.title_accent}</span>

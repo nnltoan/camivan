@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Cami Van — Animation Storytelling Demos (Tier A/B/C)</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,400;0,500;1,300&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --nude:        #F5EBDC;
+    --rose:        #CD853F;
+    --rose-deep:   #A0522D;
+    --brown:       #8B4513;
+    --brown-deep:  #3E2723;
+    --cream:       #FDF5E6;
+    --text:        #2C1810;
+    --muted:       #6D4C41;
+    --glass-warm-strong: rgba(253, 245, 230, 0.62);
+    --glass-warm: rgba(253, 245, 230, 0.42);
+    --glass-edge-light: rgba(255, 255, 255, 0.55);
+    --glass-edge-bright: rgba(255, 255, 255, 0.85);
+  }
+  .dark {
+    --nude: #2A1F18;  --cream: #1A1410;  --text: #FAF1DD;  --muted: #D6C0A2;
+    --brown: #E5A974; --brown-deep: #FAEED8;  --rose: #E5A974;
+    --glass-warm-strong: rgba(60, 44, 32, 0.78);
+    --glass-warm: rgba(50, 36, 26, 0.65);
+    --glass-edge-light: rgba(255, 230, 200, 0.18);
+    --glass-edge-bright: rgba(255, 230, 200, 0.32);
+  }
+  * { box-sizing: border-box; }
+  body {
+    font-family: 'Inter', sans-serif;
+    background: linear-gradient(180deg, var(--cream), var(--nude));
+    color: var(--text);
+    margin: 0; padding: 40px 20px;
+    line-height: 1.6;
+    transition: background 0.4s, color 0.4s;
+  }
+  body::before {
+    content: ""; position: fixed; inset: 0; z-index: -1; pointer-events: none;
+    background:
+      radial-gradient(60% 50% at 15% 10%, rgba(205, 133, 63, 0.18), transparent 60%),
+      radial-gradient(60% 50% at 85% 25%, rgba(160, 82, 45, 0.15), transparent 60%);
+  }
+  .dark body::before {
+    background:
+      radial-gradient(60% 50% at 15% 10%, rgba(210, 150, 90, 0.18), transparent 60%),
+      radial-gradient(60% 50% at 85% 25%, rgba(160, 82, 45, 0.15), transparent 60%);
+  }
+  h1 { font-family: 'Fraunces', serif; font-weight: 400; font-size: 44px; line-height: 1.1; margin: 0 0 8px; color: var(--brown-deep); }
+  h2 { font-family: 'Fraunces', serif; font-weight: 400; font-size: 28px; margin: 0 0 12px; color: var(--brown-deep); }
+  h3 { font-family: 'Fraunces', serif; font-weight: 500; font-size: 20px; margin: 0 0 8px; color: var(--brown-deep); }
+  .italic { font-family: 'Fraunces', serif; font-style: italic; font-weight: 300; color: var(--brown); }
+  .container { max-width: 1100px; margin: 0 auto; }
+  .header { text-align: center; margin-bottom: 60px; }
+  .header p { color: var(--muted); max-width: 600px; margin: 8px auto; }
+  .theme-toggle {
+    position: fixed; top: 20px; right: 20px;
+    width: 44px; height: 44px; border-radius: 50%;
+    background: var(--glass-warm-strong); backdrop-filter: blur(20px);
+    border: 1px solid var(--glass-edge-light);
+    cursor: pointer; font-size: 20px;
+    display: grid; place-items: center;
+    z-index: 100;
+  }
+  .tier {
+    margin-bottom: 70px;
+    padding: 30px; border-radius: 24px;
+    background: var(--glass-warm-strong);
+    backdrop-filter: blur(24px) saturate(180%);
+    border: 1px solid var(--glass-edge-light);
+    box-shadow: 0 24px 60px -25px rgba(139, 69, 19, 0.2);
+  }
+  .tier-header { display: flex; align-items: center; gap: 14px; margin-bottom: 24px; padding-bottom: 16px; border-bottom: 1px solid var(--glass-edge-light); }
+  .tier-badge { padding: 6px 14px; border-radius: 99px; font-size: 12px; font-weight: 500; letter-spacing: 0.5px; text-transform: uppercase; }
+  .tier-badge.do { background: #10b981; color: white; }
+  .tier-badge.consider { background: #f59e0b; color: white; }
+  .tier-badge.skip { background: #ef4444; color: white; }
+  .demos-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 20px; }
+  .demo-card {
+    background: var(--cream);
+    border: 1px solid var(--glass-edge-light);
+    border-radius: 16px;
+    padding: 20px;
+    overflow: hidden;
+  }
+  .demo-card .label { font-size: 11px; letter-spacing: 0.6px; text-transform: uppercase; color: var(--muted); margin-bottom: 4px; }
+  .demo-card h3 { margin-bottom: 10px; }
+  .demo-card .desc { font-size: 13px; color: var(--muted); margin: 0 0 16px; }
+  .demo-card .verdict { font-size: 12px; padding: 4px 10px; border-radius: 99px; display: inline-block; margin-top: 12px; font-weight: 500; }
+  .verdict.recommend { background: rgba(16, 185, 129, 0.15); color: #10b981; }
+  .verdict.consider { background: rgba(245, 158, 11, 0.15); color: #b45309; }
+  .verdict.skip { background: rgba(239, 68, 68, 0.15); color: #b91c1c; }
+  .demo-area { background: linear-gradient(180deg, var(--nude), var(--cream)); border-radius: 12px; padding: 16px; margin: 12px 0; min-height: 100px; position: relative; overflow: hidden; }
+
+  .play-btn {
+    background: var(--brown); color: var(--cream);
+    border: none; padding: 6px 14px; border-radius: 99px;
+    font-family: 'Inter'; font-size: 12px; cursor: pointer;
+    transition: all 0.2s;
+  }
+  .play-btn:hover { background: var(--brown-deep); transform: translateY(-1px); }
+
+  .stagger-list { list-style: none; padding: 0; margin: 0; }
+  .stagger-list li {
+    padding: 8px 12px; margin: 4px 0;
+    background: var(--glass-warm); border-radius: 8px;
+    border-left: 3px solid var(--rose);
+    opacity: 0; transform: translateY(10px);
+    transition: all 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  .stagger-list.visible li { opacity: 1; transform: translateY(0); }
+  .stagger-list.visible li:nth-child(1) { transition-delay: 0ms; }
+  .stagger-list.visible li:nth-child(2) { transition-delay: 80ms; }
+  .stagger-list.visible li:nth-child(3) { transition-delay: 160ms; }
+  .stagger-list.visible li:nth-child(4) { transition-delay: 240ms; }
+
+  .hero-text-wrap { text-align: center; padding: 12px; }
+  .hero-line { display: block; opacity: 0; transform: translateY(20px); transition: all 0.7s cubic-bezier(0.22, 1, 0.36, 1); }
+  .hero-text-wrap.visible .hero-line:nth-child(1) { opacity: 1; transform: translateY(0); transition-delay: 0ms; }
+  .hero-text-wrap.visible .hero-line:nth-child(2) { opacity: 1; transform: translateY(0); transition-delay: 150ms; }
+  .hero-text-wrap.visible .hero-line:nth-child(3) { opacity: 1; transform: translateY(0); transition-delay: 300ms; }
+
+  .reveal-mask { position: relative; width: 100%; aspect-ratio: 4/3; border-radius: 12px; overflow: hidden; }
+  .reveal-mask img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .reveal-mask .scrim {
+    position: absolute; inset: 0;
+    background: linear-gradient(135deg, var(--glass-warm-strong) 0%, var(--glass-warm) 100%);
+    backdrop-filter: blur(20px);
+    transform: translateX(0);
+    transition: transform 1s cubic-bezier(0.7, 0, 0.3, 1);
+  }
+  .reveal-mask.visible .scrim { transform: translateX(101%); }
+
+  .parallax-img { width: 100%; aspect-ratio: 4/3; border-radius: 12px; overflow: hidden; }
+  .parallax-img img { width: 100%; height: 110%; object-fit: cover; transition: transform 0.1s linear; }
+
+  .badge-scale {
+    display: inline-block; padding: 6px 14px;
+    background: var(--rose); color: white;
+    border-radius: 99px; font-size: 13px;
+    transform: scale(0); opacity: 0;
+    transition: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+  }
+  .badge-scale.visible { transform: scale(1); opacity: 1; }
+
+  .sticky-story { height: 200px; overflow-y: auto; border-radius: 12px; background: var(--nude); padding: 12px; }
+  .sticky-step { padding: 30px 12px; border-bottom: 1px dashed var(--rose); }
+  .sticky-step.active { background: var(--rose); color: white; }
+
+  .spotlight-area { width: 100%; height: 150px; border-radius: 12px; background: var(--brown-deep); position: relative; overflow: hidden; cursor: crosshair; color: var(--cream); display: grid; place-items: center; }
+  .spotlight-area::before { content: ""; position: absolute; inset: 0; background: radial-gradient(circle 100px at var(--mx, 50%) var(--my, 50%), rgba(205, 133, 63, 0.5), transparent 80%); pointer-events: none; }
+
+  .magnetic-btn { padding: 12px 28px; background: var(--brown); color: var(--cream); border: none; border-radius: 99px; font-size: 14px; cursor: pointer; transition: transform 0.15s ease-out; }
+
+  .perletter-text { font-family: 'Fraunces', serif; font-size: 18px; }
+  .perletter-text span { display: inline-block; opacity: 0; transform: translateY(10px); transition: all 0.4s; }
+  .perletter-text.visible span { opacity: 1; transform: translateY(0); }
+
+  .heavy-parallax-bg { width: 100%; height: 200px; border-radius: 12px; background: url('https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?w=600') center/200% no-repeat; transition: background-position 0.05s; }
+
+  .custom-cursor-area { width: 100%; height: 120px; border-radius: 12px; background: var(--nude); cursor: none; position: relative; display: grid; place-items: center; color: var(--muted); font-size: 13px; }
+  .custom-cursor-dot { position: absolute; width: 24px; height: 24px; border: 2px solid var(--brown); border-radius: 50%; pointer-events: none; transition: transform 0.2s ease-out; transform: translate(-50%, -50%); }
+
+  .footer-summary { margin-top: 60px; padding: 24px; border-radius: 16px; background: var(--rose-deep); color: var(--cream); text-align: center; }
+  .footer-summary h2 { color: var(--cream); }
+  .footer-summary code { background: rgba(0,0,0,0.2); padding: 2px 8px; border-radius: 4px; font-family: 'Inter'; }
+</style>
+</head>
+<body>
+
+<button class="theme-toggle" onclick="document.documentElement.classList.toggle('dark')">☾</button>
+
+<div class="container">
+  <div class="header">
+    <h1>Storytelling Animation <span class="italic">Demos</span></h1>
+    <p>Live preview của Tier A / B / C để anh dễ quyết định. Click "Play" để xem từng animation chạy. Toggle ☾ để xem dark mode.</p>
+  </div>
+
+  <!-- ═══════════════ TIER A ═══════════════ -->
+  <div class="tier">
+    <div class="tier-header">
+      <span class="tier-badge do">Tier A — Recommended</span>
+      <span style="color: var(--muted); font-size: 13px;">High impact, low cost · ~5h</span>
+    </div>
+
+    <div class="demos-grid">
+
+      <!-- A.1 Stagger Children -->
+      <div class="demo-card">
+        <div class="label">A.1 — 1h</div>
+        <h3>Stagger children</h3>
+        <p class="desc">Lists xuất hiện từng item với delay 80ms. Áp dụng cho FAQ, Services, Reviews, Footer columns.</p>
+        <div class="demo-area">
+          <ul class="stagger-list" id="staggerList">
+            <li>✿ Microblading chân mày</li>
+            <li>♡ Lip Blush môi</li>
+            <li>★ PMU Eyeliner</li>
+            <li>✦ Nối mi thẩm mỹ</li>
+          </ul>
+        </div>
+        <button class="play-btn" onclick="play('staggerList')">Play ▶</button>
+        <span class="verdict recommend">✓ Strong recommend</span>
+      </div>
+
+      <!-- A.2 Hero Per-line Reveal -->
+      <div class="demo-card">
+        <div class="label">A.2 — 30m</div>
+        <h3>Hero text per-line reveal</h3>
+        <p class="desc">3 dòng title fade-in slide-up với delay 150ms. Cảm giác cinematic mở phim.</p>
+        <div class="demo-area">
+          <div class="hero-text-wrap" id="heroText">
+            <div class="hero-line" style="font-family: 'Fraunces'; font-size: 24px;">Mỗi khuôn mặt là</div>
+            <div class="hero-line italic" style="font-family: 'Fraunces'; font-size: 24px;">một bông hoa</div>
+            <div class="hero-line" style="font-family: 'Fraunces'; font-size: 24px;">riêng biệt.</div>
+          </div>
+        </div>
+        <button class="play-btn" onclick="play('heroText')">Play ▶</button>
+        <span class="verdict recommend">✓ Strong recommend</span>
+      </div>
+
+      <!-- A.3 Reveal Masking -->
+      <div class="demo-card">
+        <div class="label">A.3 — 1.5h</div>
+        <h3>Reveal Masking (frosted scrim)</h3>
+        <p class="desc">Lớp glass mờ trượt qua trước khi lộ ảnh. Match Liquid Glass DNA hoàn hảo.</p>
+        <div class="demo-area">
+          <div class="reveal-mask" id="revealMask">
+            <img src="https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?w=600" alt="Demo">
+            <div class="scrim"></div>
+          </div>
+        </div>
+        <button class="play-btn" onclick="play('revealMask')">Play ▶</button>
+        <span class="verdict recommend">✓ Strong recommend (signature)</span>
+      </div>
+
+      <!-- A.4 Image Parallax -->
+      <div class="demo-card">
+        <div class="label">A.4 — 1.5h</div>
+        <h3>Image parallax (subtle)</h3>
+        <p class="desc">Ảnh translate ±20px khi scroll qua viewport. Scroll trong ô bên dưới để xem.</p>
+        <div class="demo-area" style="height: 200px; overflow-y: auto;" id="parallaxScroll">
+          <div style="height: 100px;"></div>
+          <div class="parallax-img"><img src="https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?w=600" id="parallaxImg" alt=""></div>
+          <div style="height: 200px;"></div>
+        </div>
+        <span class="verdict recommend">✓ Recommend (perf cost low)</span>
+      </div>
+
+      <!-- A.5 Section Badge Scale -->
+      <div class="demo-card">
+        <div class="label">A.5 — 30m</div>
+        <h3>Section badge scale-in</h3>
+        <p class="desc">Badges như "♡ Portfolio" tăng scale 0.8 → 1 với spring easing khi vào viewport.</p>
+        <div class="demo-area" style="text-align: center; padding-top: 30px;">
+          <span class="badge-scale" id="badgeScale">♡ Portfolio</span>
+        </div>
+        <button class="play-btn" onclick="play('badgeScale')">Play ▶</button>
+        <span class="verdict recommend">✓ Recommend (cheap polish)</span>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ═══════════════ TIER B ═══════════════ -->
+  <div class="tier">
+    <div class="tier-header">
+      <span class="tier-badge consider">Tier B — Consider</span>
+      <span style="color: var(--muted); font-size: 13px;">Medium value, medium cost</span>
+    </div>
+
+    <div class="demos-grid">
+
+      <!-- B.1 Sticky Scroll Story -->
+      <div class="demo-card">
+        <div class="label">B.1 — 3h</div>
+        <h3>Sticky-scroll storytelling</h3>
+        <p class="desc">Scroll trong ô để xem step active highlight (mô phỏng).</p>
+        <div class="demo-area" style="padding: 0;">
+          <div class="sticky-story" id="stickyStory">
+            <div class="sticky-step active">Bước 1 — Tư vấn 1-on-1</div>
+            <div class="sticky-step">Bước 2 — Vẽ thử dáng mày</div>
+            <div class="sticky-step">Bước 3 — Ủ tê 30 phút</div>
+            <div class="sticky-step">Bước 4 — Phun từng sợi</div>
+            <div class="sticky-step">Bước 5 — Bảo hành 2 năm</div>
+          </div>
+        </div>
+        <span class="verdict consider">⚠ Consider (high dev cost)</span>
+      </div>
+
+      <!-- B.2 Cursor Spotlight -->
+      <div class="demo-card">
+        <div class="label">B.2 — 2h</div>
+        <h3>Cursor spotlight (desktop)</h3>
+        <p class="desc">Di chuột vào ô bên dưới để thấy gradient theo cursor. Mobile không hoạt động.</p>
+        <div class="demo-area" style="padding: 0;">
+          <div class="spotlight-area" id="spotlight">Hover để xem</div>
+        </div>
+        <span class="verdict consider">⚠ Consider (desktop only)</span>
+      </div>
+
+      <!-- B.3 Page Transition -->
+      <div class="demo-card">
+        <div class="label">B.3 — 4h</div>
+        <h3>Page transition fade overlay</h3>
+        <p class="desc">Fade trắng mượt khi navigate giữa /, /services, /blog. Phức tạp với SSR.</p>
+        <div class="demo-area" style="display: grid; place-items: center;">
+          <span style="color: var(--muted); font-size: 13px;">→ chỉ test được trên dev environment</span>
+        </div>
+        <span class="verdict consider">⚠ Consider (SSR complexity)</span>
+      </div>
+
+      <!-- B.4 Magnetic Button -->
+      <div class="demo-card">
+        <div class="label">B.4 — 1.5h</div>
+        <h3>Magnetic CTA button</h3>
+        <p class="desc">Hover vào button bên dưới — nó sẽ hơi "hút" theo cursor.</p>
+        <div class="demo-area" style="display: grid; place-items: center;">
+          <button class="magnetic-btn" id="magneticBtn">Đặt lịch tư vấn ✨</button>
+        </div>
+        <span class="verdict consider">⚠ Consider (deceiving on touch)</span>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ═══════════════ TIER C ═══════════════ -->
+  <div class="tier">
+    <div class="tier-header">
+      <span class="tier-badge skip">Tier C — Skip</span>
+      <span style="color: var(--muted); font-size: 13px;">Negative ROI</span>
+    </div>
+
+    <div class="demos-grid">
+
+      <!-- C.1 Per-letter Reveal -->
+      <div class="demo-card">
+        <div class="label">C.1 — Skip</div>
+        <h3>Per-LETTER text reveal</h3>
+        <p class="desc">Mỗi chữ cái xuất hiện riêng → slow read + a11y broken (tiếng Việt có dấu rendering lỗi).</p>
+        <div class="demo-area" style="text-align: center;">
+          <div class="perletter-text" id="perLetter"></div>
+        </div>
+        <button class="play-btn" onclick="play('perLetter')">Play ▶</button>
+        <span class="verdict skip">✗ Skip (slow + a11y issue)</span>
+      </div>
+
+      <!-- C.2 Heavy Parallax -->
+      <div class="demo-card">
+        <div class="label">C.2 — Skip</div>
+        <h3>Heavy parallax background</h3>
+        <p class="desc">Scroll xem ảnh nền move chậm. Trên mobile low-end → lag, drain pin.</p>
+        <div class="demo-area" style="padding: 0; height: 200px; overflow-y: auto;" id="heavyScroll">
+          <div style="height: 50px;"></div>
+          <div class="heavy-parallax-bg" id="heavyBg"></div>
+          <div style="height: 300px;"></div>
+        </div>
+        <span class="verdict skip">✗ Skip (mobile perf)</span>
+      </div>
+
+      <!-- C.3 Custom Cursor -->
+      <div class="demo-card">
+        <div class="label">C.3 — Skip</div>
+        <h3>Custom cursor</h3>
+        <p class="desc">Native cursor bị ẩn, vòng tròn theo dõi. Mobile useless + a11y risk + lag risk.</p>
+        <div class="demo-area" style="padding: 0;">
+          <div class="custom-cursor-area" id="cursorArea">
+            Di chuột vào đây
+            <div class="custom-cursor-dot" id="cursorDot"></div>
+          </div>
+        </div>
+        <span class="verdict skip">✗ Skip (a11y + mobile)</span>
+      </div>
+
+      <!-- C.4 Animated emojis everywhere -->
+      <div class="demo-card">
+        <div class="label">C.4 — Skip</div>
+        <h3>Loạn animation everywhere</h3>
+        <p class="desc">Mọi element đều bay nhảy → user choáng, không biết focus đâu, "early-2010s flash vibe".</p>
+        <div class="demo-area" style="display: grid; place-items: center; gap: 8px;">
+          <span style="animation: spin 2s linear infinite; font-size: 24px;">✿</span>
+          <span style="animation: bounce 1s infinite; font-size: 24px;">★</span>
+          <span style="animation: shake 0.5s infinite; font-size: 24px;">♡</span>
+        </div>
+        <span class="verdict skip">✗ Skip (overdesign)</span>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ═══════════════ FOOTER ═══════════════ -->
+  <div class="footer-summary">
+    <h2>Khuyến nghị của tôi</h2>
+    <p>Implement <code>A.1</code> + <code>A.3</code> trong ~2.5h → impact cao nhất, match Liquid Glass DNA. Skip toàn bộ Tier B & C trừ khi anh có budget riêng cho polish.</p>
+    <p style="margin-top: 12px; font-size: 14px; opacity: 0.85;">Sau khi anh quyết, reply "implement A.1+A.3" hoặc list cụ thể anh muốn để tôi code.</p>
+  </div>
+</div>
+
+<style>
+  @keyframes spin { to { transform: rotate(360deg); } }
+  @keyframes bounce { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
+  @keyframes shake { 0%,100% { transform: translateX(0); } 25% { transform: translateX(-5px); } 75% { transform: translateX(5px); } }
+</style>
+
+<script>
+function play(id) {
+  const el = document.getElementById(id);
+  el.classList.remove('visible');
+  void el.offsetWidth;
+  el.classList.add('visible');
+}
+
+window.addEventListener('load', () => {
+  ['staggerList','heroText','revealMask','badgeScale'].forEach(id => {
+    setTimeout(() => play(id), 300);
+  });
+
+  const txt = 'sang trọng — tinh tế';
+  const pl = document.getElementById('perLetter');
+  pl.innerHTML = txt.split('').map((c,i) => `<span style="transition-delay:${i*60}ms">${c==' '?'&nbsp;':c}</span>`).join('');
+  setTimeout(() => play('perLetter'), 800);
+
+  const ps = document.getElementById('parallaxScroll');
+  const pi = document.getElementById('parallaxImg');
+  ps.addEventListener('scroll', () => {
+    pi.style.transform = `translateY(${ps.scrollTop * -0.15}px)`;
+  });
+
+  const hs = document.getElementById('heavyScroll');
+  const hb = document.getElementById('heavyBg');
+  hs.addEventListener('scroll', () => {
+    hb.style.backgroundPosition = `center ${-hs.scrollTop * 0.5}px`;
+  });
+
+  const sp = document.getElementById('spotlight');
+  sp.addEventListener('mousemove', (e) => {
+    const r = sp.getBoundingClientRect();
+    sp.style.setProperty('--mx', (e.clientX - r.left) + 'px');
+    sp.style.setProperty('--my', (e.clientY - r.top) + 'px');
+  });
+
+  const mb = document.getElementById('magneticBtn');
+  const mw = mb.parentElement;
+  mw.addEventListener('mousemove', (e) => {
+    const r = mb.getBoundingClientRect();
+    const cx = r.left + r.width/2;
+    const cy = r.top + r.height/2;
+    const dx = (e.clientX - cx) * 0.3;
+    const dy = (e.clientY - cy) * 0.3;
+    mb.style.transform = `translate(${dx}px, ${dy}px)`;
+  });
+  mw.addEventListener('mouseleave', () => mb.style.transform = '');
+
+  const ca = document.getElementById('cursorArea');
+  const cd = document.getElementById('cursorDot');
+  ca.addEventListener('mousemove', (e) => {
+    const r = ca.getBoundingClientRect();
+    cd.style.left = (e.clientX - r.left) + 'px';
+    cd.style.top = (e.clientY - r.top) + 'px';
+  });
+
+  const ss = document.getElementById('stickyStory');
+  ss.addEventListener('scroll', () => {
+    const steps = ss.querySelectorAll('.sticky-step');
+    const idx = Math.min(steps.length - 1, Math.floor(ss.scrollTop / 60));
+    steps.forEach((s,i) => s.classList.toggle('active', i === idx));
+  });
+});
+</script>
+
+</body>
+</html>

@@ -1,12 +1,15 @@
 'use client';
 
 import Image from 'next/image';
+import { motion, useReducedMotion } from 'framer-motion';
 import ScrollReveal from './ScrollReveal';
+import RevealMask from './RevealMask';
 import { useLang } from './LangProvider';
 import { WARM_BLUR } from '../lib/blurDataUrl';
 
 export default function About() {
   const { t } = useLang();
+  const reduce = useReducedMotion();
 
   const FEATURES = [
     { icon: 'check', title: t.about.cert_title, desc: t.about.cert_desc },
@@ -20,7 +23,7 @@ export default function About() {
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center max-w-[1400px] mx-auto">
         <ScrollReveal>
           <div className="relative">
-            <div className="relative aspect-[4/5] rounded-[40px] overflow-hidden shadow-glass-lg">
+            <RevealMask direction="right" delay={0.2} duration={1.0} className="aspect-[4/5] rounded-[40px] shadow-glass-lg">
               <Image
                 src="/cami-van-photo.jpg"
                 alt="Cẩm Vân — Founder"
@@ -30,7 +33,7 @@ export default function About() {
                 placeholder="blur"
                 blurDataURL={WARM_BLUR}
               />
-            </div>
+            </RevealMask>
             <div
               className="absolute inset-5 -z-10 rounded-[40px] bg-gradient-to-br from-rose to-nude translate-x-5 translate-y-5"
               aria-hidden="true"
@@ -52,9 +55,15 @@ export default function About() {
         </ScrollReveal>
 
         <ScrollReveal delay={0.1}>
-          <span className="liquid-surface inline-block px-5 py-2 rounded-full text-[13px] font-medium mb-5 text-brand-deep">
+          <motion.span
+            initial={reduce ? { opacity: 0 } : { opacity: 0, scale: 0.85 }}
+            whileInView={reduce ? { opacity: 1 } : { opacity: 1, scale: 1 }}
+            viewport={{ once: true, amount: 0.5 }}
+            transition={{ duration: 0.55, ease: [0.34, 1.56, 0.64, 1] }}
+            className="liquid-surface inline-block px-5 py-2 rounded-full text-[13px] font-medium mb-5 text-brand-deep"
+          >
             <span className="relative z-[3]">{t.about.label}</span>
-          </span>
+          </motion.span>
           <h2 className="text-[clamp(40px,5vw,64px)] leading-tight mb-6">
             {t.about.title}<br />
             <span className="italic-accent">{t.about.title_accent}</span>

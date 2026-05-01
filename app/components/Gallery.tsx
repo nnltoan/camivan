@@ -18,13 +18,73 @@
  */
 
 import Image from 'next/image';
-import { useMemo, useState } from 'react';
-import { motion, AnimatePresence, useReducedMotion } from 'framer-motion';
+import { forwardRef, useMemo, useRef, useState } from 'react';
+import { motion, AnimatePresence, useReducedMotion, useScroll, useTransform } from 'framer-motion';
 import ScrollReveal from './ScrollReveal';
 import { useLang } from './LangProvider';
 import { WARM_BLUR } from '../lib/blurDataUrl';
 import Lightbox, { LightboxImage } from './Lightbox';
 import { haptic } from '../lib/haptic';
+
+/* GalleryTile — single tile with subtle Y-axis parallax tied to scroll
+ * position. Image translates ±15px as it passes through the viewport
+ * for a "floating" feel. Disabled by prefers-reduced-motion. */
+interface GalleryTileProps {
+  item: { src: string; category: string; width: number; height: number; caption?: string };
+  i: number; filter: string;
+  openLb: (i: number) => void;
+  lbViewerLabel: string;
+}
+
+const GalleryTile = forwardRef<HTMLButtonElement, GalleryTileProps>(function GalleryTile(
+  { item, i, filter, openLb, lbViewerLabel },
+  forwardedRef
+) {
+  const reduce = useReducedMotion();
+  const localRef = useRef<HTMLButtonElement | null>(null);
+  // Bridge the forwarded ref (used by Framer's AnimatePresence) and our local
+  // ref (used by useScroll). Both point to the same button element.
+  const setRefs = (el: HTMLButtonElement | null) => {
+    localRef.current = el;
+    if (typeof forwardedRef === 'function') forwardedRef(el);
+    else if (forwardedRef) (forwardedRef as React.MutableRefObject<HTMLButtonElement | null>).current = el;
+  };
+  const { scrollYProgress } = useScroll({ target: localRef, offset: ['start end', 'end start'] });
+  const y = useTransform(scrollYProgress, [0, 1], reduce ? [0, 0] : [-15, 15]);
+
+  return (
+    <motion.button
+      ref={setRefs}
+      type="button"
+      layout={!reduce}
+      initial={{ opacity: 0, scale: 0.92 }}
+      animate={{ opacity: 1, scale: 1 }}
+      exit={{ opacity: 0, scale: 0.92 }}
+      transition={{ duration: 0.3 }}
+      onClick={() => openLb(i)}
+      aria-label={`${lbViewerLabel} - ${item.caption ?? item.category}`}
+      className="group relative block w-full break-inside-avoid mb-3 lg:mb-5 rounded-[24px] overflow-hidden cursor-pointer shadow-glass-sm border border-white/30 dark:border-white/10 focus:outline-none focus:ring-2 focus:ring-brand focus:ring-offset-2 focus:ring-offset-transparent"
+    >
+      <motion.div style={{ y }} className="will-change-transform">
+        <Image
+          src={item.src}
+          alt={item.caption ?? ''}
+          width={item.width}
+          height={item.height}
+          sizes="(max-width:768px) 50vw, (max-width:1024px) 33vw, 25vw"
+          className="w-full h-auto block group-hover:scale-105 transition-transform duration-500"
+          placeholder="blur"
+          blurDataURL={WARM_BLUR}
+        />
+      </motion.div>
+      {item.caption && (
+        <span className="absolute left-3 bottom-3 text-[11px] tracking-wider uppercase font-semibold liquid-surface text-brand-deep px-2.5 py-1 rounded-full opacity-0 group-hover:opacity-100 transition-opacity">
+          <span className="relative z-[3]">{item.caption}</span>
+        </span>
+      )}
+    </motion.button>
+  );
+});
 
 interface GalleryItem {
   src: string;
@@ -75,9 +135,15 @@ export default function Gallery() {
     <section id="gallery" className="px-5 py-20 sm:px-8 lg:px-20 lg:py-30">
       <ScrollReveal>
         <div className="text-center max-w-[700px] mx-auto mb-12">
-          <span className="liquid-surface inline-block px-5 py-2 rounded-full text-[13px] font-medium mb-5 text-brand-deep">
+          <motion.span
+            initial={reduce ? { opacity: 0 } : { opacity: 0, scale: 0.85 }}
+            whileInView={reduce ? { opacity: 1 } : { opacity: 1, scale: 1 }}
+            viewport={{ once: true, amount: 0.5 }}
+            transition={{ duration: 0.55, ease: [0.34, 1.56, 0.64, 1] }}
+            className="liquid-surface inline-block px-5 py-2 rounded-full text-[13px] font-medium mb-5 text-brand-deep"
+          >
             <span className="relative z-[3]">{t.gallery.label}</span>
-          </span>
+          </motion.span>
           <h2 className="text-[clamp(40px,5vw,68px)] mb-5">
             {t.gallery.title} <span className="italic-accent">{t.gallery.title_accent}</span>
           </h2>
@@ -107,37 +173,17 @@ export default function Gallery() {
 
       {/* Masonry — CSS columns preserve natural image aspects. break-inside-avoid
           keeps each tile in one column. Click → Lightbox. */}
-      <div className="columns-2 md:columns-3 lg:columns-4 gap-3 lg:gap-5 max-w-[1400px] mx-auto">
+      <div className="relative columns-2 md:columns-3 lg:columns-4 gap-3 lg:gap-5 max-w-[1400px] mx-auto">
         <AnimatePresence mode="popLayout">
           {filtered.map((item, i) => (
-            <motion.button
-              type="button"
+            <GalleryTile
               key={`${item.src}-${i}-${filter}`}
-              layout={!reduce}
-              initial={{ opacity: 0, scale: 0.92 }}
-              animate={{ opacity: 1, scale: 1 }}
-              exit={{ opacity: 0, scale: 0.92 }}
-              transition={{ duration: 0.3 }}
-              onClick={() => openLb(i)}
-              aria-label={`${t.ui_v2.lb_viewer} - ${item.caption ?? item.category}`}
-              className="group relative block w-full break-inside-avoid mb-3 lg:mb-5 rounded-[24px] overflow-hidden cursor-pointer shadow-glass-sm border border-white/30 dark:border-white/10 focus:outline-none focus:ring-2 focus:ring-brand focus:ring-offset-2 focus:ring-offset-transparent"
-            >
-              <Image
-                src={item.src}
-                alt={item.caption ?? ''}
-                width={item.width}
-                height={item.height}
-                sizes="(max-width:768px) 50vw, (max-width:1024px) 33vw, 25vw"
-                className="w-full h-auto block group-hover:scale-105 transition-transform duration-500"
-                placeholder="blur"
-                blurDataURL={WARM_BLUR}
-              />
-              {item.caption && (
-                <span className="absolute left-3 bottom-3 text-[11px] tracking-wider uppercase font-semibold liquid-surface text-brand-deep px-2.5 py-1 rounded-full opacity-0 group-hover:opacity-100 transition-opacity">
-                  <span className="relative z-[3]">{item.caption}</span>
-                </span>
-              )}
-            </motion.button>
+              item={item}
+              i={i}
+              filter={filter}
+              openLb={openLb}
+              lbViewerLabel={t.ui_v2.lb_viewer}
+            />
           ))}
         </AnimatePresence>
       </div>
