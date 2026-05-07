@@ -1,7 +1,9 @@
 'use client';
 
 import Link from 'next/link';
+import { motion, useReducedMotion } from 'framer-motion';
 import ScrollReveal from './ScrollReveal';
+import ServiceIcon from './ServiceIcon';
 import { useLang } from './LangProvider';
 
 const SERVICE_KEYS = [
@@ -15,14 +17,21 @@ const SERVICE_KEYS = [
 
 export default function Services() {
   const { t } = useLang();
+  const reduce = useReducedMotion();
 
   return (
     <section id="services" className="px-5 py-20 sm:px-8 lg:px-20 lg:py-30">
       <ScrollReveal>
         <div className="text-center max-w-[700px] mx-auto mb-16">
-          <span className="liquid-surface inline-block px-5 py-2 rounded-full text-[13px] font-medium mb-5 text-brand-deep">
+          <motion.span
+            initial={reduce ? { opacity: 0 } : { opacity: 0, scale: 0.85 }}
+            whileInView={reduce ? { opacity: 1 } : { opacity: 1, scale: 1 }}
+            viewport={{ once: true, amount: 0.5 }}
+            transition={{ duration: 0.55, ease: [0.34, 1.56, 0.64, 1] }}
+            className="liquid-surface inline-block px-5 py-2 rounded-full text-[13px] font-medium mb-5 text-brand-deep"
+          >
             <span className="relative z-[3]">{t.services_section.label}</span>
-          </span>
+          </motion.span>
           <h2 className="text-[clamp(40px,5vw,68px)] mb-5">
             {t.services_section.title}<br />
             <span className="italic-accent">{t.services_section.title_accent}</span>
@@ -41,8 +50,8 @@ export default function Services() {
                 className="liquid-surface block group rounded-[30px] p-10 hover:-translate-y-2 transition-all h-full"
               >
                 <div className="relative z-[3] flex flex-col h-full">
-                  <div className="w-16 h-16 rounded-3xl bg-gradient-to-br from-rose to-rose-deep grid place-items-center text-3xl text-cream mb-6 glow-icon">
-                    {s.icon}
+                  <div className="w-16 h-16 rounded-3xl bg-gradient-to-br from-rose to-rose-deep grid place-items-center text-cream mb-6 glow-icon">
+                    <ServiceIcon slug={s.slug} className="w-7 h-7" />
                   </div>
                   <h3 className="font-fraunces text-2xl mb-2 text-brand-deep">{data.name}</h3>
                   <p className="text-muted italic text-sm mb-3">{data.subtitle}</p>

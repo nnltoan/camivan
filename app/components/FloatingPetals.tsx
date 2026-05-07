@@ -3,10 +3,14 @@
 /* FloatingPetals — Motion B
  * 16 SVG petals that drift up across the hero. GPU-only transforms.
  * Auto-disabled on prefers-reduced-motion.
+ *
+ * Hydration-safe: petals are generated AFTER mount in useEffect so the SSR
+ * tree (empty) matches the initial client tree (empty), then we populate
+ * them once on the client. Math.random() never runs during render.
  */
 
 import { motion, useReducedMotion } from 'framer-motion';
-import { useMemo } from 'react';
+import { useEffect, useState } from 'react';
 
 const PETAL_COLORS = ['#CD853F', '#F5EBDC', '#A0522D', '#D2691E'];
 
@@ -22,26 +26,47 @@ function PetalSvg({ color = '#CD853F' }: PetalProps) {
   );
 }
 
+interface Petal {
+  id: number;
+  startX: number;
+  duration: number;
+  delay: number;
+  size: number;
+  color: string;
+  rotation: number;
+  driftA: number;
+  driftB: number;
+  spinDir: 1 | -1;
+}
+
 interface Props {
   count?: number;
 }
 
+function generatePetals(count: number): Petal[] {
+  return Array.from({ length: count }).map((_, i) => ({
+    id: i,
+    startX: Math.random() * 100,
+    duration: 14 + Math.random() * 11,
+    delay: Math.random() * 10,
+    size: 16 + Math.random() * 16,
+    color: PETAL_COLORS[i % PETAL_COLORS.length],
+    rotation: Math.random() * 360,
+    driftA: (Math.random() - 0.5) * 200,
+    driftB: (Math.random() - 0.5) * 100,
+    spinDir: Math.random() > 0.5 ? 1 : -1,
+  }));
+}
+
 export default function FloatingPetals({ count = 16 }: Props) {
   const reduce = useReducedMotion();
+  const [petals, setPetals] = useState<Petal[]>([]);
 
-  const petals = useMemo(() => {
-    return Array.from({ length: count }).map((_, i) => ({
-      id: i,
-      startX: Math.random() * 100,
-      duration: 14 + Math.random() * 11,
-      delay: Math.random() * 10,
-      size: 16 + Math.random() * 16,
-      color: PETAL_COLORS[i % PETAL_COLORS.length],
-      rotation: Math.random() * 360,
-      driftA: (Math.random() - 0.5) * 200,
-      driftB: (Math.random() - 0.5) * 100,
-      spinDir: Math.random() > 0.5 ? 1 : -1,
-    }));
+  // Generate petal positions only on the client, after hydration.
+  // SSR renders the empty container; the effect below populates it
+  // post-mount so server/client trees never disagree.
+  useEffect(() => {
+    setPetals(generatePetals(count));
   }, [count]);
 
   if (reduce) return null;

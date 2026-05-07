@@ -10,6 +10,10 @@ import ScrollReveal from '../../components/ScrollReveal';
 import { useLang } from '../../components/LangProvider';
 import { SERVICE_DETAILS, getServiceBySlug, pickServiceLang, SLUG_TO_BOOKING_KEY } from '../../lib/servicesContent';
 import BookingModal from '../../components/BookingModal';
+import ServiceIcon from '../../components/ServiceIcon';
+import StickyStorySection from '../../components/StickyStorySection';
+import MagneticButton from '../../components/MagneticButton';
+import { WARM_BLUR } from '../../lib/blurDataUrl';
 
 interface Props {
   slug: string;
@@ -49,8 +53,8 @@ export default function ServiceDetailClient({ slug }: Props) {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-start">
             <div>
               <ScrollReveal>
-                <div className="w-16 h-16 rounded-3xl bg-gradient-to-br from-rose to-rose-deep grid place-items-center text-3xl text-cream mb-6 glow-icon">
-                  {service!.icon}
+                <div className="w-16 h-16 rounded-3xl bg-gradient-to-br from-rose to-rose-deep grid place-items-center text-cream mb-6 glow-icon">
+                  <ServiceIcon slug={slug} className="w-7 h-7" />
                 </div>
               </ScrollReveal>
               <ScrollReveal delay={0.1}>
@@ -68,13 +72,15 @@ export default function ServiceDetailClient({ slug }: Props) {
                   <span className="text-muted">⏱ {duration}</span>
                 </div>
                 <p className="text-lg text-muted leading-relaxed mb-8">{description}</p>
-                <button
-                  type="button"
-                  onClick={() => setModalOpen(true)}
-                  className="cta-glow inline-flex items-center gap-2 px-8 py-4 rounded-full font-medium text-cream whitespace-nowrap cursor-pointer transition-all hover:-translate-y-0.5"
-                >
-                  {t.nav.book}
-                </button>
+                <MagneticButton strength={0.25}>
+                  <button
+                    type="button"
+                    onClick={() => setModalOpen(true)}
+                    className="cta-glow inline-flex items-center gap-2 px-8 py-[18px] rounded-full text-[15px] font-medium text-cream whitespace-nowrap cursor-pointer transition-all hover:-translate-y-0.5"
+                  >
+                    {t.nav.book}
+                  </button>
+                </MagneticButton>
               </ScrollReveal>
             </div>
             <ScrollReveal delay={0.2}>
@@ -85,6 +91,8 @@ export default function ServiceDetailClient({ slug }: Props) {
                   fill
                   sizes="(max-width:1024px) 100vw, 50vw"
                   className="object-cover"
+                  placeholder="blur"
+                  blurDataURL={WARM_BLUR}
                   priority
                 />
               </div>
@@ -118,23 +126,11 @@ export default function ServiceDetailClient({ slug }: Props) {
               {t.service_detail.process_title} <span className="italic-accent">{t.service_detail.process_accent}</span>
             </h2>
           </ScrollReveal>
-          <div className="max-w-3xl mx-auto flex flex-col gap-4">
-            {process.map((p, i) => (
-              <ScrollReveal key={i} delay={i * 0.08}>
-                <div className="liquid-surface flex gap-5 rounded-2xl p-6">
-                  <span className="relative z-[3] flex gap-5 items-start">
-                    <div className="shrink-0 w-12 h-12 rounded-full bg-gradient-to-br from-brand to-rose-deep text-cream grid place-items-center font-fraunces text-xl glow-icon">
-                      {i + 1}
-                    </div>
-                    <div>
-                      <h3 className="font-fraunces text-xl text-brand-deep mb-1">{p.step}</h3>
-                      <p className="text-muted">{p.detail}</p>
-                    </div>
-                  </span>
-                </div>
-              </ScrollReveal>
-            ))}
-          </div>
+          <StickyStorySection
+            steps={process}
+            asideTitle={t.service_detail.process_title}
+            stepLabel={t.ui_v2.step_label}
+          />
         </section>
 
         <section className="px-5 lg:px-20 py-16">
@@ -176,13 +172,15 @@ export default function ServiceDetailClient({ slug }: Props) {
               {t.service_detail.ready_to} <span className="italic-accent">{name}?</span>
             </h2>
             <p className="text-muted mb-10 max-w-md mx-auto">{t.service_detail.ready_description}</p>
-            <button
-              type="button"
-              onClick={() => setModalOpen(true)}
-              className="cta-glow inline-flex items-center gap-2 px-8 py-4 rounded-full font-medium text-cream whitespace-nowrap cursor-pointer transition-all hover:-translate-y-0.5"
-            >
-              {t.service_detail.book_now}
-            </button>
+            <MagneticButton strength={0.25}>
+              <button
+                type="button"
+                onClick={() => setModalOpen(true)}
+                className="cta-glow inline-flex items-center gap-2 px-8 py-[18px] rounded-full text-[15px] font-medium text-cream whitespace-nowrap cursor-pointer transition-all hover:-translate-y-0.5"
+              >
+                {t.service_detail.book_now}
+              </button>
+            </MagneticButton>
           </ScrollReveal>
         </section>
       </article>

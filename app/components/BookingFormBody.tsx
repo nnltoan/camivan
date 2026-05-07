@@ -2,6 +2,8 @@
 
 import { useState } from 'react';
 import { useLang } from './LangProvider';
+import { useToast } from './Toast';
+import { haptic } from '../lib/haptic';
 
 // === Real brand SVG icons (white, current color, 16px) ===
 function IconWhatsApp() {
@@ -93,6 +95,7 @@ interface Props {
 
 export default function BookingFormBody({ defaultServiceKey, onSent, hideIgPost = false }: Props) {
   const { t, lang } = useLang();
+  const toast = useToast();
 
   const SERVICE_OPTIONS: { key: ServiceKey; name: string }[] = [
     { key: 'microblading', name: t.services.microblading.name },
@@ -129,22 +132,27 @@ export default function BookingFormBody({ defaultServiceKey, onSent, hideIgPost 
     if (err) {
       e.preventDefault();
       setError(err);
+      haptic('warn');
+      toast.show(err, 'error');
       return;
     }
     setError('');
+    haptic('success');
     const msg = buildBookingMessage(lang, { name, phone, service: currentService, date, time, note });
     let url = '';
-    const clipAlert = CLIPBOARD_ALERTS[lang] || CLIPBOARD_ALERTS.EN;
     if (channel === 'wa') {
       url = `https://wa.me/${PHONE_E164}?text=${encodeURIComponent(msg)}`;
     } else if (channel === 'zalo') {
-      try { navigator.clipboard?.writeText(msg); } catch {}
+      try { navigator.clipboard?.writeText(msg); } catch {/* ignore */}
       url = ZALO_PROFILE;
-      alert(clipAlert);
+      toast.show(t.ui_v2.toast_copied, 'success');
     } else if (channel === 'ig') {
-      try { navigator.clipboard?.writeText(msg); } catch {}
+      try { navigator.clipboard?.writeText(msg); } catch {/* ignore */}
       url = IG_DM;
-      alert(clipAlert);
+      toast.show(t.ui_v2.toast_copied, 'success');
+    }
+    if (channel === 'wa') {
+      toast.show(t.ui_v2.toast_redirecting, 'info', 3000);
     }
     e.preventDefault();
     window.open(url, '_blank', 'noopener,noreferrer');
@@ -157,7 +165,10 @@ export default function BookingFormBody({ defaultServiceKey, onSent, hideIgPost 
         <label className="block">
           <span className="text-sm font-medium text-brand-deep mb-2 block">{t.booking.field_name}</span>
           <input
+            id="booking-name"
+            name="name"
             type="text"
+            autoComplete="name"
             value={name}
             onChange={(e) => { setName(e.target.value); setError(''); }}
             placeholder={t.booking.placeholder_name}
@@ -168,7 +179,10 @@ export default function BookingFormBody({ defaultServiceKey, onSent, hideIgPost 
         <label className="block">
           <span className="text-sm font-medium text-brand-deep mb-2 block">{t.booking.field_phone}</span>
           <input
+            id="booking-phone"
+            name="phone"
             type="tel"
+            autoComplete="tel"
             value={phone}
             onChange={(e) => { setPhone(e.target.value); setError(''); }}
             placeholder="0912 345 678"
@@ -179,6 +193,8 @@ export default function BookingFormBody({ defaultServiceKey, onSent, hideIgPost 
         <label className="block">
           <span className="text-sm font-medium text-brand-deep mb-2 block">{t.booking.field_service}</span>
           <select
+            id="booking-service"
+            name="service"
             value={serviceKey}
             onChange={(e) => setServiceKey(e.target.value as ServiceKey)}
             className="glass-input"
@@ -191,6 +207,8 @@ export default function BookingFormBody({ defaultServiceKey, onSent, hideIgPost 
         <label className="block">
           <span className="text-sm font-medium text-brand-deep mb-2 block">{t.booking.field_date}</span>
           <input
+            id="booking-date"
+            name="date"
             type="date"
             value={date}
             min={today}
@@ -217,10 +235,13 @@ export default function BookingFormBody({ defaultServiceKey, onSent, hideIgPost 
               </button>
             ))}
           </div>
+          <p className="mt-2 text-xs text-muted leading-relaxed">{t.ui_v2.booking_time_tooltip}</p>
         </label>
         <label className="block md:col-span-2">
           <span className="text-sm font-medium text-brand-deep mb-2 block">{t.booking.field_note}</span>
           <textarea
+            id="booking-note"
+            name="note"
             value={note}
             onChange={(e) => setNote(e.target.value)}
             rows={3}
@@ -240,8 +261,11 @@ export default function BookingFormBody({ defaultServiceKey, onSent, hideIgPost 
         <p className="text-center text-sm text-muted mb-4">{t.booking.choose_channel}</p>
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
           <a href="#" onClick={(e) => handleClick(e, 'wa')}
-            className="flex items-center justify-center gap-2 px-5 py-3.5 rounded-full font-medium bg-[#25D366] text-white hover:-translate-y-0.5 hover:shadow-btn transition-all whitespace-nowrap cursor-pointer shadow-[inset_0_1px_0_rgba(255,255,255,0.25)]">
+            className="relative flex items-center justify-center gap-2 px-5 py-3.5 rounded-full font-medium bg-[#25D366] text-white hover:-translate-y-0.5 hover:shadow-btn transition-all whitespace-nowrap cursor-pointer shadow-[inset_0_1px_0_rgba(255,255,255,0.25)]">
             <IconWhatsApp /> WhatsApp
+            <span className="absolute -top-2 -right-2 bg-rose text-cream text-[10px] px-2 py-0.5 rounded-full font-semibold shadow-soft-sm">
+              {t.ui_v2.booking_badge_fastest}
+            </span>
           </a>
           <a href="#" onClick={(e) => handleClick(e, 'zalo')}
             className="flex items-center justify-center gap-2 px-5 py-3.5 rounded-full font-medium bg-[#0068FF] text-white hover:-translate-y-0.5 hover:shadow-btn transition-all whitespace-nowrap cursor-pointer shadow-[inset_0_1px_0_rgba(255,255,255,0.25)]">

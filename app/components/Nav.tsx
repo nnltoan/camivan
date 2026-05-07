@@ -8,17 +8,46 @@ import { useLang } from './LangProvider';
 import { useTheme } from './ThemeProvider';
 import { LANG_NAMES, Lang } from '../lib/i18n';
 import BookingModal from './BookingModal';
+import { haptic } from '../lib/haptic';
 
 export default function Nav() {
   const [open, setOpen] = useState(false);
   const [langOpen, setLangOpen] = useState(false);
   const [bookingOpen, setBookingOpen] = useState(false);
   const [menuFits, setMenuFits] = useState(true);
+  // Scroll-aware CTA pulse — only after user has scrolled past the hero (~800px),
+  // and only until the user has interacted with the CTA in the last 24h.
+  const [showPulse, setShowPulse] = useState(false);
+  const [ctaEngaged, setCtaEngaged] = useState(false);
 
   const { lang, setLang, t } = useLang();
   const { theme, toggle: toggleTheme } = useTheme();
   const pathname = usePathname();
   const isHome = pathname === '/' || pathname === '';
+
+  // Restore CTA-engagement flag from localStorage (24h TTL).
+  useEffect(() => {
+    if (typeof window === 'undefined') return;
+    try {
+      const ts = window.localStorage.getItem('camivan-cta-engaged');
+      if (ts && Date.now() - Number(ts) < 24 * 60 * 60 * 1000) setCtaEngaged(true);
+    } catch {/* ignore */}
+  }, []);
+
+  // Scroll listener (passive) — toggles pulse when scrolled past 800px.
+  useEffect(() => {
+    if (typeof window === 'undefined') return;
+    const onScroll = () => setShowPulse(!ctaEngaged && window.scrollY > 800);
+    onScroll();
+    window.addEventListener('scroll', onScroll, { passive: true });
+    return () => window.removeEventListener('scroll', onScroll);
+  }, [ctaEngaged]);
+
+  const markCtaEngaged = () => {
+    setCtaEngaged(true);
+    setShowPulse(false);
+    try { window.localStorage.setItem('camivan-cta-engaged', String(Date.now())); } catch {/* ignore */}
+  };
 
   // Click-outside + Esc-to-close for the language dropdown
   const langRef = useRef<HTMLDivElement>(null);
@@ -95,18 +124,28 @@ export default function Nav() {
 
   // CTA button — gradient brand → rose-deep with inset highlight
   const bookButtonClass =
-    'shrink-0 px-3 lg:px-5 py-2 lg:py-2.5 rounded-full text-[12px] lg:text-[13px] font-medium whitespace-nowrap cursor-pointer text-cream transition-all hover:-translate-y-0.5 ' +
+    `shrink-0 px-3 lg:px-5 py-2 lg:py-2.5 rounded-full text-[12px] lg:text-[13px] font-medium whitespace-nowrap cursor-pointer text-cream transition-all hover:-translate-y-0.5 ` +
     'bg-gradient-to-br from-brand to-rose-deep ' +
     'shadow-[0_12px_30px_-10px_rgba(139,69,19,0.55),inset_0_1px_0_rgba(255,255,255,0.35)] ' +
-    'hover:shadow-[0_18px_40px_-10px_rgba(139,69,19,0.7),inset_0_1px_0_rgba(255,255,255,0.45)]';
+    `hover:shadow-[0_18px_40px_-10px_rgba(139,69,19,0.7),inset_0_1px_0_rgba(255,255,255,0.45)] ${showPulse ? 'animate-cta-pulse' : ''}`;
 
   const renderBookButton = () =>
     isHome ? (
-      <a href="#booking" className={bookButtonClass}>
+      <a
+        href="#booking"
+        className={bookButtonClass}
+        aria-label={t.ui_v2.nav_book_aria}
+        onClick={() => { haptic('tap'); markCtaEngaged(); }}
+      >
         {t.nav.book}
       </a>
     ) : (
-      <button type="button" onClick={() => setBookingOpen(true)} className={bookButtonClass}>
+      <button
+        type="button"
+        onClick={() => { haptic('tap'); markCtaEngaged(); setBookingOpen(true); }}
+        className={bookButtonClass}
+        aria-label={t.ui_v2.nav_book_aria}
+      >
         {t.nav.book}
       </button>
     );
