@@ -88,7 +88,7 @@ const GalleryTile = forwardRef<HTMLButtonElement, GalleryTileProps>(function Gal
 
 interface GalleryItem {
   src: string;
-  category: 'brow' | 'lip' | 'eye' | 'lash' | 'nail';
+  category: 'brow' | 'lip' | 'eye' | 'lash';
   /** Intrinsic dimensions — passed to next/image so we can render at native ratio. */
   width: number;
   height: number;
@@ -101,7 +101,6 @@ const ITEMS: GalleryItem[] = [
   { src: '/PMU-lip.jpg',  category: 'lip',  width: 1200, height: 1200, caption: 'Lip Blush' },
   { src: '/noi-mi.jpg',   category: 'lash', width: 1284, height: 1396, caption: 'Lash' },
   { src: '/client-2.jpg', category: 'brow', width: 472,  height: 590 },
-  { src: '/nail.jpg',     category: 'nail', width: 1080, height: 1080, caption: 'Nail Art' },
   { src: '/client-3.jpg', category: 'eye',  width: 526,  height: 701,  caption: 'PMU Eyeliner' },
   { src: '/noi-mi.jpg',   category: 'lash', width: 1284, height: 1396 },
   { src: '/PMU-lip.jpg',  category: 'lip',  width: 1200, height: 1200 },
@@ -119,7 +118,6 @@ export default function Gallery() {
     { value: 'lip',  label: t.gallery.filter_lip,  icon: '♡' },
     { value: 'eye',  label: t.gallery.filter_eye,  icon: '★' },
     { value: 'lash', label: t.gallery.filter_lash, icon: '✦' },
-    { value: 'nail', label: t.gallery.filter_nail, icon: '❀' },
   ];
 
   const filtered = filter === 'all' ? ITEMS : ITEMS.filter((it) => it.category === filter);

@@ -126,7 +126,6 @@ export default function Footer() {
             <li><Link href="/services/lip-blush" className="text-muted hover:text-brand transition-colors no-underline">{t.services.lip.name}</Link></li>
             <li><Link href="/services/eyeliner" className="text-muted hover:text-brand transition-colors no-underline">{t.services.eyeliner.name}</Link></li>
             <li><Link href="/services/noi-mi" className="text-muted hover:text-brand transition-colors no-underline">{t.services.lash.name}</Link></li>
-            <li><Link href="/services/nail-art" className="text-muted hover:text-brand transition-colors no-underline">{t.services.nail.name}</Link></li>
             <li><Link href="/services/cham-soc-da" className="text-muted hover:text-brand transition-colors no-underline">{t.services.skin.name}</Link></li>
           </ul>
         </div>

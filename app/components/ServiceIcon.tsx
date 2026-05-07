@@ -16,7 +16,6 @@ type ServiceSlug =
   | 'lip-blush'
   | 'eyeliner'
   | 'noi-mi'
-  | 'nail-art'
   | 'cham-soc-da';
 
 interface Props {
@@ -72,16 +71,6 @@ export default function ServiceIcon({ slug, className = 'w-7 h-7' }: Props) {
           <path d="M3 14c2-3 5-4.5 9-4.5s7 1.5 9 4.5" />
           <circle cx="12" cy="13" r="1.8" />
           <path d="M5 9l-1.2-2M8 7.5l-.5-2.2M12 7l0-2.3M16 7.5l.5-2.2M19 9l1.2-2" />
-        </svg>
-      );
-
-    case 'nail-art':
-      // Fingernail oval with subtle French-tip line
-      return (
-        <svg {...props} aria-label="Nail art">
-          <path d="M9 4c0-1 1.4-1.5 3-1.5s3 .5 3 1.5v15c0 1.4-1.4 2.5-3 2.5s-3-1.1-3-2.5V4z" />
-          <path d="M9 7.5c0 1 1.4 1.6 3 1.6s3-.6 3-1.6" opacity="0.6" />
-          <circle cx="13.2" cy="5.5" r="0.6" fill="currentColor" stroke="none" opacity="0.7" />
         </svg>
       );
 

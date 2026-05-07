@@ -18,7 +18,7 @@ import { haptic } from '../lib/haptic';
 interface PairConfig {
   service: string;
   /** label key into t.brands so the tab follows the active language */
-  labelKey: 'microblading' | 'lip' | 'eyeliner' | 'lash' | 'nail' | 'skin';
+  labelKey: 'microblading' | 'lip' | 'eyeliner' | 'lash' | 'skin';
   before: string;
   after: string;
   ratio: string;
@@ -29,7 +29,6 @@ const PAIRS: PairConfig[] = [
   { service: 'lip-blush',    labelKey: 'lip',          before: '/before-after/lip-blush-before.webp',    after: '/before-after/lip-blush-after.webp',    ratio: '4/5' },
   { service: 'eyeliner',     labelKey: 'eyeliner',     before: '/before-after/eyeliner-before.webp',     after: '/before-after/eyeliner-after.webp',     ratio: '4/5' },
   { service: 'noi-mi',       labelKey: 'lash',         before: '/before-after/noi-mi-before.webp',       after: '/before-after/noi-mi-after.webp',       ratio: '4/5' },
-  { service: 'nail-art',     labelKey: 'nail',         before: '/before-after/nail-art-before.webp',     after: '/before-after/nail-art-after.webp',     ratio: '1/1' },
   { service: 'cham-soc-da',  labelKey: 'skin',         before: '/before-after/cham-soc-da-before.webp',  after: '/before-after/cham-soc-da-after.webp',  ratio: '4/5' },
 ];
 

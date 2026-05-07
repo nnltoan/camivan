@@ -83,7 +83,7 @@ function buildBookingMessage(
   );
 }
 
-type ServiceKey = 'microblading' | 'lip' | 'eyeliner' | 'lash' | 'nail' | 'skin';
+type ServiceKey = 'microblading' | 'lip' | 'eyeliner' | 'lash' | 'skin';
 
 interface Props {
   defaultServiceKey?: ServiceKey;
@@ -102,7 +102,6 @@ export default function BookingFormBody({ defaultServiceKey, onSent, hideIgPost 
     { key: 'lip', name: t.services.lip.name },
     { key: 'eyeliner', name: t.services.eyeliner.name },
     { key: 'lash', name: t.services.lash.name },
-    { key: 'nail', name: t.services.nail.name },
     { key: 'skin', name: t.services.skin.name },
   ];
 

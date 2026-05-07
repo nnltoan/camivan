@@ -1,5 +1,5 @@
 export default function BrandsMarquee() {
-  const items = ['Microblading', 'Lip Blush', 'PMU Eyeliner', 'Lash Extension', 'Nail Art', 'Skin Care'];
+  const items = ['Microblading', 'Lip Blush', 'PMU Eyeliner', 'Lash Extension', 'Skin Care'];
   const doubled = [...items, ...items];
   return (
     <section className="relative py-10 overflow-hidden" aria-hidden="true">

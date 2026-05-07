@@ -22,12 +22,12 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: 'CAMI VAN — PMU & Nail Beauty Studio (Rustic)',
-  description: 'Phun xăm thẩm mỹ Rustic Atelier — chân mày, môi, eyeliner, nối mi, nail. Studio chị Cẩm Vân.',
+  title: 'CAMI VAN — PMU & Beauty Studio (Rustic)',
+  description: 'Phun xăm thẩm mỹ Rustic Atelier — chân mày, môi, eyeliner, nối mi, chăm sóc da. Studio chị Cẩm Vân.',
   metadataBase: new URL('https://camivan.example.com'),
   openGraph: {
     title: 'CAMI VAN — Rustic Atelier',
-    description: 'Nâng niu vẻ đẹp tự nhiên. Microblading, Lip Blush, PMU Eyeliner, Lash, Nail Art.',
+    description: 'Nâng niu vẻ đẹp tự nhiên. Microblading, Lip Blush, PMU Eyeliner, Lash, Skin Care.',
     locale: 'vi_VN',
     type: 'website',
     images: ['/client-3.jpg'],
@@ -49,7 +49,7 @@ const businessSchema = {
   name: 'CAMI VAN — PMU & Skin Studio',
   alternateName: 'Cẩm Vân Beauty Studio',
   description:
-    'Phun xăm thẩm mỹ Rustic Atelier — chân mày, môi, eyeliner, nối mi, nail, chăm sóc da. Studio chị Cẩm Vân, công nghệ Châu Âu, mực organic, bảo hành 2 năm.',
+    'Phun xăm thẩm mỹ Rustic Atelier — chân mày, môi, eyeliner, nối mi, chăm sóc da. Studio chị Cẩm Vân, công nghệ Châu Âu, mực organic, bảo hành 2 năm.',
   url: 'https://camivan.example.com/',
   logo: 'https://camivan.example.com/logo_camvan.png',
   image: [
@@ -100,7 +100,6 @@ const businessSchema = {
       { '@type': 'Offer', itemOffered: { '@type': 'Service', name: 'Lip Blush phun môi' } },
       { '@type': 'Offer', itemOffered: { '@type': 'Service', name: 'PMU Eyeliner' } },
       { '@type': 'Offer', itemOffered: { '@type': 'Service', name: 'Nối mi thẩm mỹ' } },
-      { '@type': 'Offer', itemOffered: { '@type': 'Service', name: 'Nail Art' } },
       { '@type': 'Offer', itemOffered: { '@type': 'Service', name: 'Chăm sóc da' } },
     ],
   },

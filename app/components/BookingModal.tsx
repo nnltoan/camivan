@@ -4,7 +4,7 @@ import { useEffect } from 'react';
 import { useLang } from './LangProvider';
 import BookingFormBody from './BookingFormBody';
 
-type ServiceKey = 'microblading' | 'lip' | 'eyeliner' | 'lash' | 'nail' | 'skin';
+type ServiceKey = 'microblading' | 'lip' | 'eyeliner' | 'lash' | 'skin';
 
 interface Props {
   open: boolean;

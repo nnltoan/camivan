@@ -11,7 +11,6 @@ const SERVICE_KEYS = [
   { key: 'lip', slug: 'lip-blush', icon: '♡', price: '3.000.000đ' },
   { key: 'eyeliner', slug: 'eyeliner', icon: '★', price: '2.500.000đ' },
   { key: 'lash', slug: 'noi-mi', icon: '✦', price: '800.000đ' },
-  { key: 'nail', slug: 'nail-art', icon: '❀', price: '500.000đ' },
   { key: 'skin', slug: 'cham-soc-da', icon: '❁', price: '700.000đ' },
 ] as const;
 
