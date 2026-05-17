@@ -116,7 +116,7 @@ export default function Hero() {
             muted
             playsInline
             preload="auto"
-            poster="/client-3.jpg"
+            poster="/client-3.webp"
             onEnded={() => setVideoIdx((i) => (i + 1) % HERO_VIDEOS.length)}
             className="absolute inset-0 w-full h-full object-cover"
             aria-label="CAMI VAN process video"

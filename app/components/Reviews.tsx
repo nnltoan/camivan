@@ -24,7 +24,7 @@ const REVIEWS: Review[] = [
   {
     name: 'Hạnh Nguyễn Thị',
     initials: 'HN',
-    avatar: '/Hạnh Nguyễn thị.png',
+    avatar: '/Hạnh Nguyễn thị.webp',
     rating: 5,
     source: 'google',
     date: { VI: '11 tháng trước', EN: '11 months ago', RU: '11 месяцев назад', ZH: '11 个月前', JA: '11 ヶ月前', KO: '11개월 전', FR: 'Il y a 11 mois', ES: 'Hace 11 meses' },
@@ -79,7 +79,7 @@ const REVIEWS: Review[] = [
   {
     name: 'Secrets Midnight',
     initials: 'SM',
-    avatar: '/Secrets Midnight.png',
+    avatar: '/Secrets Midnight.webp',
     rating: 5,
     source: 'google',
     date: { VI: '2 tuần trước', EN: '2 weeks ago', RU: '2 недели назад', ZH: '2 周前', JA: '2 週間前', KO: '2주 전', FR: 'Il y a 2 semaines', ES: 'Hace 2 semanas' },
@@ -98,7 +98,7 @@ const REVIEWS: Review[] = [
   {
     name: 'Thanh Hương',
     initials: 'TH',
-    avatar: '/Thanh Hương.png',
+    avatar: '/Thanh Hương.webp',
     rating: 5,
     source: 'google',
     date: { VI: 'Một năm trước', EN: 'A year ago', RU: 'Год назад', ZH: '一年前', JA: '1 年前', KO: '1년 전', FR: 'Il y a un an', ES: 'Hace un año' },
@@ -117,7 +117,7 @@ const REVIEWS: Review[] = [
   {
     name: 'Leslie Crowder',
     initials: 'LC',
-    avatar: '/Leslie Crowder.png',
+    avatar: '/Leslie Crowder.webp',
     rating: 5,
     source: 'google',
     date: { VI: 'Một năm trước', EN: 'A year ago', RU: 'Год назад', ZH: '一年前', JA: '1 年前', KO: '1년 전', FR: 'Il y a un an', ES: 'Hace un año' },

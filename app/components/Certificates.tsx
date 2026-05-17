@@ -29,12 +29,12 @@ const CERT_GROUPS: CertGroup[] = [
     roleEN: 'Founder · Lead Master',
     certs: [
       {
-        src: '/camvan-cer1.png',
+        src: '/camvan-cer1.webp',
         titleVI: 'Chứng chỉ Phun · Xăm · Thêu Da (Permanent Make Up)',
         titleEN: 'Permanent Make Up Certificate',
       },
       {
-        src: '/camvan-cer2.png',
+        src: '/camvan-cer2.webp',
         titleVI: 'Chứng nhận An toàn Y tế — Phòng chống lây nhiễm tại cơ sở thẩm mỹ',
         titleEN: 'Health Safety Certificate — Aesthetics Center Infection Prevention',
       },
@@ -47,12 +47,12 @@ const CERT_GROUPS: CertGroup[] = [
     roleEN: 'Senior Master · Royal Brows',
     certs: [
       {
-        src: '/an-cer1.png',
+        src: '/an-cer1.webp',
         titleVI: 'Chứng chỉ Phun · Xăm · Thêu Da (Permanent Make Up)',
         titleEN: 'Permanent Make Up Certificate',
       },
       {
-        src: '/an-cer2.png',
+        src: '/an-cer2.webp',
         titleVI: 'Chứng nhận An toàn Y tế — Phòng chống lây nhiễm tại cơ sở thẩm mỹ',
         titleEN: 'Health Safety Certificate — Aesthetics Center Infection Prevention',
       },

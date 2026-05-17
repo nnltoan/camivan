@@ -30,7 +30,7 @@ export const metadata: Metadata = {
     description: 'Nâng niu vẻ đẹp tự nhiên. Microblading, Lip Blush, PMU Eyeliner, Lash, Skin Care.',
     locale: 'vi_VN',
     type: 'website',
-    images: ['/client-3.jpg'],
+    images: ['/client-3.webp'],
   },
   alternates: { canonical: '/' },
 };
@@ -51,11 +51,11 @@ const businessSchema = {
   description:
     'Phun xăm thẩm mỹ Rustic Atelier — chân mày, môi, eyeliner, nối mi, chăm sóc da. Studio chị Cẩm Vân, công nghệ Châu Âu, mực organic, bảo hành 2 năm.',
   url: 'https://camivan.example.com/',
-  logo: 'https://camivan.example.com/logo_camvan.png',
+  logo: 'https://camivan.example.com/logo_camvan.webp',
   image: [
-    'https://camivan.example.com/cami-van-photo.jpg',
-    'https://camivan.example.com/show-room.jpg',
-    'https://camivan.example.com/client-3.jpg',
+    'https://camivan.example.com/cami-van-photo.webp',
+    'https://camivan.example.com/show-room.webp',
+    'https://camivan.example.com/client-3.webp',
   ],
   telephone: '+84-84-789-2052',
   priceRange: '$$',
@@ -118,7 +118,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html lang="vi" className={`${fraunces.variable} ${inter.variable}`} suppressHydrationWarning>
       <head>
         {/* LCP: preload above-the-fold images so they start downloading before HTML parses further */}
-        <link rel="preload" as="image" href="/client-3.jpg" fetchPriority="high" />
+        <link rel="preload" as="image" href="/client-3.webp" fetchPriority="high" />
         <link rel="preload" as="image" href="/before-after/microblading-after.webp" fetchPriority="high" />
         <script dangerouslySetInnerHTML={{ __html: themeScript }} />
         <script

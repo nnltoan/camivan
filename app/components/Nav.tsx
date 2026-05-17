@@ -161,7 +161,7 @@ export default function Nav() {
         {/* Logo */}
         <Link ref={logoRef} href="/" aria-label="CAMI VAN home" className="shrink-0 -my-1.5 block">
           <Image
-            src="/logo_camvan.png"
+            src="/logo_camvan.webp"
             alt="CAMI VAN"
             width={850}
             height={711}

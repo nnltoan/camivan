@@ -25,7 +25,7 @@ export const SERVICE_DETAILS: ServiceDetail[] = [
   {
     slug: 'microblading',
     icon: '✿',
-    image: '/client-3.jpg',
+    image: '/client-3.webp',
     price: '2.800.000đ+',
     name: {
       VI: 'Phun Xăm Chân Mày', EN: 'Brows Artistry', RU: 'Брови (Artistry)', ZH: '眉部艺术',
@@ -175,7 +175,7 @@ export const SERVICE_DETAILS: ServiceDetail[] = [
   {
     slug: 'lip-blush',
     icon: '♡',
-    image: '/PMU-lip.jpg',
+    image: '/PMU-lip.webp',
     price: '4.000.000đ+',
     name: { VI: 'Phun Xăm Môi', EN: 'Lips Artistry', RU: 'Губы (Artistry)', ZH: '唇部艺术', JA: '唇のアートワーク', KO: '입술 아트워크', FR: 'Lèvres Artistry', ES: 'Labios Artistry' },
     italic: { VI: 'Cherry · Pearl · Tone tươi · Khử thâm', EN: 'Cherry · Pearl · Tones · Neutralization', RU: 'Cherry · Pearl · Тона · Нейтрализация', ZH: 'Cherry · Pearl · 色调 · 去黑', JA: 'Cherry · Pearl · トーン · 中和', KO: 'Cherry · Pearl · 톤 · 중화', FR: 'Cherry · Pearl · Tons · Neutralisation', ES: 'Cherry · Pearl · Tonos · Neutralización' },
@@ -316,7 +316,7 @@ export const SERVICE_DETAILS: ServiceDetail[] = [
   {
     slug: 'eyeliner',
     icon: '★',
-    image: '/p5_eyeliner_natural.jpg',
+    image: '/p5_eyeliner_natural.webp',
     price: '2.500.000đ+',
     name: { VI: 'Eyeliner PMU', EN: 'PMU Eyeliner', RU: 'Татуаж стрелок PMU', ZH: '美瞳线 PMU', JA: 'PMU アイライン', KO: 'PMU 아이라이너', FR: 'Eyeliner PMU', ES: 'Delineador PMU' },
     italic: { VI: 'Natural · Classic · Extended · Smokey', EN: 'Natural · Classic · Extended · Smokey', RU: 'Natural · Classic · Extended · Smokey', ZH: 'Natural · Classic · Extended · Smokey', JA: 'Natural · Classic · Extended · Smokey', KO: 'Natural · Classic · Extended · Smokey', FR: 'Natural · Classic · Extended · Smokey', ES: 'Natural · Classic · Extended · Smokey' },
@@ -423,7 +423,7 @@ export const SERVICE_DETAILS: ServiceDetail[] = [
   {
     slug: 'mens-pmu',
     icon: '♂',
-    image: '/man-pmu.png',
+    image: '/man-pmu.webp',
     price: '4.500.000đ+',
     name: { VI: 'Phun Mày Cho Nam', EN: "Men's PMU Brows", RU: 'Мужской PMU бровей', ZH: '男士 PMU 眉部', JA: 'メンズ PMU 眉', KO: '남성 PMU 눈썰', FR: 'Sourcils PMU Homme', ES: 'Cejas PMU Hombre' },
     italic: { VI: 'Natural · HD Stroking · Shadow', EN: 'Natural · HD Stroking · Shadow', RU: 'Natural · HD Stroking · Shadow', ZH: 'Natural · HD Stroking · Shadow', JA: 'Natural · HD Stroking · Shadow', KO: 'Natural · HD Stroking · Shadow', FR: 'Natural · HD Stroking · Shadow', ES: 'Natural · HD Stroking · Shadow' },
@@ -538,7 +538,7 @@ export const SERVICE_DETAILS: ServiceDetail[] = [
   {
     slug: 'noi-mi',
     icon: '✦',
-    image: '/noi-mi.jpg',
+    image: '/noi-mi.webp',
     price: '199.000đ+',
     name: { VI: 'Mi · Mày · Plasma', EN: 'Lash · Brow · Plasma', RU: 'Ресницы · Брови · Плазма', ZH: '睫毛 · 眉 · 等离子', JA: 'まつげ · 眉 · プラズマ', KO: '속눈썹 · 눈썹 · 플라즈마', FR: 'Cils · Sourcils · Plasma', ES: 'Pestañas · Cejas · Plasma' },
     italic: { VI: 'Lift · Tint · Ext · Lamination · Plasma', EN: 'Lift · Tint · Ext · Lamination · Plasma', RU: 'Lift · Tint · Ext · Lamination · Plasma', ZH: 'Lift · Tint · Ext · Lamination · Plasma', JA: 'Lift · Tint · Ext · Lamination · Plasma', KO: 'Lift · Tint · Ext · Lamination · Plasma', FR: 'Lift · Tint · Ext · Lamination · Plasma', ES: 'Lift · Tint · Ext · Lamination · Plasma' },

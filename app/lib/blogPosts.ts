@@ -32,7 +32,7 @@ export interface BlogPost {
 export const POSTS: BlogPost[] = [
   {
     slug: 'cham-soc-sau-phun-xam',
-    image: '/PMU-lip.jpg',
+    image: '/PMU-lip.webp',
     date: '15/04/2026',
     category: { VI: 'Chăm sóc', EN: 'Aftercare', RU: 'Уход', ZH: '术后护理', JA: 'アフターケア', KO: '사후 관리', FR: 'Soins', ES: 'Cuidados' },
     title: {
@@ -593,7 +593,7 @@ export const POSTS: BlogPost[] = [
   },
   {
     slug: 'chon-kieu-long-may',
-    image: '/client-3.jpg',
+    image: '/client-3.webp',
     date: '10/04/2026',
     category: { VI: 'Tư vấn', EN: 'Consultation', RU: 'Консультация', ZH: '咨询', JA: 'カウンセリング', KO: '상담', FR: 'Consultation', ES: 'Consulta' },
     title: {
@@ -714,7 +714,7 @@ export const POSTS: BlogPost[] = [
   },
   {
     slug: 'xu-huong-moi-2026',
-    image: '/client-2.jpg',
+    image: '/client-2.webp',
     date: '02/04/2026',
     category: { VI: 'Xu hướng', EN: 'Trends', RU: 'Тренды', ZH: '趋势', JA: 'トレンド', KO: '트렌드', FR: 'Tendances', ES: 'Tendencias' },
     title: {

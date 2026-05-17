@@ -24,7 +24,7 @@ export default function About() {
           <div className="relative">
             <div className="relative aspect-[4/5] rounded-[40px] overflow-hidden shadow-glass-lg">
               <Image
-                src="/cami-van-photo.jpg"
+                src="/cami-van-photo.webp"
                 alt="Cẩm Vân — Founder"
                 fill
                 sizes="(max-width:1024px) 100vw, 50vw"
@@ -40,7 +40,7 @@ export default function About() {
             <div className="liquid-surface-strong absolute -bottom-8 -right-4 lg:-right-12 w-40 h-32 lg:w-56 lg:h-44 rounded-3xl overflow-hidden rotate-3 hover:rotate-0 transition-transform duration-500 max-md:hidden p-1">
               <div className="relative w-full h-full rounded-[20px] overflow-hidden">
                 <Image
-                  src="/show-room.jpg"
+                  src="/show-room.webp"
                   alt="CAMI VAN studio space"
                   fill
                   sizes="(max-width:1024px) 30vw, 220px"

@@ -122,16 +122,37 @@ export default function ServiceDetailClient({ slug }: Props) {
           </div>
         </section>
 
-        {subServices && subServices.length > 0 && (
+        {subServices && subServices.length > 0 && (() => {
+          // Localized headings for the price-menu section
+          const PRICE_TITLE: Record<string, string> = {
+            VI: 'Bảng giá', EN: 'Price', JA: '料金', ZH: '价目',
+            KO: '가격', RU: 'Цены', FR: 'Tarifs', ES: 'Precios',
+          };
+          const PRICE_ACCENT: Record<string, string> = {
+            VI: 'chi tiết', EN: 'menu', JA: 'メニュー', ZH: '菜单',
+            KO: '메뉴', RU: 'меню', FR: 'détaillés', ES: 'detallados',
+          };
+          const PRICE_NOTE: Record<string, string> = {
+            VI: 'Tất cả giá đã bao gồm tư vấn, ủ tê, kit dưỡng cơ bản. Hỏi thêm về combo và ưu đãi qua Zalo.',
+            EN: 'All prices include consultation, numbing and a basic care kit. Ask about combos and promotions via Zalo.',
+            JA: 'すべての料金にカウンセリング・麻酔・基本ケアキットが含まれます。コンボやプロモーションについては Zalo でお問い合わせください。',
+            ZH: '所有价格已包含咨询、麻醉和基本护理套装。如需了解套餐和优惠，请通过 Zalo 咨询。',
+            KO: '모든 가격에 상담, 마취, 기본 케어 키트가 포함됩니다. 콤보와 프로모션은 Zalo로 문의해 주세요.',
+            RU: 'Все цены включают консультацию, обезболивание и базовый набор для ухода. По комбо и акциям пишите в Zalo.',
+            FR: 'Tous les prix incluent la consultation, l\'anesthésie et un kit de soin de base. Pour les combos et promotions, contactez-nous via Zalo.',
+            ES: 'Todos los precios incluyen consulta, anestesia y un kit de cuidado básico. Para combos y promociones, contáctanos vía Zalo.',
+          };
+          const pTitle  = PRICE_TITLE[lang]  ?? PRICE_TITLE.EN;
+          const pAccent = PRICE_ACCENT[lang] ?? PRICE_ACCENT.EN;
+          const pNote   = PRICE_NOTE[lang]   ?? PRICE_NOTE.EN;
+          return (
           <section className="px-5 lg:px-20 py-16">
             <ScrollReveal>
               <h2 className="text-[clamp(28px,4vw,48px)] mb-3 text-center">
-                {lang === 'VI' ? 'Bảng giá' : 'Price'} <span className="italic-accent">{lang === 'VI' ? 'chi tiết' : 'menu'}</span>
+                {pTitle} <span className="italic-accent">{pAccent}</span>
               </h2>
               <p className="text-muted text-center mb-12 max-w-2xl mx-auto text-[15px]">
-                {lang === 'VI'
-                  ? 'Tất cả giá đã bao gồm tư vấn, ủ tê, kit dưỡng cơ bản. Hỏi thêm về combo và ưu đãi qua Zalo.'
-                  : 'All prices include consultation, numbing and a basic care kit. Ask about combos and promotions via Zalo.'}
+                {pNote}
               </p>
             </ScrollReveal>
             <div className="max-w-5xl mx-auto space-y-8">
@@ -172,7 +193,8 @@ export default function ServiceDetailClient({ slug }: Props) {
               ))}
             </div>
           </section>
-        )}
+          );
+        })()}
 
         <section className="px-5 lg:px-20 py-16 lg:py-24">
           <ScrollReveal>
