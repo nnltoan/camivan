@@ -6,16 +6,20 @@ import ScrollReveal from './ScrollReveal';
 import ServiceIcon from './ServiceIcon';
 import { useLang } from './LangProvider';
 
+// Top-level "from" prices. VI gets the discounted PMU prices (-1tr) per the menu spec;
+// EN and other languages display the international (undiscounted) price.
+// Lash/Brow/Plasma/Spa giá giống nhau giữa 2 ngôn ngữ.
 const SERVICE_KEYS = [
-  { key: 'microblading', slug: 'microblading', icon: '✿', price: '3.500.000đ' },
-  { key: 'lip', slug: 'lip-blush', icon: '♡', price: '3.000.000đ' },
-  { key: 'eyeliner', slug: 'eyeliner', icon: '★', price: '2.500.000đ' },
-  { key: 'lash', slug: 'noi-mi', icon: '✦', price: '800.000đ' },
-  { key: 'skin', slug: 'cham-soc-da', icon: '❁', price: '700.000đ' },
+  { key: 'microblading', slug: 'microblading', icon: '✿', priceVI: '2.800.000đ', priceEN: '3.800.000đ' },
+  { key: 'lip',          slug: 'lip-blush',    icon: '♡', priceVI: '4.000.000đ', priceEN: '5.000.000đ' },
+  { key: 'eyeliner',     slug: 'eyeliner',     icon: '★', priceVI: '2.500.000đ', priceEN: '3.500.000đ' },
+  { key: 'mens',         slug: 'mens-pmu',     icon: '♂', priceVI: '4.500.000đ', priceEN: '5.500.000đ' },
+  { key: 'lash',         slug: 'noi-mi',       icon: '✦', priceVI: '199.000đ',   priceEN: '199.000đ' },
+  { key: 'skin',         slug: 'cham-soc-da',  icon: '❁', priceVI: '99.000đ',    priceEN: '99.000đ' },
 ] as const;
 
 export default function Services() {
-  const { t } = useLang();
+  const { t, lang } = useLang();
   const reduce = useReducedMotion();
 
   return (
@@ -43,7 +47,7 @@ export default function Services() {
         {SERVICE_KEYS.map((s, i) => {
           const data = t.services[s.key as keyof typeof t.services] as { name: string; subtitle: string; desc: string };
           return (
-            <ScrollReveal key={s.key} delay={i * 0.05}>
+            <ScrollReveal key={s.key} delay={i * 0.05} className="h-full">
               <Link
                 href={`/services/${s.slug}`}
                 className="liquid-surface block group rounded-[30px] p-10 hover:-translate-y-2 transition-all h-full"
@@ -57,7 +61,7 @@ export default function Services() {
                   <p className="text-muted text-sm mb-6 leading-relaxed flex-1">{data.desc}</p>
                   <div className="flex justify-between items-center pt-5 border-t border-white/30 dark:border-white/10">
                     <span className="font-fraunces italic text-brand text-lg whitespace-nowrap">
-                      {t.services.price_from} {s.price}
+                      {t.services.price_from} {lang === 'VI' ? s.priceVI : s.priceEN}
                     </span>
                     <span className="text-brand text-sm font-medium whitespace-nowrap group-hover:translate-x-1 transition-transform">
                       {t.services.view_more}

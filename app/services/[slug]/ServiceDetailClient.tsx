@@ -9,6 +9,7 @@ import WaFloat from '../../components/WaFloat';
 import ScrollReveal from '../../components/ScrollReveal';
 import { useLang } from '../../components/LangProvider';
 import { SERVICE_DETAILS, getServiceBySlug, pickServiceLang, SLUG_TO_BOOKING_KEY } from '../../lib/servicesContent';
+import { getSubServices } from '../../lib/servicesSubMenu';
 import BookingModal from '../../components/BookingModal';
 import ServiceIcon from '../../components/ServiceIcon';
 import StickyStorySection from '../../components/StickyStorySection';
@@ -35,6 +36,7 @@ export default function ServiceDetailClient({ slug }: Props) {
   const process = pickServiceLang(service!.process, lang);
   const aftercare = pickServiceLang(service!.aftercare, lang);
   const faq = pickServiceLang(service!.faq, lang);
+  const subServices = getSubServices(slug, lang);
 
   const [modalOpen, setModalOpen] = useState(false);
   const bookingKey = SLUG_TO_BOOKING_KEY[slug];
@@ -108,8 +110,8 @@ export default function ServiceDetailClient({ slug }: Props) {
           </ScrollReveal>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 max-w-5xl mx-auto">
             {benefits.map((b, i) => (
-              <ScrollReveal key={i} delay={i * 0.05}>
-                <div className="liquid-surface flex items-start gap-3 rounded-2xl p-5">
+              <ScrollReveal key={i} delay={i * 0.05} className="h-full">
+                <div className="liquid-surface flex items-start gap-3 rounded-2xl p-5 h-full">
                   <span className="relative z-[3] flex items-start gap-3">
                     <span className="w-8 h-8 rounded-full bg-gradient-to-br from-brand to-rose-deep text-cream grid place-items-center shrink-0 glow-icon">✓</span>
                     <span className="text-text">{b}</span>
@@ -119,6 +121,58 @@ export default function ServiceDetailClient({ slug }: Props) {
             ))}
           </div>
         </section>
+
+        {subServices && subServices.length > 0 && (
+          <section className="px-5 lg:px-20 py-16">
+            <ScrollReveal>
+              <h2 className="text-[clamp(28px,4vw,48px)] mb-3 text-center">
+                {lang === 'VI' ? 'Bảng giá' : 'Price'} <span className="italic-accent">{lang === 'VI' ? 'chi tiết' : 'menu'}</span>
+              </h2>
+              <p className="text-muted text-center mb-12 max-w-2xl mx-auto text-[15px]">
+                {lang === 'VI'
+                  ? 'Tất cả giá đã bao gồm tư vấn, ủ tê, kit dưỡng cơ bản. Hỏi thêm về combo và ưu đãi qua Zalo.'
+                  : 'All prices include consultation, numbing and a basic care kit. Ask about combos and promotions via Zalo.'}
+              </p>
+            </ScrollReveal>
+            <div className="max-w-5xl mx-auto space-y-8">
+              {subServices.map((group, gi) => (
+                <ScrollReveal key={gi} delay={gi * 0.05}>
+                  <div className="liquid-surface rounded-3xl p-6 lg:p-8">
+                    <div className="relative z-[3]">
+                      <h3 className="font-fraunces text-xl lg:text-2xl text-brand-deep mb-5 pb-3 border-b border-white/30 dark:border-white/10">
+                        {group.group}
+                      </h3>
+                      <ul className="divide-y divide-white/20 dark:divide-white/5">
+                        {group.items.map((item, ii) => (
+                          <li key={ii} className="py-4">
+                            <div className="flex items-baseline justify-between gap-4 flex-wrap">
+                              <span className="text-text text-[15px] font-medium flex-1 min-w-0">
+                                {item.name}
+                              </span>
+                              <span className="font-fraunces italic text-brand text-[17px] whitespace-nowrap">
+                                {item.price}
+                              </span>
+                            </div>
+                            {item.desc && (
+                              <p className="text-[13px] text-muted leading-relaxed mt-1.5 pr-2">
+                                {item.desc}
+                              </p>
+                            )}
+                            {item.note && (
+                              <span className="inline-block mt-2 text-[11px] tracking-wider uppercase font-semibold text-brand bg-rose/20 px-2 py-0.5 rounded-full">
+                                {item.note}
+                              </span>
+                            )}
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  </div>
+                </ScrollReveal>
+              ))}
+            </div>
+          </section>
+        )}
 
         <section className="px-5 lg:px-20 py-16 lg:py-24">
           <ScrollReveal>

@@ -96,14 +96,18 @@ interface GalleryItem {
 }
 
 // Each entry uses the actual file dimensions so masonry preserves natural aspect.
+// portfolio-1..6.jpg are real client shots provided by Cami Van studio.
 const ITEMS: GalleryItem[] = [
-  { src: '/client-3.jpg', category: 'brow', width: 526,  height: 701,  caption: 'Microblading' },
-  { src: '/PMU-lip.jpg',  category: 'lip',  width: 1200, height: 1200, caption: 'Lip Blush' },
-  { src: '/noi-mi.jpg',   category: 'lash', width: 1284, height: 1396, caption: 'Lash' },
-  { src: '/client-2.jpg', category: 'brow', width: 472,  height: 590 },
-  { src: '/client-3.jpg', category: 'eye',  width: 526,  height: 701,  caption: 'PMU Eyeliner' },
-  { src: '/noi-mi.jpg',   category: 'lash', width: 1284, height: 1396 },
-  { src: '/PMU-lip.jpg',  category: 'lip',  width: 1200, height: 1200 },
+  { src: '/portfolio-4.jpg', category: 'lip',  width: 1920, height: 2560, caption: 'Cami Pearl Lips' },
+  { src: '/portfolio-3.jpg', category: 'brow', width: 912,  height: 1136, caption: 'Aura Royal Brows' },
+  { src: '/portfolio-2.jpg', category: 'brow', width: 912,  height: 1136, caption: 'Ombre Powder Brows' },
+  { src: '/portfolio-5.jpg', category: 'lip',  width: 960,  height: 1280, caption: 'Cherry Lips' },
+  { src: '/portfolio-1.jpg', category: 'brow', width: 960,  height: 1280, caption: 'Nano Hairstroke' },
+  { src: '/portfolio-6.jpg', category: 'brow', width: 1028, height: 1280, caption: 'Brow Design' },
+  { src: '/client-3.jpg',    category: 'brow', width: 526,  height: 701,  caption: 'Microblading' },
+  { src: '/PMU-lip.jpg',     category: 'lip',  width: 1200, height: 1200, caption: 'Lip Blush' },
+  { src: '/noi-mi.jpg',      category: 'lash', width: 1284, height: 1396, caption: 'Lash Extensions' },
+  { src: '/client-2.jpg',    category: 'eye',  width: 472,  height: 590,  caption: 'PMU Eyeliner' },
 ];
 
 export default function Gallery() {

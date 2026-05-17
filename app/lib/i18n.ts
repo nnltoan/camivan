@@ -23,7 +23,7 @@ export interface Dict {
   hero: { badge: string; title_line1: string; title_accent: string; title_line2: string; description: string; cta_book: string; cta_view: string; stat_clients: string; stat_years: string; stat_rating: string; stat_reviews: string };
   brands: { microblading: string; lip: string; eyeliner: string; lash: string; skin: string };
   services_section: { label: string; title: string; title_accent: string; description: string };
-  services: { microblading: { name: string; subtitle: string; desc: string }; lip: { name: string; subtitle: string; desc: string }; eyeliner: { name: string; subtitle: string; desc: string }; lash: { name: string; subtitle: string; desc: string }; skin: { name: string; subtitle: string; desc: string }; price_from: string; view_more: string };
+  services: { microblading: { name: string; subtitle: string; desc: string }; lip: { name: string; subtitle: string; desc: string }; eyeliner: { name: string; subtitle: string; desc: string }; mens: { name: string; subtitle: string; desc: string }; lash: { name: string; subtitle: string; desc: string }; skin: { name: string; subtitle: string; desc: string }; price_from: string; view_more: string };
   gallery: { label: string; title: string; title_accent: string; description: string; filter_all: string; filter_brow: string; filter_lip: string; filter_eye: string; filter_lash: string };
   about: { label: string; title: string; title_accent: string; greeting: string; intro_p1: string; intro_p2: string; signature_role: string; cert_title: string; cert_desc: string; equip_title: string; equip_desc: string; ink_title: string; ink_desc: string; warranty_title: string; warranty_desc: string };
   reviews: { label: string; title: string; title_accent: string; description: string };
@@ -49,13 +49,14 @@ const VI: Dict = {
   nav: { services: 'Dịch vụ', portfolio: 'Portfolio', blog: 'Blog', faq: 'FAQ', about: 'Về tôi', book: 'Đặt Lịch ✨' },
   hero: { badge: 'Đang nhận booking tháng 5', title_line1: 'Mỗi khuôn mặt là', title_accent: 'một bông hoa', title_line2: 'riêng biệt.', description: 'CAMI VAN PMU & SKIN — chuẩn công nghệ Châu Âu. Kiến tạo chân mày nhân tướng học, phun môi bông đậm, và đặc biệt phun nốt ruồi phong thủy. Tự nhiên — quyến rũ — độc đáo.', cta_book: 'Đặt lịch tư vấn →', cta_view: 'Xem portfolio ♡', stat_clients: '2.500+ khách hàng', stat_years: 'Trong 7 năm', stat_rating: '4.9/5 đánh giá', stat_reviews: 'Google Reviews' },
   brands: { microblading: 'Microblading', lip: 'Lip Blush', eyeliner: 'PMU Eyeliner', lash: 'Lash Extension', skin: 'Skin Care' },
-  services_section: { label: '✿ Dịch vụ', title: 'Nâng niu vẻ đẹp theo cách', title_accent: 'dịu dàng nhất', description: '5 dịch vụ chính — mỗi dịch vụ đều được thiết kế để tôn vinh nét đẹp riêng của bạn.' },
+  services_section: { label: '✿ Dịch vụ', title: 'Menu dịch vụ', title_accent: 'cao cấp', description: 'Phun xăm thẩm mỹ chuẩn châu Âu — từ Signature độc quyền đến chăm sóc spa thư giãn.' },
   services: {
-    microblading: { name: 'Microblading Chân Mày', subtitle: 'Sợi tự nhiên', desc: 'Chân mày tự nhiên từng sợi. Không quá đậm. Không quá nhạt. Đúng chuẩn model.' },
-    lip: { name: 'Lip Blush Môi', subtitle: 'Mọng & quyến rũ', desc: 'Đôi môi căng mọng màu tự nhiên, như vừa ăn berry mọng đỏ.' },
-    eyeliner: { name: 'Eyeliner PMU', subtitle: 'Mắt có hồn 24/7', desc: 'Đường kẻ mắt mảnh tinh tế. Không cần kẻ mắt mỗi ngày.' },
-    lash: { name: 'Nối Mi Thẩm Mỹ', subtitle: 'Cong dày tự nhiên', desc: 'Mi dày cong tự nhiên. Classic, Volume, Hybrid.' },
-    skin: { name: 'Chăm Sóc Da', subtitle: 'Glow tự nhiên', desc: 'Facial cao cấp. Da glow tự nhiên, khỏe mạnh.' },
+    microblading: { name: 'Phun Xăm Chân Mày', subtitle: 'Nano · Ombre · Combo · Aura Royal', desc: 'Trọn bộ chân mày: điêu khắc sợi, phun bột tán bóng, combo hybrid và signature Aura Royal Brows.' },
+    lip: { name: 'Phun Xăm Môi', subtitle: 'Cherry · Pearl · Tone tươi · Khử thâm', desc: 'Từ Cami Pearl Lips độc quyền đến Cherry, hồng baby, Coral Sunset — gồm khử thâm chuyên sâu.' },
+    eyeliner: { name: 'Eyeliner PMU', subtitle: 'Natural · Classic · Extended · Smokey', desc: 'Đường kẻ mắt 4 kiểu — từ Natural Line sát chân mi đến Smokey Shaded khói gradient.' },
+    mens: { name: 'Phun Mày Cho Nam', subtitle: 'Natural · HD Stroking · Shadow Brow', desc: '3 dáng mày nam giữ độ nam tính tự nhiên — hoàn hảo cho doanh nhân, MC, gentleman.' },
+    lash: { name: 'Mi · Mày · Plasma', subtitle: 'Nối mi · Lamination · Plasma', desc: 'Uốn collagen, nối mi 3D-6D, lamination Ý và plasma trẻ hoá không xâm lấn.' },
+    skin: { name: 'Beauty Relax & Spa', subtitle: 'Facial 20 bước · Massage · Gội dưỡng', desc: 'Liệu trình thư giãn 20 bước, massage aroma, gội thảo dược và mặt nạ môi.' },
     price_from: 'Từ',
     view_more: 'Xem chi tiết →',
   },
@@ -93,13 +94,14 @@ const EN: Dict = {
   nav: { services: 'Services', portfolio: 'Portfolio', blog: 'Blog', faq: 'FAQ', about: 'About', book: 'Book Now ✨' },
   hero: { badge: 'Booking open for May', title_line1: 'Each face is', title_accent: 'a unique flower', title_line2: 'of its own.', description: 'CAMI VAN PMU & SKIN — European-standard technique. Face-reading brow design, signature lip blush, and feng-shui mole tattooing. Natural — alluring — one of a kind.', cta_book: 'Free consultation →', cta_view: 'View portfolio ♡', stat_clients: '2,500+ clients', stat_years: 'In 7 years', stat_rating: '4.9/5 rating', stat_reviews: 'Google Reviews' },
   brands: { microblading: 'Microblading', lip: 'Lip Blush', eyeliner: 'PMU Eyeliner', lash: 'Lash Extension', skin: 'Skin Care' },
-  services_section: { label: '✿ Services', title: 'Celebrating beauty in', title_accent: 'the gentlest way', description: '5 signature services — each designed to enhance your unique features.' },
+  services_section: { label: '✿ Services', title: 'The full', title_accent: 'service menu', description: 'European-grade permanent makeup — from exclusive signature techniques to relaxing spa care.' },
   services: {
-    microblading: { name: 'Microblading Brows', subtitle: 'Natural strokes', desc: 'Hair-stroke brows that look natural. Not too bold. Not too soft. Model-perfect.' },
-    lip: { name: 'Lip Blush', subtitle: 'Plump & alluring', desc: 'Plump lips with natural berry tones, as if you just ate a fresh strawberry.' },
-    eyeliner: { name: 'PMU Eyeliner', subtitle: '24/7 captivating eyes', desc: 'Refined eyeliner. No need to apply makeup every morning.' },
-    lash: { name: 'Lash Extensions', subtitle: 'Natural curl & volume', desc: 'Full, naturally curled lashes. Classic, Volume, Hybrid.' },
-    skin: { name: 'Skin Care', subtitle: 'Natural glow', desc: 'Premium facial. Healthy, naturally glowing skin.' },
+    microblading: { name: 'Brows Artistry', subtitle: 'Nano · Ombre · Combo · Aura Royal', desc: 'Complete brow menu: nano hairstroke, ombre powder, hybrid combo and exclusive Aura Royal Brows.' },
+    lip: { name: 'Lips Artistry', subtitle: 'Cherry · Pearl · Tones · Neutralization', desc: 'From exclusive Cami Pearl Lips to Cherry, baby pink, coral sunset — incl. deep dark-lip neutralization.' },
+    eyeliner: { name: 'PMU Eyeliner', subtitle: 'Natural · Classic · Extended · Smokey', desc: 'Four refined eyeliner styles — from a natural lash-hugging line to a Smokey Shaded gradient.' },
+    mens: { name: "Men's PMU Brows", subtitle: 'Natural · HD Stroking · Shadow Brow', desc: 'Three masculine brow shapes that preserve confidence — perfect for executives, hosts and gentlemen.' },
+    lash: { name: 'Lash · Brow · Plasma', subtitle: 'Extensions · Lamination · Plasma', desc: 'Keratin lift, tint, Volume 3D-6D, Italian lamination and non-invasive plasma rejuvenation.' },
+    skin: { name: 'Beauty Relax & Spa', subtitle: '20-step facial · Massage · Herbal wash', desc: 'Bespoke 20-step facial, aroma body massage, herbal hair wash and lip mask treatments.' },
     price_from: 'From',
     view_more: 'Learn more →',
   },
@@ -141,7 +143,8 @@ const RU: Dict = {
   services: {
     microblading: { name: 'Микроблейдинг бровей', subtitle: 'Натуральные волоски', desc: 'Брови волосок к волоску, выглядят естественно. Не слишком ярко. Не слишком мягко. Идеально как у моделей.' },
     lip: { name: 'Татуаж губ', subtitle: 'Сочные и манящие', desc: 'Сочные губы натурального ягодного оттенка, словно вы только что съели свежую клубнику.' },
-    eyeliner: { name: 'Татуаж стрелок PMU', subtitle: 'Выразительные глаза 24/7', desc: 'Деликатная стрелка. Не нужно наносить макияж каждое утро.' },
+    eyeliner: { name: 'Татуаж стрелок PMU', subtitle: 'Natural · Classic · Extended · Smokey', desc: 'Четыре изящные стрелки — от линии у самих ресниц до Smokey Shaded градиента.' },
+    mens: { name: 'Мужской PMU бровей', subtitle: 'Natural · HD Stroking · Shadow', desc: 'Три мужские формы бровей с сохранением мужественности — идеально для руководителей и джентльменов.' },
     lash: { name: 'Наращивание ресниц', subtitle: 'Естественный изгиб и объём', desc: 'Густые, естественно изогнутые ресницы. Classic, Volume, Hybrid.' },
     skin: { name: 'Уход за кожей', subtitle: 'Естественное сияние', desc: 'Премиум-уход за лицом. Здоровая, естественно сияющая кожа.' },
     price_from: 'От',
@@ -185,7 +188,8 @@ const ZH: Dict = {
   services: {
     microblading: { name: '雾眉 / 微刺眉', subtitle: '自然眉丝', desc: '一根根自然眉丝。不太浓，不太淡。完美如模特。' },
     lip: { name: '唇釉纹绣', subtitle: '丰润迷人', desc: '丰润双唇带有自然莓果色，仿佛刚吃过新鲜草莓。' },
-    eyeliner: { name: '美瞳线 PMU', subtitle: '24/7 迷人双眸', desc: '精致眼线。无需每天化妆。' },
+    eyeliner: { name: '美瞳线 PMU', subtitle: 'Natural · Classic · Extended · Smokey', desc: '4 款精致眼线 — 从贴近睫毛根的 Natural Line 到 Smokey 渐变烟熏。' },
+    mens: { name: '男士 PMU 眉部', subtitle: 'Natural · HD Stroking · Shadow', desc: '3 款男士眉形保留自然男性气质 — 专为高管、主持人和绅士设计。' },
     lash: { name: '种睫毛', subtitle: '自然卷翘饱满', desc: '饱满自然卷翘的睫毛。Classic、Volume、Hybrid。' },
     skin: { name: '皮肤护理', subtitle: '自然光泽', desc: '高级护肤。健康自然光泽肌肤。' },
     price_from: '起价',
@@ -229,7 +233,8 @@ const JA: Dict = {
   services: {
     microblading: { name: 'マイクロブレーディング眉', subtitle: '自然な毛流れ', desc: '一本一本自然な眉毛。濃すぎず、薄すぎず。モデルのように完璧。' },
     lip: { name: 'リップブラッシュ', subtitle: 'ふっくら魅力的', desc: '自然なベリー色のふっくらした唇 — まるで新鮮ないちごを食べたばかりのよう。' },
-    eyeliner: { name: 'PMUアイライン', subtitle: '24時間魅惑の瞳', desc: '繊細なアイライン。毎朝メイクする必要なし。' },
+    eyeliner: { name: 'PMU アイライン', subtitle: 'Natural · Classic · Extended · Smokey', desc: '4 種類の洗練されたアイライン — ナチュラルラインからスモーキーグラデーションまで。' },
+    mens: { name: 'メンズ PMU 眉', subtitle: 'Natural · HD Stroking · Shadow', desc: '男らしさを保つ 3 種類の眉形 — エグゼクティブ、MC、紳士に最適。' },
     lash: { name: 'まつげエクステ', subtitle: '自然なカール＆ボリューム', desc: 'ふさふさで自然にカールしたまつげ。Classic、Volume、Hybrid。' },
     skin: { name: 'スキンケア', subtitle: '自然なツヤ', desc: 'プレミアムフェイシャル。健康的で自然に輝く肌。' },
     price_from: 'から',
@@ -273,7 +278,8 @@ const KO: Dict = {
   services: {
     microblading: { name: '마이크로블레이딩 눈썹', subtitle: '자연스러운 결', desc: '한 올 한 올 자연스러운 눈썹. 너무 진하지도 너무 흐리지도 않게. 모델처럼 완벽하게.' },
     lip: { name: '립 블러쉬', subtitle: '도톰하고 매혹적', desc: '자연스러운 베리 톤의 도톰한 입술 — 마치 신선한 딸기를 막 먹은 듯한 느낌.' },
-    eyeliner: { name: 'PMU 아이라이너', subtitle: '24/7 매혹적인 눈', desc: '섬세한 아이라인. 매일 화장할 필요 없음.' },
+    eyeliner: { name: 'PMU 아이라이너', subtitle: 'Natural · Classic · Extended · Smokey', desc: '4가지 세련된 아이라이너 — 내츄럴 라인부터 스모키 그라데이션까지.' },
+    mens: { name: '남성 PMU 눈썹', subtitle: 'Natural · HD Stroking · Shadow', desc: '남성다움을 살리는 3가지 눈썹 디자인 — 임원, MC, 신사를 위한 완벽한 선택.' },
     lash: { name: '속눈썹 연장', subtitle: '자연스러운 컬과 볼륨', desc: '풍성하고 자연스럽게 컬링된 속눈썹. Classic, Volume, Hybrid.' },
     skin: { name: '피부 관리', subtitle: '자연스러운 광채', desc: '프리미엄 페이셜. 건강하고 자연스럽게 빛나는 피부.' },
     price_from: '시작가',
@@ -317,7 +323,8 @@ const FR: Dict = {
   services: {
     microblading: { name: 'Microblading des sourcils', subtitle: 'Traits naturels', desc: 'Sourcils poil par poil, naturels. Ni trop foncés. Ni trop doux. Parfaits comme un mannequin.' },
     lip: { name: 'Lip Blush', subtitle: 'Pulpeux et séduisant', desc: 'Lèvres pulpeuses aux tons baies naturels, comme si vous veniez de manger une fraise fraîche.' },
-    eyeliner: { name: 'Eyeliner PMU', subtitle: 'Yeux captivants 24/7', desc: 'Eyeliner raffiné. Plus besoin de se maquiller chaque matin.' },
+    eyeliner: { name: 'Eyeliner PMU', subtitle: 'Natural · Classic · Extended · Smokey', desc: "Quatre styles d'eyeliner raffinés — du trait naturel au Smokey Shaded." },
+    mens: { name: 'Sourcils PMU Homme', subtitle: 'Natural · HD Stroking · Shadow', desc: 'Trois formes masculines préservant la virilité — parfait pour cadres et gentlemen.' },
     lash: { name: 'Extensions de cils', subtitle: 'Courbe et volume naturels', desc: 'Cils pleins, naturellement courbés. Classic, Volume, Hybrid.' },
     skin: { name: 'Soin de la peau', subtitle: 'Éclat naturel', desc: 'Soin facial premium. Peau saine et naturellement éclatante.' },
     price_from: 'À partir de',
@@ -361,7 +368,8 @@ const ES: Dict = {
   services: {
     microblading: { name: 'Microblading de cejas', subtitle: 'Trazos naturales', desc: 'Cejas pelo a pelo, con aspecto natural. Ni demasiado intensas. Ni demasiado suaves. Perfectas como las de una modelo.' },
     lip: { name: 'Lip Blush', subtitle: 'Voluminoso y seductor', desc: 'Labios voluminosos en tonos baya naturales, como si acabaras de comer una fresa fresca.' },
-    eyeliner: { name: 'Delineador PMU', subtitle: 'Ojos cautivadores 24/7', desc: 'Delineador refinado. No necesitas maquillarte cada mañana.' },
+    eyeliner: { name: 'Delineador PMU', subtitle: 'Natural · Classic · Extended · Smokey', desc: 'Cuatro estilos refinados — desde la línea natural hasta Smokey Shaded.' },
+    mens: { name: 'Cejas PMU Hombre', subtitle: 'Natural · HD Stroking · Shadow', desc: 'Tres formas masculinas que preservan la virilidad — perfecto para ejecutivos y caballeros.' },
     lash: { name: 'Extensiones de pestañas', subtitle: 'Curvatura y volumen naturales', desc: 'Pestañas tupidas, naturalmente curvadas. Classic, Volume, Hybrid.' },
     skin: { name: 'Cuidado de la piel', subtitle: 'Brillo natural', desc: 'Tratamiento facial premium. Piel sana, naturalmente luminosa.' },
     price_from: 'Desde',

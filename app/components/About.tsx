@@ -73,7 +73,7 @@ export default function About() {
 
           <div className="grid grid-cols-2 gap-5 mt-8">
             {FEATURES.map((f, i) => (
-              <div key={i} className="liquid-surface p-5 rounded-[20px]">
+              <div key={i} className="liquid-surface p-5 rounded-[20px] h-full">
                 <div className="relative z-[3]">
                   <div className="w-10 h-10 rounded-full bg-gradient-to-br from-rose to-rose-deep grid place-items-center mb-3 text-xl text-cream glow-icon">✓</div>
                   <div className="font-semibold mb-1 text-brand-deep">{f.title}</div>

@@ -5,6 +5,7 @@ import Services from './components/Services';
 import Gallery from './components/Gallery';
 import BeforeAfterSection from './components/BeforeAfterSection';
 import About from './components/About';
+import Certificates from './components/Certificates';
 import Reviews from './components/Reviews';
 import Blog from './components/Blog';
 import FAQ from './components/FAQ';
@@ -24,6 +25,7 @@ export default function HomePage() {
       <Gallery />
       <BeforeAfterSection />
       <About />
+      <Certificates />
       <Reviews />
       <Blog />
       <FAQ />

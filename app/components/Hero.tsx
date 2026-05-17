@@ -1,11 +1,15 @@
 'use client';
 
+import { useEffect, useRef, useState } from 'react';
 import { motion, useReducedMotion } from 'framer-motion';
 import ScrollReveal from './ScrollReveal';
 import FloatingPetals from './FloatingPetals';
 import MagneticButton from './MagneticButton';
 import CursorSpotlight from './CursorSpotlight';
 import { useLang } from './LangProvider';
+
+// Hero video playlist — cycles process-reel → video2 → video3 → loop.
+const HERO_VIDEOS = ['/process-reel.mp4', '/video2.mp4', '/video3.mp4'] as const;
 
 /* Hero — orchestrated entrance:
  *  - Badge scales in (A.5)
@@ -18,6 +22,19 @@ import { useLang } from './LangProvider';
 export default function Hero() {
   const { t } = useLang();
   const reduce = useReducedMotion();
+  const videoRef = useRef<HTMLVideoElement>(null);
+  const [videoIdx, setVideoIdx] = useState(0);
+
+  // When the current clip ends, advance to the next one in the playlist (loops).
+  // We use onEnded instead of `loop` attribute so each clip plays through once,
+  // then we move to the next source. autoPlay+muted+playsInline keeps mobile happy.
+  useEffect(() => {
+    const v = videoRef.current;
+    if (!v) return;
+    v.load();
+    const play = v.play();
+    if (play && typeof play.catch === 'function') play.catch(() => { /* ignore autoplay blocks */ });
+  }, [videoIdx]);
 
   // Per-line title reveal — tuned for premium cinematic feel.
   const lineVariants = reduce
@@ -92,8 +109,19 @@ export default function Hero() {
       <ScrollReveal delay={0.2} className="relative z-10">
         {/* Hero video panel */}
         <div className="relative aspect-[4/5] rounded-[30px] overflow-hidden shadow-glass-lg bg-nude">
-          <video autoPlay muted loop playsInline preload="auto" poster="/client-3.jpg" className="absolute inset-0 w-full h-full object-cover" aria-label="CAMI VAN process video">
-            <source src="/process-reel.mp4" type="video/mp4" />
+          <video
+            ref={videoRef}
+            key={HERO_VIDEOS[videoIdx]}
+            autoPlay
+            muted
+            playsInline
+            preload="auto"
+            poster="/client-3.jpg"
+            onEnded={() => setVideoIdx((i) => (i + 1) % HERO_VIDEOS.length)}
+            className="absolute inset-0 w-full h-full object-cover"
+            aria-label="CAMI VAN process video"
+          >
+            <source src={HERO_VIDEOS[videoIdx]} type="video/mp4" />
           </video>
           <div className="absolute inset-0 pointer-events-none" style={{ background: 'linear-gradient(180deg, transparent 50%, rgba(62,39,35,0.2) 100%)' }} aria-hidden="true" />
           <div className="absolute top-4 right-4 z-10 flex items-center gap-1.5 text-[11px] font-semibold text-cream drop-shadow-[0_2px_6px_rgba(0,0,0,0.5)]">

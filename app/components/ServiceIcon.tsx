@@ -15,6 +15,7 @@ type ServiceSlug =
   | 'microblading'
   | 'lip-blush'
   | 'eyeliner'
+  | 'mens-pmu'
   | 'noi-mi'
   | 'cham-soc-da';
 
@@ -61,6 +62,16 @@ export default function ServiceIcon({ slug, className = 'w-7 h-7' }: Props) {
           <path d="M3 13c2-3 5-4.5 8.5-4.5s6.5 1.5 9.5 4.5" />
           <circle cx="11.5" cy="12" r="2" />
           <path d="M16.5 11l4.5-3" strokeWidth="2" />
+        </svg>
+      );
+
+    case 'mens-pmu':
+      // Bold masculine brow stroke + "M" peak silhouette for men's PMU
+      return (
+        <svg {...props} aria-label="Men's PMU brows">
+          <path d="M3.5 11c2.5-2.5 6-3.5 8.5-3.5s5.5 1 8.5 3.5" strokeWidth="2.2" />
+          <path d="M5 9l1-1.5M9 7.5l.6-1.8M13 7.5l.6-1.8M17 8.2l1-1.6" opacity="0.7" />
+          <path d="M8 17h2l2-3 2 3h2" strokeWidth="1.4" />
         </svg>
       );
 

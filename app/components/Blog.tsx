@@ -41,7 +41,7 @@ export default function Blog() {
           const tags = pickLang(post.tags, lang);
 
           return (
-            <ScrollReveal key={post.slug} delay={i * 0.1}>
+            <ScrollReveal key={post.slug} delay={i * 0.1} className="h-full">
               <Link
                 href={`/blog/${post.slug}`}
                 className="liquid-surface group block rounded-3xl overflow-hidden hover:-translate-y-1 transition-all h-full flex flex-col"

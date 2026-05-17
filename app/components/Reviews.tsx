@@ -196,7 +196,7 @@ export default function Reviews() {
           <motion.div
             key={i}
             variants={reduce ? undefined : staggerItem}
-            className="liquid-surface rounded-[30px] p-8 flex flex-col"
+            className="liquid-surface rounded-[30px] p-8 flex flex-col h-full"
           >
             <div className="relative z-[3] flex flex-col h-full">
               {/* Header: stars + Google badge */}
