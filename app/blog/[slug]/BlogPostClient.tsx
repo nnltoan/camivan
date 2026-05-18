@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { ReactNode, useState } from 'react';
 import Image from 'next/image';
 import { notFound } from 'next/navigation';
 import Nav from '../../components/Nav';
@@ -11,7 +11,51 @@ import BookingModal from '../../components/BookingModal';
 import MagneticButton from '../../components/MagneticButton';
 import { WARM_BLUR } from '../../lib/blurDataUrl';
 import { useLang } from '../../components/LangProvider';
+import type { Lang } from '../../lib/i18n';
 import { pickLang, getPostBySlug } from '../../lib/blogPosts';
+
+/* Hex → friendly color name dictionary (per language).
+ * Used by renderRichText to label color swatches in blog list items.
+ * Hex keys must be UPPERCASE 6-digit (no shorthand). */
+const HEX_COLOR_NAMES: Record<string, Record<Lang, string>> = {
+  '#C97C75': { VI: 'Hồng đất sáng', EN: 'Light earth pink', RU: 'Светло-розовый земляной', ZH: '浅大地玫瑰', JA: 'ライトアースピンク', KO: '라이트 어스 핑크', FR: 'Rose terre clair', ES: 'Rosa tierra claro' },
+  '#B85F5C': { VI: 'Hồng đất đậm', EN: 'Deep earth pink', RU: 'Тёмно-розовый земляной', ZH: '深大地玫瑰', JA: 'ディープアースピンク', KO: '딥 어스 핑크', FR: 'Rose terre foncé', ES: 'Rosa tierra oscuro' },
+  '#D63A47': { VI: 'Đỏ Cherry', EN: 'Cherry red', RU: 'Вишнёвый красный', ZH: '樱桃红', JA: 'チェリーレッド', KO: '체리 레드', FR: 'Rouge cerise', ES: 'Rojo cereza' },
+  '#8E3A5C': { VI: 'Berry tím', EN: 'Berry purple', RU: 'Ягодный фиолетовый', ZH: '莓紫', JA: 'ベリーパープル', KO: '베리 퍼플', FR: 'Baie violette', ES: 'Baya violeta' },
+};
+
+/* Render a blog list item string into React nodes, replacing:
+ *   - **text**   → <strong>text</strong>
+ *   - #XXXXXX    → inline chip with color swatch + friendly name + hex code
+ * Falls back to the bare hex if the code is not in HEX_COLOR_NAMES. */
+function renderRichText(text: string, lang: Lang): ReactNode[] {
+  const tokenRegex = /(#[0-9A-Fa-f]{6}|\*\*[^*]+\*\*)/g;
+  const parts = text.split(tokenRegex);
+  return parts.map((part, i) => {
+    const hexMatch = part.match(/^#([0-9A-Fa-f]{6})$/);
+    if (hexMatch) {
+      const hex = '#' + hexMatch[1].toUpperCase();
+      const name = HEX_COLOR_NAMES[hex]?.[lang];
+      return (
+        <span
+          key={i}
+          className="inline-flex items-center gap-1.5 align-middle mx-0.5 px-2 py-0.5 rounded-md bg-white/40 dark:bg-white/5 border border-white/40 dark:border-white/10 shadow-sm"
+        >
+          <span
+            aria-hidden
+            className="inline-block w-3.5 h-3.5 rounded-[4px] border border-black/15"
+            style={{ backgroundColor: hex }}
+          />
+          {name && <span className="text-[13px]">{name}</span>}
+          <span className="font-mono text-[11px] text-muted">{hex}</span>
+        </span>
+      );
+    }
+    const boldMatch = part.match(/^\*\*(.+)\*\*$/);
+    if (boldMatch) return <strong key={i}>{boldMatch[1]}</strong>;
+    return <span key={i}>{part}</span>;
+  });
+}
 
 interface Props {
   slug: string;
@@ -111,7 +155,7 @@ export default function BlogPostClient({ slug }: Props) {
                     {section.list.map((item, j) => (
                       <li key={j} className="flex items-start gap-3 text-text leading-relaxed">
                         <span className="text-brand shrink-0 mt-1.5">•</span>
-                        <span dangerouslySetInnerHTML={{ __html: item.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>') }} />
+                        <span>{renderRichText(item, lang)}</span>
                       </li>
                     ))}
                   </ul>
@@ -130,6 +174,26 @@ export default function BlogPostClient({ slug }: Props) {
                   <blockquote className="border-l-4 border-brand pl-6 py-4 my-6 italic font-fraunces text-xl text-brand-deep">
                     {section.quote}
                   </blockquote>
+                )}
+                {section.image && (
+                  <figure className="my-8">
+                    <div className="relative aspect-[4/3] rounded-[24px] overflow-hidden shadow-glass-lg">
+                      <Image
+                        src={section.image}
+                        alt={section.imageAlt ?? section.heading ?? ''}
+                        fill
+                        sizes="(max-width:768px) 100vw, 720px"
+                        className="object-cover"
+                        placeholder="blur"
+                        blurDataURL={WARM_BLUR}
+                      />
+                    </div>
+                    {section.imageAlt && (
+                      <figcaption className="text-center text-muted text-sm italic mt-3">
+                        {section.imageAlt}
+                      </figcaption>
+                    )}
+                  </figure>
                 )}
               </section>
             </ScrollReveal>

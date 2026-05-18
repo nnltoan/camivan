@@ -98,6 +98,7 @@ interface GalleryItem {
 // Each entry uses the actual file dimensions so masonry preserves natural aspect.
 // portfolio-1..6.jpg are real client shots provided by Cami Van studio.
 const ITEMS: GalleryItem[] = [
+  // ── Chân mày (brow) ───────────────────────────────────────────────
   { src: '/portfolio-4.webp', category: 'lip',  width: 1920, height: 2560, caption: 'Cami Pearl Lips' },
   { src: '/portfolio-3.webp', category: 'brow', width: 912,  height: 1136, caption: 'Aura Royal Brows' },
   { src: '/portfolio-2.webp', category: 'brow', width: 912,  height: 1136, caption: 'Ombre Powder Brows' },
@@ -107,7 +108,30 @@ const ITEMS: GalleryItem[] = [
   { src: '/client-3.webp',    category: 'brow', width: 526,  height: 701,  caption: 'Microblading' },
   { src: '/PMU-lip.webp',     category: 'lip',  width: 1200, height: 1200, caption: 'Lip Blush' },
   { src: '/noi-mi.webp',      category: 'lash', width: 1284, height: 1396, caption: 'Lash Extensions' },
-  { src: '/client-2.webp',    category: 'eye',  width: 472,  height: 590,  caption: 'PMU Eyeliner' },
+  { src: '/client-2.webp',    category: 'brow', width: 472,  height: 590,  caption: 'Phun chân mày' },
+
+  // ── Phun chân mày (PMU brow) — new ───────────────────────────────
+  { src: '/pmu_may.webp',     category: 'brow', width: 1320, height: 1257, caption: 'Phun chân mày' },
+  { src: '/pmu_may_2.webp',   category: 'brow', width: 1320, height: 1253, caption: 'Phun chân mày' },
+  { src: '/pmu_may_3.webp',   category: 'brow', width: 1172, height: 1400, caption: 'Phun chân mày' },
+  { src: '/pmu_may_4.webp',   category: 'brow', width: 720,  height: 960,  caption: 'Phun chân mày' },
+  { src: '/may_1.webp',       category: 'brow', width: 1320, height: 1263, caption: 'Chân mày' },
+
+  // ── Nối mi (lash extensions) — new ───────────────────────────────
+  { src: '/noi_mi_1.webp',    category: 'lash', width: 1166, height: 1405, caption: 'Nối mi' },
+  { src: '/noi_mi_2.webp',    category: 'lash', width: 1170, height: 1402, caption: 'Nối mi' },
+  { src: '/noi_mi_3.webp',    category: 'lash', width: 1162, height: 1412, caption: 'Nối mi' },
+
+  // ── Uốn mi (lash lift) — new ─────────────────────────────────────
+  { src: '/uong_mi_1.webp',   category: 'lash', width: 1320, height: 1073, caption: 'Uốn mi' },
+  { src: '/uong_mi_2.webp',   category: 'lash', width: 1172, height: 1399, caption: 'Uốn mi' },
+
+  // ── Tạo mí (eyelid creation) — new ───────────────────────────────
+  { src: '/tao_mi.webp',      category: 'eye',  width: 1280, height: 1280, caption: 'Tạo mí' },
+
+  // ── Môi (lip rejuvenation / tattoo removal) — new ────────────────
+  { src: '/tre_hoa_moi.webp', category: 'lip',  width: 1280, height: 1280, caption: 'Trẻ hóa môi' },
+  { src: '/xoa_xam.webp',     category: 'lip',  width: 1320, height: 1285, caption: 'Xóa xăm môi' },
 ];
 
 export default function Gallery() {
